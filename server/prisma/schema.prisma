@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Departament {
+  id        Int      @id @unique @default(autoincrement())
+  isActive  Boolean
+  title     String
+  weekdays  Weekday[]
+  streets   Street[]
+
+  @@map("departaments")
+}
+
+model Weekday {
+  id            Int      @id @default(autoincrement())
+  day           Int     
+  departamentId Int
+  departament   Departament @relation(fields: [departamentId], references: [id])
+
+  @@map("weekdays")
+}
+
+model Street {
+  id            Int      @id @default(autoincrement())
+  isActive      Boolean
+  code          String
+  title         String
+  weekday       Int
+  departamentId Int
+  departament   Departament @relation(fields: [departamentId], references: [id])
+
+  @@map("streets")
+}
