@@ -46,7 +46,7 @@ export default function StreetRoute() {
 
   return (
     <View className="flex-1 items-center bg-background">
-      <Header title="Etiquetas" parameter={title.toString()} back={true} />
+      <Header title="Etiquetas" subtitle={title.toString()} back={true} />
       <View className="w-full flex-1 max-w-[90%] mt-10">
         <Text className="text-white font-rajdhani_700 text-2xl mb-5">
           Corredores

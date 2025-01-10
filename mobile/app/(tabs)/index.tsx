@@ -14,7 +14,7 @@ import NetInfo from "@react-native-community/netinfo"
 
 import { Header } from "@/src/components/Header"
 
-export default function AuthHome() {
+export default function Authentication() {
   const [isConnected, setIsConnected] = useState<boolean | null>(null)
 
   useEffect(() => {
@@ -36,11 +36,13 @@ export default function AuthHome() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             alignItems: "center",
+            marginTop: "auto",
+            marginBottom: "auto",
           }}
           className="flex-1 w-full"
         >
-          <View className="flex-1 items-center mt-[calc(300px/2)] w-full max-w-[90%]">
-            <Text className="text-white font-rajdhani_700 text-4xl mb-6">
+          <View className="flex-1 items-center w-full max-w-[90%]">
+            <Text className="text-white font-rajdhani_700 text-4xl mb-2">
               RUB <Text className="text-green-500">UNLOCKED</Text>
             </Text>
             <Text className="text-white text-center font-rajdhani_700 text-xl">
@@ -50,7 +52,7 @@ export default function AuthHome() {
               sempre no verde!
             </Text>
 
-            <View className="space-y-3 w-full mt-6">
+            <View className="space-y-3 w-full mt-10">
               <View className="relative w-full bg-foreground justify-center rounded-lg px-4 h-13 border border-outline">
                 <Text className="text-[#8D8D99] font-rajdhani_700">
                   HTTP://10.46.3.223:4280

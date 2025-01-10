@@ -56,7 +56,7 @@ export default function Home() {
     }
 
     fetchDepartaments()
-  }, [])
+  }, [departaments])
 
   return (
     <View className="items-center bg-background flex-1">

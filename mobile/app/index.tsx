@@ -1,7 +1,7 @@
 import { router } from "expo-router"
 import { View, Text, TouchableOpacity } from "react-native"
 
-export default function Onboarding() {
+export default function Homepage() {
   return (
     <View className="bg-background flex-1 items-center justify-center">
       <View className="w-full max-w-[80%] space-y-6 items-center">
@@ -11,7 +11,7 @@ export default function Onboarding() {
         </Text>
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => router.replace("/(tabs)")}
+          onPress={() => router.replace("/license")}
           className="w-full bg-[#F7DD43] h-[52px] rounded-lg items-center justify-center"
         >
           <Text className="uppercase text-black font-rajdhani_700 text-base">

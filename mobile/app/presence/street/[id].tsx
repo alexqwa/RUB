@@ -21,7 +21,7 @@ export default function PresenceRoute() {
 
   return (
     <View className="flex-1 items-center bg-background">
-      <Header title="Presença" parameter={title.toString()} back={true} />
+      <Header title="Presença" subtitle={title.toString()} back={true} />
       <View className="flex-1 w-full max-w-[90%] mt-10">
         <Text className="text-white font-rajdhani_700 text-2xl mb-5">
           Formas de manipulação

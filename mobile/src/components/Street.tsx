@@ -24,9 +24,7 @@ export function Street({ title, active, ...rest }: StreetProps) {
         />
       </View>
       <View className="max-w-[60%] bg-foreground w-full justify-center pl-4 border-t-[1px] border-b-[1px] border-outline">
-        <Text className="text-white text-base font-rajdhani_700 uppercase">
-          {title}
-        </Text>
+        <Text className="text-white text-base font-rajdhani_700">{title}</Text>
       </View>
       <TouchableOpacity
         {...rest}

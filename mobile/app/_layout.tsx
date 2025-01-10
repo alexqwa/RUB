@@ -48,6 +48,7 @@ export default function RootLayout() {
           headerShown: false,
         }}
       >
+        <Stack.Screen name="license" />
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="(home)" />
       </Stack>

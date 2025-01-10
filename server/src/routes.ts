@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { v7 } from "uuid"
 import { prisma } from "./lib/prisma"
 import { FastifyInstance } from "fastify"
 
@@ -72,5 +73,42 @@ export async function appRoutes(app: FastifyInstance) {
       where: { departamentId: Number(id) },
     })
     reply.send(streets)
+  })
+
+  app.post("/generate-license", async (request, reply) => {
+    const licenseSchema = z.object({
+      expirationDate: z.string().refine(
+        (dateString) => {
+          const date = new Date(dateString)
+          return !isNaN(date.getTime()) && date > new Date()
+        },
+        {
+          message: "A data de expiração deve ser uma data futura e válida.",
+        }
+      ),
+    })
+
+    const { expirationDate } = licenseSchema.parse(request.body)
+    const licenseKey = v7()
+
+    if (!expirationDate) {
+      return reply
+        .status(400)
+        .send({ error: "Data de expiração é obrigatória." })
+    }
+
+    const newLicense = await prisma.license.create({
+      data: {
+        key: licenseKey,
+        expiresAt: new Date(expirationDate),
+      },
+    })
+
+    reply.send(newLicense)
+  })
+
+  app.get("/licenses", async (request, reply) => {
+    const licenses = await prisma.license.findMany()
+    reply.send(licenses)
   })
 }

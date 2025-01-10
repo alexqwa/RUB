@@ -1,37 +1,35 @@
+import { router } from "expo-router"
 import { Feather } from "@expo/vector-icons"
-import { useNavigation } from "@react-navigation/native"
-import { View, Text, TouchableOpacity } from "react-native"
+import { View, Text, StatusBar, TouchableOpacity } from "react-native"
 
-type HeaderProps = {
-  title: string
+interface HeaderProps {
   back: boolean
-  parameter?: string
+  title: string
+  subtitle?: string
 }
 
-export function Header({ title, parameter, back }: HeaderProps) {
-  const { goBack } = useNavigation()
+export function Header({ title, subtitle, back }: HeaderProps) {
+  const statusBarHeight = StatusBar.currentHeight || 0
 
   return (
-    <View className="bg-foreground h-28 w-full justify-center items-center">
-      <View className="relative max-w-[90%] w-full flex-row items-center justify-center mt-10">
+    <View
+      style={{ marginTop: statusBarHeight }}
+      className="relative bg-foreground h-24 w-full items-center justify-center"
+    >
+      <View className="max-w-[90%] w-full items-center justify-center">
         {back ? (
           <TouchableOpacity
-            onPress={() => goBack()}
+            onPress={() => router.back()}
             className="absolute left-0"
           >
-            <Feather name="arrow-left" size={18} color="#ffff" />
+            <Feather name="arrow-left" size={18} color="#fff" />
           </TouchableOpacity>
         ) : null}
-        <View className="flex-row">
-          <Text className="text-white font-rajdhani_700 text-base">
-            {title}
-          </Text>
-          {parameter ? (
-            <Text className="text-white font-rajdhani_700 text-base">
-              : {parameter}
-            </Text>
-          ) : null}
-        </View>
+
+        <Text className="text-white text-base font-rajdhani_700">
+          {title}
+          {subtitle ? `: ${subtitle}` : null}
+        </Text>
       </View>
     </View>
   )
