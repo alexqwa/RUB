@@ -4,15 +4,18 @@ import { Feather } from "@expo/vector-icons"
 import {
   View,
   Text,
-  ScrollView,
+  Alert,
   FlatList,
+  ScrollView,
   ActivityIndicator,
 } from "react-native"
 
 import { api } from "@/src/lib/axios"
+import { today, weekday, date_month } from "@/src/lib/dayjs"
+
 import { Header } from "@/src/components/Header"
 import { Departament } from "@/src/components/Departament"
-import { today, weekday, date_month } from "@/src/lib/dayjs"
+import { EnvironmentsDate } from "@/src/components/EnvironmentsDate"
 
 interface Weekday {
   id: number
@@ -49,7 +52,17 @@ export default function Tags() {
 
         setDepartaments(updatedDepartaments)
       } catch (error) {
-        console.error("Erro ao buscar departamentos", error)
+        Alert.alert("Erro!", "Erro ao buscar departamentos.", [
+          {
+            text: "Cancelar",
+            onPress: () => console.log("Cancelar pressionado!"),
+            style: "cancel",
+          },
+          {
+            text: "OK",
+            onPress: () => console.log("OK pressionado!"),
+          },
+        ])
       } finally {
         setLoading(false)
       }
@@ -63,60 +76,44 @@ export default function Tags() {
       <Header title="Auditoria de Etiquetas" back={false} />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ alignItems: "center" }}
-        className="flex-1 w-full"
+        className="flex-1 w-full max-w-[90%] pt-10"
       >
-        <View className="w-full flex-1 max-w-[90%] mt-10">
-          <View className="items-center w-full justify-between flex-row mb-5">
-            <Text className="text-white font-rajdhani_700 text-2xl">
-              Departamentos
+        <EnvironmentsDate date={date_month} weekday={weekday} />
+        {loading ? (
+          <ActivityIndicator size="small" color="#fff" />
+        ) : (
+          <FlatList
+            data={departaments}
+            keyExtractor={(item) => String(item.id)}
+            renderItem={({ item }) => (
+              <Departament
+                title={item.title}
+                active={item.isActive}
+                onPress={
+                  item.isActive
+                    ? () =>
+                        router.push({
+                          pathname: "/tags/[id]",
+                          params: { id: item.id, title: item.title },
+                        })
+                    : undefined
+                }
+              />
+            )}
+            showsVerticalScrollIndicator={false}
+            scrollEnabled={false}
+          />
+        )}
+        <View className="mt-10 border-dashed border rounded-lg border-zinc-500 p-6">
+          <View className="flex-row space-x-4 items-center justify-center">
+            <Feather name="alert-octagon" size={24} color="#F7DD43" />
+            <Text className="text-[#F7DD43] font-rajdhani_700 text-sm leading-snug">
+              Use as funções deste app com segurança. Tenha cuidado para evitar
+              problemas maiores!
             </Text>
-            <View className="flex-col items-end">
-              <Text className="text-white font-rajdhani_700 text-sm">
-                {date_month}
-              </Text>
-              <Text className="text-white font-rajdhani_700 text-sm">
-                {weekday}
-              </Text>
-            </View>
           </View>
-
-          {loading ? (
-            <ActivityIndicator size="small" color="#fff" />
-          ) : (
-            <FlatList
-              data={departaments}
-              keyExtractor={(item) => String(item.id)}
-              renderItem={({ item }) => (
-                <Departament
-                  title={item.title}
-                  active={item.isActive}
-                  onPress={
-                    item.isActive
-                      ? () =>
-                          router.push({
-                            pathname: "/tags/[id]",
-                            params: { id: item.id, title: item.title },
-                          })
-                      : undefined
-                  }
-                />
-              )}
-              showsVerticalScrollIndicator={false}
-              scrollEnabled={false}
-            />
-          )}
         </View>
       </ScrollView>
-      <View className="mb-10 border-dashed border rounded-lg border-zinc-400 max-w-[90%] w-full p-6">
-        <View className="flex-row space-x-4 items-center justify-center">
-          <Feather name="alert-circle" size={24} color="#fff" />
-          <Text className="text-white/80 font-rajdhani_700 text-sm leading-snug">
-            Use as funções deste app com segurança. Tenha cuidado para evitar
-            problemas maiores!
-          </Text>
-        </View>
-      </View>
     </View>
   )
 }
