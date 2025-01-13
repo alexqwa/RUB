@@ -6,9 +6,13 @@ module.exports = {
       height: {
         13: "50px",
       },
+      textColor: {
+        yelp: "#F7DD43",
+      },
       backgroundColor: {
         background: "#121214",
         foreground: "#202024",
+        yelp: "#F7DD43",
       },
       borderColor: {
         outline: "#323238",
@@ -26,4 +30,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+}
