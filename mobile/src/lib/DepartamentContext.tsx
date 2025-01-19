@@ -1,4 +1,4 @@
-import { ActivityIndicator, Alert } from "react-native"
+import { Alert } from "react-native"
 import { createContext, useContext, useEffect, useState } from "react"
 
 import { api } from "./axios"
