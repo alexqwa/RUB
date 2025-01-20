@@ -1,6 +1,6 @@
 import clsx from "clsx"
-import { useState, useEffect } from "react"
 import { router } from "expo-router"
+import { useState, useEffect } from "react"
 import {
   View,
   Text,
@@ -55,7 +55,7 @@ export default function Authentication() {
             <View className="space-y-3 w-full mt-10">
               <View className="relative w-full bg-foreground justify-center rounded-lg px-4 h-13 border border-outline">
                 <Text className="text-[#8D8D99] font-rajdhani_700">
-                  HTTP://10.46.3.223:4280
+                  HTTP://10.12.223.223:4280
                 </Text>
                 <View
                   className={clsx("rounded-full h-2 w-2 absolute right-4", {

@@ -1,10 +1,18 @@
-import { router } from "expo-router"
+import { useState } from "react"
 import { Feather } from "@expo/vector-icons"
 import { View, Text, TextInput, TouchableOpacity } from "react-native"
 
 import { Header } from "@/src/components/Header"
+import { useLicense } from "@/src/lib/LicenseContext"
 
 export default function License() {
+  const [licenseKey, setLicenseKey] = useState("")
+  const { verifyLicense } = useLicense()
+
+  async function handleVerify() {
+    await verifyLicense(licenseKey)
+  }
+
   return (
     <View className="bg-background flex-1 items-center">
       <Header back={false} title="Verificação de Licença" />
@@ -24,6 +32,8 @@ export default function License() {
         </View>
         <View className="space-y-3 w-full">
           <TextInput
+            value={licenseKey}
+            onChangeText={setLicenseKey}
             placeholder="DIGITE SUA LICENÇA"
             placeholderTextColor="#8D8D99"
             selectionColor="#F7DD43"
@@ -31,7 +41,7 @@ export default function License() {
           />
           <TouchableOpacity
             activeOpacity={0.7}
-            onPress={() => router.replace("/(tabs)")}
+            onPress={handleVerify}
             className="bg-[#F7DD43] h-13 rounded-lg items-center justify-center"
           >
             <Text className="font-rajdhani_700 uppercase text-base">

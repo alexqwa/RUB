@@ -1,27 +1,37 @@
-import { View, Text } from "react-native"
 import { Feather } from "@expo/vector-icons"
+import { View, Text, FlatList } from "react-native"
 
-import { date_month } from "@/src/lib/dayjs"
+import { useLicense } from "@/src/lib/LicenseContext"
 
 import { Header } from "@/src/components/Header"
 import { Profile } from "@/src/components/Profile"
 
 export default function Settings() {
+  const { licenses } = useLicense()
+
   return (
     <View className="bg-background flex-1 items-center">
       <Header back={false} title="Configurações" />
       <View className="flex-1 w-full max-w-[90%]">
         <Profile />
-        <View className="bg-foreground p-4 rounded-xl border border-outline space-y-2">
-          <Text className="text-white text-base font-rajdhani_700">
-            Sua licença: fc38a21a-ecf4-4dc4-9241-c3a135741661
-          </Text>
-          <Text className="text-white text-base font-rajdhani_700">
-            Data de ativação: {date_month}
-          </Text>
-          <Text className="text-white text-base font-rajdhani_700">
-            Expira em: 30 dias...
-          </Text>
+        <View className="bg-foreground rounded-xl border py-2 border-outline space-y-2">
+          <FlatList
+            data={licenses}
+            keyExtractor={(item) => String(item.id)}
+            renderItem={({ item }) => (
+              <View className="px-4 divide-y-[1px] divide-outline">
+                <Text className="text-white/80 text-base py-2 font-rajdhani_700">
+                  Sua licença: {item.key}
+                </Text>
+                <Text className="text-white/80 text-base py-2 font-rajdhani_700">
+                  Licença ativada em: {String(item.createdAt)}
+                </Text>
+                <Text className="text-white/80 text-base py-2 font-rajdhani_700">
+                  Expira em: {String(item.expiresAt)}
+                </Text>
+              </View>
+            )}
+          />
         </View>
         <View className="mt-10 border-dashed border rounded-lg border-zinc-500 p-6">
           <View className="flex-row space-x-4 items-center justify-center">

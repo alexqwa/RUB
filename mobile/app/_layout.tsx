@@ -16,6 +16,7 @@ import {
 } from "@expo-google-fonts/poppins"
 import * as SplashScreen from "expo-splash-screen"
 import "@/src/lib/dayjs"
+import { LicenseProvider } from "@/src/lib/LicenseContext"
 
 SplashScreen.preventAutoHideAsync()
 
@@ -42,7 +43,7 @@ export default function RootLayout() {
   }
 
   return (
-    <>
+    <LicenseProvider>
       <Stack
         screenOptions={{
           headerShown: false,
@@ -53,6 +54,6 @@ export default function RootLayout() {
         <Stack.Screen name="(home)" />
       </Stack>
       <StatusBar translucent barStyle={"light-content"} />
-    </>
+    </LicenseProvider>
   )
 }
