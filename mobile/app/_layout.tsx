@@ -1,7 +1,7 @@
-import React, { useEffect } from "react"
 import { Stack } from "expo-router"
 import { useFonts } from "expo-font"
 import { StatusBar } from "react-native"
+import React, { useEffect } from "react"
 import {
   Roboto_400Regular,
   Roboto_500Medium,
@@ -14,9 +14,11 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins"
-import * as SplashScreen from "expo-splash-screen"
+
 import "@/src/lib/dayjs"
 import { LicenseProvider } from "@/src/lib/LicenseContext"
+
+import * as SplashScreen from "expo-splash-screen"
 
 SplashScreen.preventAutoHideAsync()
 

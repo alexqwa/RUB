@@ -1,13 +1,15 @@
+import dayjs from "dayjs"
 import { router } from "expo-router"
 import { Alert } from "react-native"
 import { createContext, useContext, useState, ReactNode } from "react"
+
 import { api } from "./axios"
 
 interface License {
   id: number
   key: string
-  createdAt: Date
-  expiresAt: Date
+  createdAt: string
+  expiresAt: string
   valid?: boolean
 }
 
@@ -28,15 +30,24 @@ export const LicenseProvider: React.FC<{ children: ReactNode }> = ({
       const response = await api.post<License>("/verify-license", {
         key: licenseKey,
       })
+
       if (response.data.valid) {
-        // Atualiza o estado de licenses
-        const newLicense: License = {
-          id: response.data.id,
-          key: licenseKey,
-          createdAt: new Date(response.data.createdAt),
-          expiresAt: new Date(response.data.expiresAt),
+        // Verifica se já existe uma licença válida
+        const existingLicense = licenses.find(
+          (license) => license.key === licenseKey
+        )
+
+        if (!existingLicense) {
+          // Atualiza o estado de licenses apenas se não houver uma licença existente
+          const newLicense: License = {
+            id: response.data.id,
+            key: licenseKey,
+            createdAt: dayjs(response.data.createdAt).toISOString(), // Converte para ISO
+            expiresAt: dayjs(response.data.expiresAt).toISOString(), // Converte para ISO
+          }
+
+          setLicenses((prevLicenses) => [...prevLicenses, newLicense])
         }
-        setLicenses((prevLicenses) => [...prevLicenses, newLicense])
 
         router.replace("/(tabs)")
       } else {

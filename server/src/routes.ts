@@ -1,5 +1,5 @@
-import dayjs from "dayjs"
 import { z } from "zod"
+import dayjs from "dayjs"
 import { v7 } from "uuid"
 import { prisma } from "./lib/prisma"
 import { FastifyInstance } from "fastify"
@@ -79,30 +79,40 @@ export async function appRoutes(app: FastifyInstance) {
   // Rota para gerar licenças
   app.post("/generate-license", async (request, reply) => {
     const licenseParams = z.object({
-      expiresInDays: z.number(),
+      expiresInDays: z.number().positive().int(),
     })
 
-    const { expiresInDays } = licenseParams.parse(request.body)
-    const createdAt = new Date()
-    const expiresAt = new Date()
-    expiresAt.setDate(expiresAt.getDate() + expiresInDays)
+    try {
+      // valindando e passando para o request.body
+      const { expiresInDays } = licenseParams.parse(request.body)
 
-    const license = await prisma.license.create({
-      data: {
-        key: v7(),
-        createdAt: createdAt,
-        expiresAt: expiresAt,
-      },
-    })
+      // Cálculo da expiração da data usando Day.js
+      const createdAt = dayjs() // Data de criação
+      const expiresAt = createdAt.add(expiresInDays, "day")
 
-    const formattedLicense = {
-      id: license.id,
-      key: license.key,
-      createdAt: dayjs(license.createdAt).format("DD/MM/YYYY HH:mm:ss"),
-      expiresAt: dayjs(license.expiresAt).format("DD/MM/YYYY HH:mm:ss"),
+      // Cria a licença no banco de dados
+      const license = await prisma.license.create({
+        data: {
+          key: v7(),
+          createdAt: createdAt.toISOString(),
+          expiresAt: expiresAt.toISOString(),
+        },
+      })
+
+      // Envie a licença criada de volta na resposta com um código de status 201
+      reply.code(201).send(license)
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        // Retorna código '400' para inputs inválidos
+        reply
+          .code(400)
+          .send({ error: "Input inválido.", details: error.errors })
+      } else {
+        // Para outros erros (e.g., database erros)
+        console.error("Error generating license:", error)
+        reply.code(500).send({ error: "Internal Server Error" })
+      }
     }
-
-    reply.send(formattedLicense)
   })
 
   // Rota para listar todas as licenças
@@ -122,16 +132,31 @@ export async function appRoutes(app: FastifyInstance) {
       key: z.string(),
     })
 
-    const { key } = licenseParams.parse(request.body)
+    try {
+      // Validando e passando para o request.body
+      const { key } = licenseParams.parse(request.body)
 
-    const license = await prisma.license.findUnique({
-      where: { key },
-    })
+      // Busca a licença no banco de dados
+      const license = await prisma.license.findUnique({
+        where: { key },
+        select: {
+          id: true,
+          key: true,
+          createdAt: true,
+          expiresAt: true,
+        },
+      })
 
-    if (license && license.expiresAt > new Date()) {
-      return reply.send({ valid: true })
-    } else {
-      return reply.send({ valid: false })
+      // Verifica se a licença existe e se não expirou
+      if (license && dayjs(license.expiresAt).isAfter(dayjs())) {
+        return reply.send({ ...license, valid: true })
+      } else {
+        return reply.send({ valid: false })
+      }
+    } catch (error) {
+      // Tratamento de erros
+      console.error("Error verifying license:", error)
+      reply.code(500).send({ error: "Internal Server Error" })
     }
   })
 

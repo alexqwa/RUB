@@ -45,10 +45,10 @@ model Street {
 }
 
 model License {
-  id Int @id @default(autoincrement())
-  key String @unique
-  createdAt DateTime @default(now())
-  expiresAt DateTime
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  createdAt String 
+  expiresAt String 
 
   @@map("licenses")
 }

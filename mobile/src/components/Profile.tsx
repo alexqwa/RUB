@@ -1,3 +1,4 @@
+import { router } from "expo-router"
 import { Feather } from "@expo/vector-icons"
 import { View, Text, Image, TouchableOpacity } from "react-native"
 
@@ -21,6 +22,7 @@ export function Profile() {
       </View>
       <TouchableOpacity
         activeOpacity={0.8}
+        onPress={() => router.replace("/license")}
         className="items-center justify-center w-12 h-12 bg-yelp rounded-lg"
       >
         <Feather name="power" size={18} color="#121214 " />

@@ -1,3 +1,4 @@
+import dayjs from "dayjs"
 import { Feather } from "@expo/vector-icons"
 import { View, Text, FlatList } from "react-native"
 
@@ -21,13 +22,24 @@ export default function Settings() {
             renderItem={({ item }) => (
               <View className="px-4 divide-y-[1px] divide-outline">
                 <Text className="text-white/80 text-base py-2 font-rajdhani_700">
-                  Sua licença: {item.key}
+                  Sua licença:{" "}
+                  <Text className="text-green-400">{item.key}</Text>
                 </Text>
                 <Text className="text-white/80 text-base py-2 font-rajdhani_700">
-                  Licença ativada em: {String(item.createdAt)}
+                  Licença ativada em:
+                  <Text className="text-green-400">
+                    {" "}
+                    {dayjs(item.createdAt).format("D [de] MMMM, YYYY")} às{" "}
+                    {dayjs(item.createdAt).format("H:mm A")}
+                  </Text>
                 </Text>
                 <Text className="text-white/80 text-base py-2 font-rajdhani_700">
-                  Expira em: {String(item.expiresAt)}
+                  Expira em:
+                  <Text className="text-green-400">
+                    {" "}
+                    {dayjs(item.expiresAt).format("D [de] MMMM, YYYY")} às{" "}
+                    {dayjs(item.expiresAt).format("H:mm A")}
+                  </Text>
                 </Text>
               </View>
             )}
