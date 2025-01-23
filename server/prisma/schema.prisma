@@ -27,7 +27,7 @@ model Weekday {
   id            Int      @id @default(autoincrement())
   day           Int     
   departamentId Int
-  departament   Departament @relation(fields: [departamentId], references: [id])
+  departament   Departament @relation(fields: [departamentId], references: [id], onDelete: Cascade)
 
   @@map("weekdays")
 }
@@ -39,7 +39,7 @@ model Street {
   title         String
   weekday       Int
   departamentId Int
-  departament   Departament @relation(fields: [departamentId], references: [id])
+  departament   Departament @relation(fields: [departamentId], references: [id], onDelete: Cascade)
 
   @@map("streets")
 }

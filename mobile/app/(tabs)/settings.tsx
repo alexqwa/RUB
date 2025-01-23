@@ -21,11 +21,11 @@ export default function Settings() {
             keyExtractor={(item) => String(item.id)}
             renderItem={({ item }) => (
               <View className="px-4 divide-y-[1px] divide-outline">
-                <Text className="text-white/80 text-base py-2 font-rajdhani_700">
+                <Text className="text-white/80 text-sm py-2 font-rajdhani_700">
                   Sua licença:{" "}
                   <Text className="text-green-400">{item.key}</Text>
                 </Text>
-                <Text className="text-white/80 text-base py-2 font-rajdhani_700">
+                <Text className="text-white/80 text-sm py-2 font-rajdhani_700">
                   Licença ativada em:
                   <Text className="text-green-400">
                     {" "}
@@ -33,7 +33,7 @@ export default function Settings() {
                     {dayjs(item.createdAt).format("H:mm A")}
                   </Text>
                 </Text>
-                <Text className="text-white/80 text-base py-2 font-rajdhani_700">
+                <Text className="text-white/80 text-sm py-2 font-rajdhani_700">
                   Expira em:
                   <Text className="text-green-400">
                     {" "}

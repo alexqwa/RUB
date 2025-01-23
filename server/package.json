@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "tsx watch src/server.ts"
   },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

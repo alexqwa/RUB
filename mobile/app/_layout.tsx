@@ -14,11 +14,10 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins"
+import * as SplashScreen from "expo-splash-screen"
 
 import "@/src/lib/dayjs"
 import { LicenseProvider } from "@/src/lib/LicenseContext"
-
-import * as SplashScreen from "expo-splash-screen"
 
 SplashScreen.preventAutoHideAsync()
 

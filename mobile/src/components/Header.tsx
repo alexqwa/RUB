@@ -1,6 +1,7 @@
 import { router } from "expo-router"
 import { Feather } from "@expo/vector-icons"
-import { View, Text, StatusBar, TouchableOpacity } from "react-native"
+import { View, Text, TouchableOpacity, Platform } from "react-native"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 interface HeaderProps {
   back: boolean
@@ -9,14 +10,17 @@ interface HeaderProps {
 }
 
 export function Header({ title, subtitle, back }: HeaderProps) {
-  const statusBarHeight = StatusBar.currentHeight || 0
+  const insets = useSafeAreaInsets()
 
   return (
     <View
-      style={{ marginTop: statusBarHeight }}
-      className="relative bg-foreground h-24 w-full items-center justify-center"
+      style={{
+        marginTop: Platform.OS === "android" ? insets.top : null,
+        paddingTop: Platform.OS === "ios" ? insets.top : 40,
+      }}
+      className="bg-foreground py-10 w-full items-center justify-center"
     >
-      <View className="max-w-[90%] w-full items-center justify-center">
+      <View className="relative max-w-[90%] w-full items-center justify-center">
         {back ? (
           <TouchableOpacity
             onPress={() => router.back()}
