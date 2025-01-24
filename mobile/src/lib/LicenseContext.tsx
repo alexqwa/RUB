@@ -16,6 +16,7 @@ interface License {
 interface LicenseContextType {
   licenses: License[]
   verifyLicense: (licenseKey: string) => Promise<void>
+  deleteLicense: (id: number) => void
 }
 
 const LicenseContext = createContext<LicenseContextType | undefined>(undefined)
@@ -71,8 +72,15 @@ export const LicenseProvider: React.FC<{ children: ReactNode }> = ({
     }
   }
 
+  async function deleteLicense(id: number) {
+    setLicenses((prevLicenses) =>
+      prevLicenses.filter((license) => license.id !== id)
+    )
+    router.replace("/license")
+  }
+
   return (
-    <LicenseContext.Provider value={{ licenses, verifyLicense }}>
+    <LicenseContext.Provider value={{ licenses, verifyLicense, deleteLicense }}>
       {children}
     </LicenseContext.Provider>
   )

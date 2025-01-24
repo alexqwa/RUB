@@ -70,7 +70,7 @@ export default function Authentication() {
                 placeholderTextColor="#8D8D99"
                 placeholder="DIGITE SEU CPF"
                 keyboardType="number-pad"
-                className="w-full bg-foreground text-[#8D8D99] placeholder:font-rajdhani_700 rounded-lg px-4 h-13 border border-outline"
+                className="w-full bg-foreground text-yelp font-rajdhani_700 rounded-lg px-4 h-13 border border-outline"
               />
               <TouchableOpacity
                 activeOpacity={0.7}

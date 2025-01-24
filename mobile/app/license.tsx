@@ -30,8 +30,8 @@ export default function License() {
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
-            alignItems: "center",
             marginTop: "auto",
+            alignItems: "center",
             marginBottom: "auto",
           }}
         >

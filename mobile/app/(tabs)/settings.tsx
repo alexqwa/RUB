@@ -1,60 +1,99 @@
 import dayjs from "dayjs"
+import { useEffect, useState } from "react"
 import { Feather } from "@expo/vector-icons"
-import { View, Text, FlatList } from "react-native"
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native"
 
 import { useLicense } from "@/src/lib/LicenseContext"
 
+import { Label } from "@/src/components/Label"
 import { Header } from "@/src/components/Header"
-import { Profile } from "@/src/components/Profile"
+import { Warning } from "@/src/components/Warning"
+import profileImg from "@/assets/images/profile.png"
 
 export default function Settings() {
-  const { licenses } = useLicense()
+  const [loading, setLoading] = useState(true)
+  const { licenses, deleteLicense } = useLicense()
+
+  useEffect(() => {
+    try {
+      if (licenses) {
+        setLoading(false)
+      }
+    } catch (error) {
+      console.error("Não foi possível carregar informações!", error)
+    }
+  }, [licenses])
 
   return (
     <View className="bg-background flex-1 items-center">
       <Header back={false} title="Configurações" />
-      <View className="flex-1 w-full max-w-[90%]">
-        <Profile />
-        <View className="bg-foreground rounded-xl border py-2 border-outline space-y-2">
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="flex-1 w-full max-w-[90%] pt-10"
+      >
+        {loading ? (
+          <ActivityIndicator size="small" color="#F7DD43" />
+        ) : (
           <FlatList
             data={licenses}
             keyExtractor={(item) => String(item.id)}
             renderItem={({ item }) => (
-              <View className="px-4 divide-y-[1px] divide-outline">
-                <Text className="text-white/80 text-sm py-2 font-rajdhani_700">
-                  Sua licença:{" "}
-                  <Text className="text-green-400">{item.key}</Text>
-                </Text>
-                <Text className="text-white/80 text-sm py-2 font-rajdhani_700">
-                  Licença ativada em:
-                  <Text className="text-green-400">
-                    {" "}
-                    {dayjs(item.createdAt).format("D [de] MMMM, YYYY")} às{" "}
-                    {dayjs(item.createdAt).format("H:mm A")}
-                  </Text>
-                </Text>
-                <Text className="text-white/80 text-sm py-2 font-rajdhani_700">
-                  Expira em:
-                  <Text className="text-green-400">
-                    {" "}
-                    {dayjs(item.expiresAt).format("D [de] MMMM, YYYY")} às{" "}
-                    {dayjs(item.expiresAt).format("H:mm A")}
-                  </Text>
-                </Text>
+              <View className="space-y-10">
+                <View className="flex-row items-center justify-between w-full">
+                  <View className="flex-row space-x-3 items-center">
+                    <View className="h-12 w-12 rounded-lg bg-foreground overflow-hidden border-2 border-outline/50">
+                      <Image
+                        source={profileImg}
+                        className="rounded-lg bg-cover"
+                      />
+                    </View>
+                    <View>
+                      <Text className="text-white font-roboto_700 text-base">
+                        Olá, Agente
+                      </Text>
+                      <Text className="text-white/80 font-poppins_500">
+                        Qual departamento hoje ?
+                      </Text>
+                    </View>
+                  </View>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => deleteLicense(item.id)}
+                    className="items-center justify-center w-12 h-12 bg-yelp rounded-lg"
+                  >
+                    <Feather name="power" size={18} color="#121214 " />
+                  </TouchableOpacity>
+                </View>
+                <View className="bg-foreground border border-outline rounded-lg px-4 py-2">
+                  <Label title="Sua licença:" params={item.key} />
+                  <Label
+                    title="Licença ativada em:"
+                    params={dayjs(item.createdAt).format("D [de] MMMM, YYYY")}
+                  />
+                  <Label
+                    title="Expira em:"
+                    params={`${dayjs(item.expiresAt).diff(
+                      item.createdAt,
+                      "day"
+                    )} dia(s)...`}
+                  />
+                </View>
               </View>
             )}
+            showsVerticalScrollIndicator={false}
+            scrollEnabled={false}
           />
-        </View>
-        <View className="mt-10 border-dashed border rounded-lg border-zinc-500 p-6">
-          <View className="flex-row space-x-4 items-center justify-center">
-            <Feather name="alert-octagon" size={24} color="#F7DD43" />
-            <Text className="text-yelp font-rajdhani_700 text-sm leading-snug">
-              Não compartilhe sua licença com ninguém, ela é única e
-              intransferível.
-            </Text>
-          </View>
-        </View>
-      </View>
+        )}
+        <Warning />
+      </ScrollView>
     </View>
   )
 }

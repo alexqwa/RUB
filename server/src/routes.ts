@@ -172,4 +172,29 @@ export async function appRoutes(app: FastifyInstance) {
       reply.status(500).send({ error: "Erro ao deletar as licenças." })
     }
   })
+
+  // Rota para deletar uma licença com [id] específico
+  app.delete("/licenses/:id", async (request, reply) => {
+    const licenseParams = z.object({
+      id: z.string(),
+    })
+
+    const { id } = licenseParams.parse(request.params)
+
+    try {
+      await prisma.license.delete({
+        where: { id: Number(id) },
+      })
+      return reply
+        .status(200)
+        .send({ message: `Licença com ID ${id} deletada com sucesso.` })
+    } catch (error) {
+      if (error === "P2025") {
+        return reply
+          .status(404)
+          .send({ message: `Licença com ID ${id} não encontrada.` })
+      }
+      return reply.status(500).send({ message: "Erro ao deletar licença!" })
+    }
+  })
 }

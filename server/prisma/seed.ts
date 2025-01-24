@@ -117,17 +117,17 @@ const streets = [
   {
     id: 12,
     isActive: true,
-    code: "COR-05-A-000",
+    code: "LJA-05-A-000",
     title: "Corredor 05 Lado A",
-    weekday: 3,
+    weekday: 4,
     departamentId: "1",
   },
   {
     id: 13,
     isActive: true,
-    code: "COR-05-B-000",
+    code: "LJA-05-B-000",
     title: "Corredor 05 Lado B",
-    weekday: 3,
+    weekday: 4,
     departamentId: "1",
   },
   {
