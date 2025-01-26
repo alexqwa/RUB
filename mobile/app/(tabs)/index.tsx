@@ -45,17 +45,15 @@ export default function Authentication() {
             <Text className="text-white font-rajdhani_700 text-4xl mb-2">
               RUB <Text className="text-green-500">UNLOCKED</Text>
             </Text>
-            <Text className="text-white text-center font-rajdhani_700 text-xl">
-              Faça as mudanças necessárias para{"\n"}que o seu departamento
-              fique
-              {"\n"}
-              sempre no verde!
+            <Text className="text-white text-center font-rajdhani_700 text-base">
+              Faça as mudanças necessárias para que o seu{"\n"}departamento
+              fique sempre no verde!
             </Text>
 
             <View className="space-y-3 w-full mt-10">
               <View className="relative w-full bg-foreground justify-center rounded-lg px-4 h-13 border border-outline">
                 <Text className="text-[#8D8D99] font-rajdhani_700">
-                  HTTP://10.12.223.223:4280
+                  http://10.12.223.223:4280
                 </Text>
                 <View
                   className={clsx("rounded-full h-2 w-2 absolute right-4", {

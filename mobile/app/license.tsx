@@ -2,11 +2,11 @@ import { useState } from "react"
 import {
   View,
   Text,
+  Platform,
   TextInput,
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Platform,
 } from "react-native"
 
 import { Header } from "@/src/components/Header"

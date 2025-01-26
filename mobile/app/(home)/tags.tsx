@@ -14,7 +14,7 @@ export default function Tags() {
 
   return (
     <View className="items-center bg-background flex-1">
-      <Header title="Auditoria de Etiquetas" back={false} />
+      <Header title="Auditoria de Etiquetas" />
       <ScrollView
         showsVerticalScrollIndicator={false}
         className="flex-1 w-full max-w-[90%] pt-10"

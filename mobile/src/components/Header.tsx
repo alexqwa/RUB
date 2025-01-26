@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, Platform } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 interface HeaderProps {
-  back: boolean
+  back?: boolean
   title: string
   subtitle?: string
 }
@@ -16,7 +16,7 @@ export function Header({ title, subtitle, back }: HeaderProps) {
     <View
       style={{
         marginTop: Platform.OS === "android" ? insets.top : null,
-        paddingTop: Platform.OS === "ios" ? insets.top : 40,
+        paddingTop: Platform.OS === "ios" ? insets.top + 24 : 40,
       }}
       className="bg-foreground py-10 w-full items-center justify-center"
     >
