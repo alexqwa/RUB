@@ -51,7 +51,6 @@ export const DepartamentProvider: React.FC<{ children: React.ReactNode }> = ({
         Alert.alert("Erro!", "Erro ao buscar departamentos.", [
           {
             text: "Cancelar",
-            onPress: () => console.log("Cancelar pressionado!"),
             style: "cancel",
           },
           {

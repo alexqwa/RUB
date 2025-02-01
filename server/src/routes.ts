@@ -165,7 +165,7 @@ export async function appRoutes(app: FastifyInstance) {
     try {
       const deletedLicenses = await prisma.license.deleteMany({})
       reply.send({
-        message: `${deletedLicenses.count} licenças deletadas com sucesso.`,
+        message: `${deletedLicenses.count} licença(s) deletadas com sucesso.`,
       })
     } catch (error) {
       console.error(error)

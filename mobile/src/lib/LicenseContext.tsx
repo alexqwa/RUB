@@ -55,7 +55,6 @@ export const LicenseProvider: React.FC<{ children: ReactNode }> = ({
         Alert.alert("Erro!", "Licença inválida ou expirada.", [
           {
             text: "OK",
-            onPress: () => console.log("OK pressionado!"),
             style: "cancel",
           },
         ])
@@ -65,7 +64,6 @@ export const LicenseProvider: React.FC<{ children: ReactNode }> = ({
       Alert.alert("Erro!", "Erro ao verificar a licença.", [
         {
           text: "OK",
-          onPress: () => console.log("OK pressionado!"),
           style: "cancel",
         },
       ])

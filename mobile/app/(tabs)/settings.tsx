@@ -19,14 +19,25 @@ export default function Settings() {
   const { licenses, deleteLicense } = useLicense()
 
   useEffect(() => {
-    try {
-      if (licenses) {
-        setLoading(false)
-      }
-    } catch (error) {
-      console.error("Não foi possível carregar informações!", error)
+    if (licenses) {
+      setLoading(false)
     }
   }, [licenses])
+
+  function formatTimeLeft(expiresAt: string) {
+    const diffInMilliseconds = dayjs(expiresAt).diff(dayjs())
+    const diffInMinutes = dayjs.duration(diffInMilliseconds).asMinutes()
+    const diffInHours = dayjs.duration(diffInMilliseconds).asHours()
+    const diffInDays = dayjs.duration(diffInMilliseconds).asDays()
+
+    if (diffInDays >= 1) {
+      return `${Math.floor(diffInDays)} dia(s)`
+    } else if (diffInHours >= 1) {
+      return `${Math.floor(diffInHours)} hora(s)`
+    } else {
+      return `${Math.floor(diffInMinutes)} minuto(s)`
+    }
+  }
 
   return (
     <View className="bg-background flex-1 items-center">
@@ -41,31 +52,41 @@ export default function Settings() {
           <FlatList
             data={licenses}
             keyExtractor={(item) => String(item.id)}
-            renderItem={({ item }) => (
-              <View className="space-y-10">
-                <Profile onPress={() => deleteLicense(item.id)} />
-                <View className="bg-foreground border border-outline rounded-lg px-4 py-2 divide-y-[1px] divide-outline">
-                  <Text className="text-white/80 text-sm py-2 font-rajdhani_700">
-                    Sua licença:{" "}
-                    <Text className="text-green-400">{item.key}</Text>
-                  </Text>
-                  <Text className="text-white/80 text-sm py-2 font-rajdhani_700">
-                    Licença ativada em:{" "}
-                    <Text className="text-green-400">
-                      {dayjs(item.createdAt).format(
-                        "D [de] MMMM, YYYY [às] H:mm A"
-                      )}
+            renderItem={({ item }) => {
+              const timeLeftFormatted = formatTimeLeft(item.expiresAt)
+
+              return (
+                <View className="space-y-10">
+                  <Profile
+                    onPress={() => {
+                      try {
+                        deleteLicense(item.id)
+                      } catch (error) {
+                        console.error("Erro ao deletar licença!", error)
+                      }
+                    }}
+                  />
+                  <View className="bg-foreground border border-outline rounded-lg px-4 py-2 divide-y-[1px] divide-outline">
+                    <Text className="text-white/80 text-sm py-2 font-rajdhani_700">
+                      Sua licença:{" "}
+                      <Text className="text-green-400">{item.key}</Text>
                     </Text>
-                  </Text>
-                  <Text className="text-white/80 text-sm py-2 font-rajdhani_700">
-                    Sua licença expira em:{" "}
-                    <Text className="text-green-400">
-                      {dayjs(item.expiresAt).diff(dayjs(), "day")} dia(s)
+                    <Text className="text-white/80 text-sm py-2 font-rajdhani_700">
+                      Licença ativada em:{" "}
+                      <Text className="text-green-400">
+                        {dayjs(item.createdAt).format("DD/MM/YYYY [às] H:mm A")}
+                      </Text>
                     </Text>
-                  </Text>
+                    <Text className="text-white/80 text-sm py-2 font-rajdhani_700">
+                      Sua licença expira em:{" "}
+                      <Text className="text-green-400">
+                        {timeLeftFormatted}
+                      </Text>
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            )}
+              )
+            }}
             showsVerticalScrollIndicator={false}
             scrollEnabled={false}
           />

@@ -52,7 +52,7 @@ export default function License() {
                 placeholder="DIGITE SUA LICENÇA"
                 placeholderTextColor="#8D8D99"
                 selectionColor="#F7DD43"
-                className="bg-foreground text-white font-rajdhani_700 rounded-lg px-4 h-13 border border-outline"
+                className="bg-foreground text-yelp font-rajdhani_700 rounded-lg px-4 h-13 border border-outline"
               />
               <TouchableOpacity
                 activeOpacity={0.7}
