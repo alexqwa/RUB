@@ -18,7 +18,7 @@ export function Header({ title, subtitle, back }: HeaderProps) {
         marginTop: Platform.OS === "android" ? insets.top : null,
         paddingTop: Platform.OS === "ios" ? insets.top + 24 : 40,
       }}
-      className="bg-foreground py-10 w-full items-center justify-center"
+      className="bg-foreground border-b border-outline py-10 w-full items-center justify-center"
     >
       <View className="relative max-w-[90%] w-full items-center justify-center">
         {back ? (

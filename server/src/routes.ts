@@ -1,6 +1,7 @@
 import { z } from "zod"
 import dayjs from "dayjs"
 import { v7 } from "uuid"
+import cron from "node-cron"
 import { prisma } from "./lib/prisma"
 import { FastifyInstance } from "fastify"
 
@@ -30,14 +31,6 @@ export async function appRoutes(app: FastifyInstance) {
     })
   })
 
-  // Rota para listar todos os departamentos
-  app.get("/departaments", async (request, reply) => {
-    const departaments = await prisma.departament.findMany({
-      include: { weekdays: true, streets: true },
-    })
-    reply.send(departaments)
-  })
-
   // Rota para criar uma rua
   app.post("/streets", async (request) => {
     const createStreetBody = z.object({
@@ -60,20 +53,6 @@ export async function appRoutes(app: FastifyInstance) {
         departament: { connect: { id: departamentId } },
       },
     })
-  })
-
-  // Rota para obter todas as ruas de um departamento
-  app.get("/departaments/:id/streets", async (request, reply) => {
-    const streetParams = z.object({
-      id: z.string(),
-    })
-
-    const { id } = streetParams.parse(request.params)
-
-    const streets = await prisma.street.findMany({
-      where: { departamentId: Number(id) },
-    })
-    reply.send(streets)
   })
 
   // Rota para gerar licenças
@@ -115,17 +94,6 @@ export async function appRoutes(app: FastifyInstance) {
     }
   })
 
-  // Rota para listar todas as licenças
-  app.get("/licenses", async (request, reply) => {
-    try {
-      const licenses = await prisma.license.findMany()
-      reply.send(licenses)
-    } catch (error) {
-      console.error(error)
-      reply.status(500).send({ error: "Erro ao buscar licenças." })
-    }
-  })
-
   // Rota verificar se a licença existe
   app.post("/verify-license", async (request, reply) => {
     const licenseParams = z.object({
@@ -157,6 +125,39 @@ export async function appRoutes(app: FastifyInstance) {
       // Tratamento de erros
       console.error("Error verifying license:", error)
       reply.code(500).send({ error: "Internal Server Error" })
+    }
+  })
+
+  // Rota para listar todos os departamentos
+  app.get("/departaments", async (request, reply) => {
+    const departaments = await prisma.departament.findMany({
+      include: { weekdays: true, streets: true },
+    })
+    reply.send(departaments)
+  })
+
+  // Rota para obter todas as ruas de um departamento
+  app.get("/departaments/:id/streets", async (request, reply) => {
+    const streetParams = z.object({
+      id: z.string(),
+    })
+
+    const { id } = streetParams.parse(request.params)
+
+    const streets = await prisma.street.findMany({
+      where: { departamentId: Number(id) },
+    })
+    reply.send(streets)
+  })
+
+  // Rota para listar todas as licenças
+  app.get("/licenses", async (request, reply) => {
+    try {
+      const licenses = await prisma.license.findMany()
+      reply.send(licenses)
+    } catch (error) {
+      console.error(error)
+      reply.status(500).send({ error: "Erro ao buscar licenças." })
     }
   })
 
@@ -195,6 +196,53 @@ export async function appRoutes(app: FastifyInstance) {
           .send({ message: `Licença com ID ${id} não encontrada.` })
       }
       return reply.status(500).send({ message: "Erro ao deletar licença!" })
+    }
+  })
+
+  // Rota para deletar um departamento com [id] específico
+  app.delete("/departaments/:id", async (request, reply) => {
+    const deleteDepartamentBody = z.object({
+      id: z.string(),
+    })
+
+    const { id } = deleteDepartamentBody.parse(request.params)
+
+    try {
+      await prisma.departament.delete({
+        where: { id: Number(id) },
+      })
+      return reply
+        .status(200)
+        .send({ message: `Departamento com ID ${id} deletado com sucesso!` })
+    } catch (error) {
+      if (error === "P2025") {
+        return reply
+          .status(404)
+          .send({ message: `Departamento com ID ${id} não encontrado.` })
+      }
+      return reply
+        .status(500)
+        .send({ message: "Erro ao deletar um departamento!" })
+    }
+  })
+
+  // Agendar uma tarefa para rodar a cada dia
+  cron.schedule("0 0 * * *", async () => {
+    try {
+      // Obter a data atual
+      const now = dayjs().toISOString()
+
+      // Remover licenças que já expiraram
+      await prisma.license.deleteMany({
+        where: {
+          expiresAt: {
+            lt: now, // Licenças com datas menores que a data atual
+          },
+        },
+      })
+      console.log("Licenças expiradas removidas com sucesso!")
+    } catch (error) {
+      console.log("Erro ao remover licenças expiradas:", error)
     }
   })
 }

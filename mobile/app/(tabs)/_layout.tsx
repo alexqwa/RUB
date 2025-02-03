@@ -8,7 +8,8 @@ export default function AuthLayout() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: "#202024",
-          borderTopWidth: 0,
+          borderTopWidth: 1,
+          borderColor: "#323238",
           height: 100,
         },
         tabBarActiveTintColor: "#F7DD43",
