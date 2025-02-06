@@ -19,6 +19,7 @@ interface Departament {
 
 interface DepartamentContextType {
   departaments: Departament[]
+  loading: boolean
 }
 
 const DepartamentContext = createContext<DepartamentContextType | undefined>(
@@ -28,7 +29,7 @@ const DepartamentContext = createContext<DepartamentContextType | undefined>(
 export const DepartamentProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [departaments, setDepartaments] = useState<Departament[]>([])
 
   useEffect(() => {
@@ -67,7 +68,7 @@ export const DepartamentProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [])
 
   return (
-    <DepartamentContext.Provider value={{ departaments }}>
+    <DepartamentContext.Provider value={{ departaments, loading }}>
       {children}
     </DepartamentContext.Provider>
   )

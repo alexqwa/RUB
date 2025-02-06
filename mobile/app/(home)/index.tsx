@@ -1,5 +1,6 @@
+import React from "react"
 import { router } from "expo-router"
-import { View, FlatList, ScrollView } from "react-native"
+import { View, FlatList, ScrollView, ActivityIndicator } from "react-native"
 
 import { weekday, date_month } from "@/src/lib/dayjs"
 import { useDepartament } from "@/src/lib/DepartamentContext"
@@ -10,7 +11,7 @@ import { Departament } from "@/src/components/Departament"
 import { EnvironmentsDate } from "@/src/components/EnvironmentsDate"
 
 export default function Home() {
-  const { departaments } = useDepartament()
+  const { departaments, loading } = useDepartament()
 
   return (
     <View className="items-center bg-background flex-1">
@@ -20,28 +21,34 @@ export default function Home() {
         className="flex-1 w-full max-w-[90%] pt-10"
       >
         <EnvironmentsDate date={date_month} weekday={weekday} />
-        <FlatList
-          data={departaments}
-          keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => (
-            <Departament
-              title={item.title}
-              active={item.isActive}
-              onPress={
-                item.isActive
-                  ? () =>
-                      router.push({
-                        pathname: "/presence/[id]",
-                        params: { id: item.id, title: item.title },
-                      })
-                  : undefined
-              }
+        {loading ? (
+          <ActivityIndicator size="small" color="#fff" />
+        ) : (
+          <>
+            <FlatList
+              data={departaments}
+              keyExtractor={(item) => String(item.id)}
+              renderItem={({ item }) => (
+                <Departament
+                  title={item.title}
+                  active={item.isActive}
+                  onPress={
+                    item.isActive
+                      ? () =>
+                          router.push({
+                            pathname: "/presence/[id]",
+                            params: { id: item.id, title: item.title },
+                          })
+                      : undefined
+                  }
+                />
+              )}
+              showsVerticalScrollIndicator={false}
+              scrollEnabled={false}
             />
-          )}
-          showsVerticalScrollIndicator={false}
-          scrollEnabled={false}
-        />
-        <Warning />
+            <Warning />
+          </>
+        )}
       </ScrollView>
     </View>
   )

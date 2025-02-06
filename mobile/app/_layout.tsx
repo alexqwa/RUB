@@ -17,6 +17,7 @@ import {
 import * as SplashScreen from "expo-splash-screen"
 
 import "@/src/lib/dayjs"
+import { StreetProvider } from "@/src/lib/StreetContext"
 import { LicenseProvider } from "@/src/lib/LicenseContext"
 
 SplashScreen.preventAutoHideAsync()
@@ -45,16 +46,18 @@ export default function RootLayout() {
 
   return (
     <LicenseProvider>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="license" />
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="(home)" />
-      </Stack>
-      <StatusBar translucent barStyle={"light-content"} />
+      <StreetProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="license" />
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="(home)" />
+        </Stack>
+        <StatusBar translucent barStyle={"light-content"} />
+      </StreetProvider>
     </LicenseProvider>
   )
 }

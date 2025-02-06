@@ -1,48 +1,22 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { router, useLocalSearchParams } from "expo-router"
 import { View, Text, FlatList, ActivityIndicator } from "react-native"
 
-import { api } from "@/src/lib/axios"
-import { today } from "@/src/lib/dayjs"
+import { useStreet } from "@/src/lib/StreetContext"
 
 import { Header } from "@/src/components/Header"
 import { Street } from "@/src/components/Street"
 
-interface Street {
-  id: number
-  code: string
-  title: string
-  weekday: number
-  isActive: boolean
-  departamentId: number
-}
-
 export default function StreetRoute() {
   const { id, title } = useLocalSearchParams()
-  const [loading, setLoading] = useState(true)
-  const [streets, setStreets] = useState<Street[]>([])
+  const { streets, loading, getStreetsByEnvironment } = useStreet()
 
   useEffect(() => {
-    async function getStreetsByEnvironment() {
-      try {
-        const response = await api.get<Street[]>(`/departaments/${id}/streets`)
-        const updatedStreets = response.data.map((street) => {
-          const isActive = street.weekday === today
-
-          return {
-            ...street,
-            isActive,
-          }
-        })
-
-        setStreets(updatedStreets)
-      } catch (error) {
-        console.error("Erro ao buscar ruas", error)
-      } finally {
-        setLoading(false)
-      }
+    async function handleStreet() {
+      await getStreetsByEnvironment(id.toString())
     }
-    getStreetsByEnvironment()
+
+    handleStreet()
   }, [id])
 
   return (
