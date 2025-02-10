@@ -49,6 +49,6 @@ model License {
   key       String   @unique
   createdAt String 
   expiresAt String 
-
+  
   @@map("licenses")
 }
