@@ -95,14 +95,14 @@ export async function appRoutes(app: FastifyInstance) {
   })
 
   // Rota verificar se a licença existe
-  app.post("/verify-license", async (request, reply) => {
+  app.post("/verify-license/:key", async (request, reply) => {
     const licenseParams = z.object({
       key: z.string(),
     })
 
     try {
       // Validando e passando para o request.body
-      const { key } = licenseParams.parse(request.body)
+      const { key } = licenseParams.parse(request.params)
 
       // Busca a licença no banco de dados
       const license = await prisma.license.findUnique({

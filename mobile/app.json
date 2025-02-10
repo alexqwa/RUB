@@ -3,7 +3,7 @@
     "newArchEnabled": true,
     "name": "RUB UNLOCKED",
     "slug": "rub-unlocked",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -18,7 +18,6 @@
     },
     "android": {
       "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_WIFI_STATE"],
-      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#121214"

@@ -28,9 +28,7 @@ export const LicenseProvider: React.FC<{ children: ReactNode }> = ({
 
   async function verifyLicense(licenseKey: string) {
     try {
-      const response = await api.post<License>("/verify-license", {
-        key: licenseKey,
-      })
+      const response = await api.post<License>(`/verify-license/${licenseKey}`)
 
       if (response.data.valid) {
         // Verifica se já existe uma licença válida

@@ -55,6 +55,7 @@ export default function RootLayout() {
           <Stack.Screen name="license" />
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="(home)" />
+          <Stack.Screen name="(auth)" />
         </Stack>
         <StatusBar translucent barStyle={"light-content"} />
       </StreetProvider>
