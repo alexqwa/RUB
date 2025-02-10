@@ -9,17 +9,17 @@ import {
 
 interface DepartamentProps extends TouchableOpacityProps {
   title: string
-  active: boolean
+  isActive: boolean
 }
 
-export function Departament({ title, active, ...rest }: DepartamentProps) {
+export function Departament({ title, isActive, ...rest }: DepartamentProps) {
   return (
     <View className="w-full h-13 flex-row mb-2">
       <View className="w-[40px] rounded-l-lg bg-foreground items-center justify-center border border-outline">
         <View
           className={clsx("rounded-full h-2 w-2", {
-            ["bg-green-500"]: active === true,
-            ["bg-red-500"]: active === false,
+            ["bg-green-500"]: isActive === true,
+            ["bg-red-500"]: isActive === false,
           })}
         />
       </View>
@@ -30,12 +30,12 @@ export function Departament({ title, active, ...rest }: DepartamentProps) {
       </View>
       <TouchableOpacity
         {...rest}
-        disabled={!active}
+        disabled={!isActive}
         activeOpacity={0.7}
         className={clsx(
           "bg-foreground flex-1 rounded-r-lg items-center justify-evenly border border-outline flex-row",
           {
-            ["opacity-70"]: active === false,
+            ["opacity-70"]: isActive === false,
           }
         )}
       >

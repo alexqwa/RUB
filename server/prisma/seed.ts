@@ -3,31 +3,31 @@ import { prisma } from "../src/lib/prisma"
 const departments = [
   {
     id: 1,
-    isActive: true,
+    isActive: false,
     title: "DPH",
     weekdays: [1, 4],
   },
   {
     id: 2,
-    isActive: true,
+    isActive: false,
     title: "BEBIDAS",
     weekdays: [1],
   },
   {
     id: 3,
-    isActive: true,
+    isActive: false,
     title: "PERECÍVEIS",
     weekdays: [3],
   },
   {
     id: 4,
-    isActive: true,
+    isActive: false,
     title: "SECA DOCE",
     weekdays: [5],
   },
   {
     id: 5,
-    isActive: true,
+    isActive: false,
     title: "SECA SALGADA",
     weekdays: [2],
   },
@@ -36,7 +36,7 @@ const departments = [
 const streets = [
   {
     id: 1,
-    isActive: true,
+    isActive: false,
     code: "LJA-01-A-000",
     title: "Corredor 01 Lado A",
     weekday: 1,
@@ -44,7 +44,7 @@ const streets = [
   },
   {
     id: 3,
-    isActive: true,
+    isActive: false,
     code: "ACG-01-A-000",
     title: "Açougue",
     weekday: 3,
@@ -52,7 +52,7 @@ const streets = [
   },
   {
     id: 4,
-    isActive: true,
+    isActive: false,
     code: "DEF-01-A-000",
     title: "Defumados",
     weekday: 3,
@@ -60,7 +60,7 @@ const streets = [
   },
   {
     id: 5,
-    isActive: true,
+    isActive: false,
     code: "FRZ-01-A-000",
     title: "Freezer 01",
     weekday: 3,
@@ -68,7 +68,7 @@ const streets = [
   },
   {
     id: 6,
-    isActive: true,
+    isActive: false,
     code: "FRZ-01-B-000",
     title: "Freezer 02",
     weekday: 3,
@@ -76,7 +76,7 @@ const streets = [
   },
   {
     id: 7,
-    isActive: true,
+    isActive: false,
     code: "ILH-01-A-000",
     title: "Ilha Congelado 01",
     weekday: 3,
@@ -84,7 +84,7 @@ const streets = [
   },
   {
     id: 8,
-    isActive: true,
+    isActive: false,
     code: "ILH-01-B-000",
     title: "Ilha Congelado 02",
     weekday: 3,
@@ -92,7 +92,7 @@ const streets = [
   },
   {
     id: 9,
-    isActive: true,
+    isActive: false,
     code: "ILH-01-C-000",
     title: "Ilha Congelado 03",
     weekday: 3,
@@ -100,7 +100,7 @@ const streets = [
   },
   {
     id: 10,
-    isActive: true,
+    isActive: false,
     code: "PAD-01-A-000",
     title: "Padaria",
     weekday: 3,
@@ -108,7 +108,7 @@ const streets = [
   },
   {
     id: 11,
-    isActive: true,
+    isActive: false,
     code: "SOR-01-A-000",
     title: "Sorvetes",
     weekday: 3,
@@ -116,7 +116,7 @@ const streets = [
   },
   {
     id: 12,
-    isActive: true,
+    isActive: false,
     code: "LJA-05-A-000",
     title: "Corredor 05 Lado A",
     weekday: 4,
@@ -124,7 +124,7 @@ const streets = [
   },
   {
     id: 13,
-    isActive: true,
+    isActive: false,
     code: "LJA-05-B-000",
     title: "Corredor 05 Lado B",
     weekday: 4,
@@ -132,7 +132,7 @@ const streets = [
   },
   {
     id: 14,
-    isActive: true,
+    isActive: false,
     code: "LJA-06-A-000",
     title: "Corredor 06 Lado A",
     weekday: 4,
@@ -140,7 +140,7 @@ const streets = [
   },
   {
     id: 15,
-    isActive: true,
+    isActive: false,
     code: "LJA-06-B-000",
     title: "Corredor 06 Lado B",
     weekday: 4,
@@ -148,7 +148,7 @@ const streets = [
   },
   {
     id: 16,
-    isActive: true,
+    isActive: false,
     code: "LJA-07-A-000",
     title: "Corredor 07 Lado A",
     weekday: 4,
@@ -156,7 +156,7 @@ const streets = [
   },
   {
     id: 17,
-    isActive: true,
+    isActive: false,
     code: "LJA-07-B-000",
     title: "Corredor 07 Lado B",
     weekday: 4,
@@ -164,7 +164,7 @@ const streets = [
   },
   {
     id: 18,
-    isActive: true,
+    isActive: false,
     code: "LJA-08-A-000",
     title: "Corredor 08 Lado A",
     weekday: 4,
@@ -172,7 +172,7 @@ const streets = [
   },
   {
     id: 19,
-    isActive: true,
+    isActive: false,
     code: "LJA-08-B-000",
     title: "Corredor 08 Lado B",
     weekday: 4,
@@ -180,7 +180,7 @@ const streets = [
   },
   {
     id: 20,
-    isActive: true,
+    isActive: false,
     code: "LJA-09-A-000",
     title: "Corredor 09 Lado A",
     weekday: 4,
@@ -188,7 +188,7 @@ const streets = [
   },
   {
     id: 21,
-    isActive: true,
+    isActive: false,
     code: "LJA-09-B-000",
     title: "Corredor 09 Lado B",
     weekday: 4,
@@ -196,7 +196,7 @@ const streets = [
   },
   {
     id: 22,
-    isActive: true,
+    isActive: false,
     code: "LJA-10-A-000",
     title: "Corredor 10 Lado A",
     weekday: 1,
@@ -204,7 +204,7 @@ const streets = [
   },
   {
     id: 23,
-    isActive: true,
+    isActive: false,
     code: "LJA-10-B-000",
     title: "Corredor 10 Lado B",
     weekday: 1,
@@ -212,7 +212,7 @@ const streets = [
   },
   {
     id: 24,
-    isActive: true,
+    isActive: false,
     code: "LJA-11-A-000",
     title: "Corredor 11 Lado A",
     weekday: 1,
@@ -220,7 +220,7 @@ const streets = [
   },
   {
     id: 25,
-    isActive: true,
+    isActive: false,
     code: "HAV-01-A-000",
     title: "Havaianas",
     weekday: 4,
@@ -228,7 +228,7 @@ const streets = [
   },
   {
     id: 26,
-    isActive: true,
+    isActive: false,
     code: "LJA-01-B-000",
     title: "Corredor 01 Lado B",
     weekday: 1,
@@ -236,7 +236,7 @@ const streets = [
   },
   {
     id: 27,
-    isActive: true,
+    isActive: false,
     code: "LJA-02-A-000",
     title: "Corredor 02 Lado A",
     weekday: 1,
@@ -244,7 +244,7 @@ const streets = [
   },
   {
     id: 28,
-    isActive: true,
+    isActive: false,
     code: "LJA-02-B-000",
     title: "Corredor 02 Lado B",
     weekday: 1,
@@ -252,7 +252,7 @@ const streets = [
   },
   {
     id: 29,
-    isActive: true,
+    isActive: false,
     code: "LJA-03-A-000",
     title: "Corredor 03 Lado A",
     weekday: 1,
@@ -260,7 +260,7 @@ const streets = [
   },
   {
     id: 30,
-    isActive: true,
+    isActive: false,
     code: "LJA-03-B-000",
     title: "Corredor 03 Lado B",
     weekday: 1,
@@ -268,7 +268,7 @@ const streets = [
   },
   {
     id: 31,
-    isActive: true,
+    isActive: false,
     code: "LJA-04-A-000",
     title: "Corredor 04 Lado A",
     weekday: 1,
@@ -276,7 +276,7 @@ const streets = [
   },
   {
     id: 32,
-    isActive: true,
+    isActive: false,
     code: "LJA-04-B-000",
     title: "Corredor 04 Lado B",
     weekday: 1,
@@ -284,7 +284,7 @@ const streets = [
   },
   {
     id: 33,
-    isActive: true,
+    isActive: false,
     code: "LJA-11-B-000",
     title: "Corredor 11 Lado B",
     weekday: 5,
@@ -292,7 +292,7 @@ const streets = [
   },
   {
     id: 34,
-    isActive: true,
+    isActive: false,
     code: "LJA-13-A-000",
     title: "Corredor 13 Lado A",
     weekday: 5,
@@ -300,7 +300,7 @@ const streets = [
   },
   {
     id: 35,
-    isActive: true,
+    isActive: false,
     code: "LJA-13-B-000",
     title: "Corredor 13 Lado B",
     weekday: 5,
@@ -308,7 +308,7 @@ const streets = [
   },
   {
     id: 36,
-    isActive: true,
+    isActive: false,
     code: "LJA-15-A-000",
     title: "Corredor 15 Lado A",
     weekday: 5,
@@ -316,7 +316,7 @@ const streets = [
   },
   {
     id: 37,
-    isActive: true,
+    isActive: false,
     code: "LJA-15-B-000",
     title: "Corredor 15 Lado B",
     weekday: 5,
@@ -324,7 +324,7 @@ const streets = [
   },
   {
     id: 38,
-    isActive: true,
+    isActive: false,
     code: "LJA-17-A-000",
     title: "Corredor 17 Lado A",
     weekday: 5,
@@ -332,7 +332,7 @@ const streets = [
   },
   {
     id: 39,
-    isActive: true,
+    isActive: false,
     code: "LJA-17-B-000",
     title: "Corredor 17 Lado B",
     weekday: 5,
@@ -340,7 +340,7 @@ const streets = [
   },
   {
     id: 40,
-    isActive: true,
+    isActive: false,
     code: "CHS-01-A-000",
     title: "Checkstand",
     weekday: 5,
@@ -348,7 +348,7 @@ const streets = [
   },
   {
     id: 42,
-    isActive: true,
+    isActive: false,
     code: "LJA-12-A-000",
     title: "Corredor 12 Lado A",
     weekday: 2,
@@ -356,7 +356,7 @@ const streets = [
   },
   {
     id: 43,
-    isActive: true,
+    isActive: false,
     code: "LJA-12-B-000",
     title: "Corredor 12 Lado B",
     weekday: 2,
@@ -364,7 +364,7 @@ const streets = [
   },
   {
     id: 44,
-    isActive: true,
+    isActive: false,
     code: "LJA-14-A-000",
     title: "Corredor 14 Lado A",
     weekday: 2,
@@ -372,7 +372,7 @@ const streets = [
   },
   {
     id: 45,
-    isActive: true,
+    isActive: false,
     code: "LJA-14-B-000",
     title: "Corredor 14 Lado B",
     weekday: 2,
@@ -380,7 +380,7 @@ const streets = [
   },
   {
     id: 46,
-    isActive: true,
+    isActive: false,
     code: "LJA-16-A-000",
     title: "Corredor 16 Lado A",
     weekday: 2,
@@ -388,7 +388,7 @@ const streets = [
   },
   {
     id: 47,
-    isActive: true,
+    isActive: false,
     code: "LJA-16-B-000",
     title: "Corredor 16 Lado B",
     weekday: 2,
@@ -396,7 +396,7 @@ const streets = [
   },
   {
     id: 48,
-    isActive: true,
+    isActive: false,
     code: "LJA-18-A-000",
     title: "Corredor 18 Lado A",
     weekday: 2,
@@ -404,7 +404,7 @@ const streets = [
   },
   {
     id: 49,
-    isActive: true,
+    isActive: false,
     code: "LJA-20-A-000",
     title: "Corredor 20 Lado A",
     weekday: 2,

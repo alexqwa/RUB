@@ -9,17 +9,17 @@ import {
 
 interface StreetProps extends TouchableOpacityProps {
   title: string
-  active: boolean
+  isActive: boolean
 }
 
-export function Street({ title, active, ...rest }: StreetProps) {
+export function Street({ title, isActive, ...rest }: StreetProps) {
   return (
     <View className="w-full h-13 flex-row mb-2">
       <View className="w-[40px] rounded-l-lg bg-foreground items-center justify-center border border-outline">
         <View
           className={clsx("rounded-full h-2 w-2", {
-            ["bg-green-500"]: active === true,
-            ["bg-red-500"]: active === false,
+            ["bg-green-500"]: isActive === true,
+            ["bg-red-500"]: isActive === false,
           })}
         />
       </View>
@@ -28,12 +28,12 @@ export function Street({ title, active, ...rest }: StreetProps) {
       </View>
       <TouchableOpacity
         {...rest}
-        disabled={!active}
+        disabled={!isActive}
         activeOpacity={0.7}
         className={clsx(
           "bg-foreground flex-1 rounded-r-lg items-center justify-evenly border border-outline flex-row",
           {
-            ["bg-foreground/80"]: active === false,
+            ["bg-foreground/80"]: isActive === false,
           }
         )}
       >

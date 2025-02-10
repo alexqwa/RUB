@@ -13,9 +13,6 @@ export function Profile({ ...rest }: TouchableOpacityProps) {
   return (
     <View className="flex-row items-center justify-between w-full">
       <View className="flex-row space-x-3 items-center">
-        <View className="h-12 w-12 rounded-lg bg-foreground overflow-hidden border-2 border-outline/50">
-          <Image source={profileImg} className="rounded-lg bg-cover" />
-        </View>
         <View>
           <Text className="text-white font-roboto_700 text-base">
             Olá, Agente

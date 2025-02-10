@@ -31,7 +31,7 @@ export default function Home() {
               renderItem={({ item }) => (
                 <Departament
                   title={item.title}
-                  active={item.isActive}
+                  isActive={item.isActive}
                   onPress={
                     item.isActive
                       ? () =>

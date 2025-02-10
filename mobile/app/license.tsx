@@ -17,7 +17,6 @@ import { useLicense } from "@/src/lib/LicenseContext"
 export default function License() {
   const { verifyLicense } = useLicense()
   const [loading, setLoading] = useState(false)
-  const [enabled, setEnabled] = useState(false)
   const [licenseKey, setLicenseKey] = useState("")
 
   async function handleVerify() {
@@ -31,14 +30,6 @@ export default function License() {
       setLoading(false)
     }
   }
-
-  useEffect(() => {
-    if (licenseKey) {
-      setEnabled(false)
-    } else {
-      setEnabled(true)
-    }
-  }, [licenseKey])
 
   return (
     <View className="bg-background flex-1 items-center">
@@ -76,12 +67,12 @@ export default function License() {
               />
               <TouchableOpacity
                 activeOpacity={0.7}
-                disabled={loading || enabled}
+                disabled={!licenseKey || loading}
                 onPress={handleVerify}
                 className={clsx(
                   "bg-yelp h-13 rounded-lg items-center justify-center transition-all",
                   {
-                    ["bg-[#cab332]"]: enabled === true,
+                    ["bg-[#cab332]"]: !licenseKey,
                   }
                 )}
               >
