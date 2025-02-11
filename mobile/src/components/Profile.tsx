@@ -7,9 +7,7 @@ import {
   TouchableOpacityProps,
 } from "react-native"
 
-import profileImg from "@/assets/images/profile.png"
-
-export function Profile({ ...rest }: TouchableOpacityProps) {
+export function Profile({...rest }: TouchableOpacityProps) {
   return (
     <View className="flex-row items-center justify-between w-full">
       <View className="flex-row space-x-3 items-center">

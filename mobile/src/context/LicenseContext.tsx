@@ -3,7 +3,7 @@ import { router } from "expo-router"
 import { Alert } from "react-native"
 import { createContext, useContext, useState, ReactNode } from "react"
 
-import { api } from "./axios"
+import { api } from "../lib/axios"
 
 interface License {
   id: number
@@ -37,12 +37,11 @@ export const LicenseProvider: React.FC<{ children: ReactNode }> = ({
         )
 
         if (!existingLicense) {
-          // Atualiza o estado de licenses apenas se não houver uma licença existente
           const newLicense: License = {
             id: response.data.id,
             key: licenseKey,
-            createdAt: dayjs(response.data.createdAt).toISOString(), // Converte para ISO
-            expiresAt: dayjs(response.data.expiresAt).toISOString(), // Converte para ISO
+            createdAt: dayjs(response.data.createdAt).toISOString(),
+            expiresAt: dayjs(response.data.expiresAt).toISOString(),
           }
 
           setLicenses((prevLicenses) => [...prevLicenses, newLicense])

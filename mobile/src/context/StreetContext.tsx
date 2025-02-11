@@ -1,7 +1,7 @@
 import dayjs from "dayjs"
 import { createContext, useContext, useState, ReactNode } from "react"
 
-import { api } from "./axios"
+import { api } from "../lib/axios"
 
 interface Street {
   id: number

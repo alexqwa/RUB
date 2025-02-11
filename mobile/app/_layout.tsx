@@ -17,8 +17,8 @@ import {
 import * as SplashScreen from "expo-splash-screen"
 
 import "@/src/lib/dayjs"
-import { StreetProvider } from "@/src/lib/StreetContext"
-import { LicenseProvider } from "@/src/lib/LicenseContext"
+import { StreetProvider } from "@/src/context/StreetContext"
+import { LicenseProvider } from "@/src/context/LicenseContext"
 
 SplashScreen.preventAutoHideAsync()
 
@@ -55,7 +55,6 @@ export default function RootLayout() {
           <Stack.Screen name="license" />
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="(home)" />
-          <Stack.Screen name="(auth)" />
         </Stack>
         <StatusBar translucent barStyle={"light-content"} />
       </StreetProvider>

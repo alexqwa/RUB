@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import {
   View,
   Text,
@@ -12,7 +12,7 @@ import {
 } from "react-native"
 
 import { Header } from "@/src/components/Header"
-import { useLicense } from "@/src/lib/LicenseContext"
+import { useLicense } from "@/src/context/LicenseContext"
 
 export default function License() {
   const { verifyLicense } = useLicense()

@@ -14,18 +14,18 @@ datasource db {
 }
 
 model Departament {
-  id        Int      @id @unique @default(autoincrement())
-  isActive  Boolean
-  title     String
-  weekdays  Weekday[]
-  streets   Street[]
+  id       Int       @id @unique @default(autoincrement())
+  isActive Boolean
+  title    String
+  weekdays Weekday[]
+  streets  Street[]
 
   @@map("departaments")
 }
 
 model Weekday {
-  id            Int      @id @default(autoincrement())
-  day           Int     
+  id            Int         @id @default(autoincrement())
+  day           Int
   departamentId Int
   departament   Departament @relation(fields: [departamentId], references: [id], onDelete: Cascade)
 
@@ -33,7 +33,7 @@ model Weekday {
 }
 
 model Street {
-  id            Int      @id @default(autoincrement())
+  id            Int         @id @default(autoincrement())
   isActive      Boolean
   code          String
   title         String
@@ -45,10 +45,10 @@ model Street {
 }
 
 model License {
-  id        Int      @id @default(autoincrement())
-  key       String   @unique
-  createdAt String 
-  expiresAt String 
-  
+  id        Int    @id @default(autoincrement())
+  key       String @unique
+  createdAt String
+  expiresAt String
+
   @@map("licenses")
 }

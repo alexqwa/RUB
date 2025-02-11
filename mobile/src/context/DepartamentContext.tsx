@@ -1,8 +1,8 @@
 import { Alert } from "react-native"
 import { createContext, useContext, useEffect, useState } from "react"
 
-import { api } from "./axios"
-import { today } from "./dayjs"
+import { api } from "../lib/axios"
+import { today } from "../lib/dayjs"
 
 interface Weekday {
   id: number

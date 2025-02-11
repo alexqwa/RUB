@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { router, useLocalSearchParams } from "expo-router"
 import { View, Text, FlatList, ActivityIndicator } from "react-native"
 
-import { useStreet } from "@/src/lib/StreetContext"
+import { useStreet } from "@/src/context/StreetContext"
 
 import { Header } from "@/src/components/Header"
 import { Street } from "@/src/components/Street"
@@ -36,7 +36,7 @@ export default function StreetRoute() {
             renderItem={({ item }) => (
               <Street
                 title={item.title}
-                active={item.isActive}
+                isActive={item.isActive}
                 onPress={
                   item.isActive
                     ? () =>

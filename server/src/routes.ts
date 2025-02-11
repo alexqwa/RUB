@@ -1,22 +1,22 @@
-import { z } from "zod"
-import dayjs from "dayjs"
-import { v7 } from "uuid"
-import cron from "node-cron"
-import { prisma } from "./lib/prisma"
-import { FastifyInstance } from "fastify"
+import { z } from 'zod';
+import dayjs from 'dayjs';
+import { v7 } from 'uuid';
+import cron from 'node-cron';
+import { prisma } from './lib/prisma';
+import { FastifyInstance } from 'fastify';
 
 export async function appRoutes(app: FastifyInstance) {
   // Rota para criar um departamento
-  app.post("/departaments", async (request) => {
+  app.post('/departaments', async (request) => {
     const createDepartamentBody = z.object({
       title: z.string(),
       isActive: z.boolean(),
       weekdays: z.array(z.number().min(0).max(6)),
-    })
+    });
 
     const { title, isActive, weekdays } = createDepartamentBody.parse(
       request.body
-    )
+    );
 
     await prisma.departament.create({
       data: {
@@ -24,25 +24,25 @@ export async function appRoutes(app: FastifyInstance) {
         isActive,
         weekdays: {
           create: weekdays.map((weekDay) => {
-            return { day: weekDay }
+            return { day: weekDay };
           }),
         },
       },
-    })
-  })
+    });
+  });
 
   // Rota para criar uma rua
-  app.post("/streets", async (request) => {
+  app.post('/streets', async (request) => {
     const createStreetBody = z.object({
       code: z.string(),
       title: z.string(),
       isActive: z.boolean(),
       weekday: z.number().min(0).max(6),
       departamentId: z.number(),
-    })
+    });
 
     const { code, title, isActive, weekday, departamentId } =
-      createStreetBody.parse(request.body)
+      createStreetBody.parse(request.body);
 
     await prisma.street.create({
       data: {
@@ -52,22 +52,22 @@ export async function appRoutes(app: FastifyInstance) {
         weekday,
         departament: { connect: { id: departamentId } },
       },
-    })
-  })
+    });
+  });
 
   // Rota para gerar licenças
-  app.post("/generate-license", async (request, reply) => {
+  app.post('/generate-license', async (request, reply) => {
     const licenseParams = z.object({
       expiresInDays: z.number().positive().int(),
-    })
+    });
 
     try {
       // valindando e passando para o request.body
-      const { expiresInDays } = licenseParams.parse(request.body)
+      const { expiresInDays } = licenseParams.parse(request.body);
 
       // Cálculo da expiração da data usando Day.js
-      const createdAt = dayjs() // Data de criação
-      const expiresAt = createdAt.add(expiresInDays, "day")
+      const createdAt = dayjs(); // Data de criação
+      const expiresAt = createdAt.add(expiresInDays, 'day');
 
       // Cria a licença no banco de dados
       const license = await prisma.license.create({
@@ -76,161 +76,155 @@ export async function appRoutes(app: FastifyInstance) {
           createdAt: createdAt.toISOString(),
           expiresAt: expiresAt.toISOString(),
         },
-      })
+      });
 
       // Envie a licença criada de volta na resposta com um código de status 201
-      reply.code(201).send(license)
+      reply.code(201).send(license);
     } catch (error) {
       if (error instanceof z.ZodError) {
         // Retorna código '400' para inputs inválidos
         reply
           .code(400)
-          .send({ error: "Input inválido.", details: error.errors })
+          .send({ error: 'Input inválido.', details: error.errors });
       } else {
         // Para outros erros (e.g., database erros)
-        console.error("Error generating license:", error)
-        reply.code(500).send({ error: "Internal Server Error" })
+        console.error('Error generating license:', error);
+        reply.code(500).send({ error: 'Internal Server Error' });
       }
     }
-  })
+  });
 
   // Rota verificar se a licença existe
-  app.post("/verify-license/:key", async (request, reply) => {
+  app.post('/verify-license/:key', async (request, reply) => {
     const licenseParams = z.object({
       key: z.string(),
-    })
+    });
 
     try {
       // Validando e passando para o request.body
-      const { key } = licenseParams.parse(request.params)
+      const { key } = licenseParams.parse(request.params);
 
       // Busca a licença no banco de dados
       const license = await prisma.license.findUnique({
         where: { key },
-        select: {
-          id: true,
-          key: true,
-          createdAt: true,
-          expiresAt: true,
-        },
-      })
+      });
 
       // Verifica se a licença existe e se não expirou
       if (license && dayjs(license.expiresAt).isAfter(dayjs())) {
-        return reply.send({ ...license, valid: true })
+        return reply.send({ ...license, valid: true });
       } else {
-        return reply.send({ valid: false })
+        return reply.send({ valid: false });
       }
     } catch (error) {
       // Tratamento de erros
-      console.error("Error verifying license:", error)
-      reply.code(500).send({ error: "Internal Server Error" })
+      console.error('Error verifying license:', error);
+      reply.code(500).send({ error: 'Internal Server Error' });
     }
-  })
+  });
 
   // Rota para listar todos os departamentos
-  app.get("/departaments", async (request, reply) => {
+  app.get('/departaments', async (request, reply) => {
     const departaments = await prisma.departament.findMany({
       include: { weekdays: true, streets: true },
-    })
-    reply.send(departaments)
-  })
+    });
+    reply.send(departaments);
+  });
 
   // Rota para obter todas as ruas de um departamento
-  app.get("/departaments/:id/streets", async (request, reply) => {
+  app.get('/departaments/:id/streets', async (request, reply) => {
     const streetParams = z.object({
       id: z.string(),
-    })
+    });
 
-    const { id } = streetParams.parse(request.params)
+    const { id } = streetParams.parse(request.params);
 
     const streets = await prisma.street.findMany({
       where: { departamentId: Number(id) },
-    })
-    reply.send(streets)
-  })
+    });
+    reply.send(streets);
+  });
 
   // Rota para listar todas as licenças
-  app.get("/licenses", async (request, reply) => {
+  app.get('/licenses', async (request, reply) => {
     try {
-      const licenses = await prisma.license.findMany()
-      reply.send(licenses)
+      const licenses = await prisma.license.findMany();
+      reply.send(licenses);
     } catch (error) {
-      console.error(error)
-      reply.status(500).send({ error: "Erro ao buscar licenças." })
+      console.error(error);
+      reply.status(500).send({ error: 'Erro ao buscar licenças.' });
     }
-  })
+  });
 
   // Rota para deletar todas as licenças
-  app.delete("/licenses", async (request, reply) => {
+  app.delete('/licenses', async (request, reply) => {
     try {
-      const deletedLicenses = await prisma.license.deleteMany({})
+      const deletedLicenses = await prisma.license.deleteMany({});
       reply.send({
         message: `${deletedLicenses.count} licença(s) deletadas com sucesso.`,
-      })
+      });
     } catch (error) {
-      console.error(error)
-      reply.status(500).send({ error: "Erro ao deletar as licenças." })
+      console.error(error);
+      reply.status(500).send({ error: 'Erro ao deletar as licenças.' });
     }
-  })
+  });
 
   // Rota para deletar uma licença com [id] específico
-  app.delete("/licenses/:id", async (request, reply) => {
+  app.delete('/licenses/:id', async (request, reply) => {
     const licenseParams = z.object({
       id: z.string(),
-    })
+    });
 
-    const { id } = licenseParams.parse(request.params)
+    const { id } = licenseParams.parse(request.params);
 
     try {
       await prisma.license.delete({
         where: { id: Number(id) },
-      })
+      });
       return reply
         .status(200)
-        .send({ message: `Licença com ID ${id} deletada com sucesso.` })
+        .send({ message: `Licença com ID ${id} deletada com sucesso.` });
     } catch (error) {
-      if (error === "P2025") {
+      if (error === 'P2025') {
         return reply
           .status(404)
-          .send({ message: `Licença com ID ${id} não encontrada.` })
+          .send({ message: `Licença com ID ${id} não encontrada.` });
       }
-      return reply.status(500).send({ message: "Erro ao deletar licença!" })
+      return reply.status(500).send({ message: 'Erro ao deletar licença!' });
     }
-  })
+  });
 
   // Rota para deletar um departamento com [id] específico
-  app.delete("/departaments/:id", async (request, reply) => {
+  app.delete('/departaments/:id', async (request, reply) => {
     const deleteDepartamentBody = z.object({
       id: z.string(),
-    })
+    });
 
-    const { id } = deleteDepartamentBody.parse(request.params)
+    const { id } = deleteDepartamentBody.parse(request.params);
 
     try {
       await prisma.departament.delete({
         where: { id: Number(id) },
-      })
+      });
       return reply
         .status(200)
-        .send({ message: `Departamento com ID ${id} deletado com sucesso!` })
+        .send({ message: `Departamento com ID ${id} deletado com sucesso!` });
     } catch (error) {
-      if (error === "P2025") {
+      if (error === 'P2025') {
         return reply
           .status(404)
-          .send({ message: `Departamento com ID ${id} não encontrado.` })
+          .send({ message: `Departamento com ID ${id} não encontrado.` });
       }
       return reply
         .status(500)
-        .send({ message: "Erro ao deletar um departamento!" })
+        .send({ message: 'Erro ao deletar um departamento!' });
     }
-  })
+  });
 
   // Agendar uma tarefa para rodar a cada dia
-  cron.schedule("0 0 * * *", async () => {
+  cron.schedule('0 0 * * *', async () => {
     try {
       // Obter a data atual
-      const now = dayjs().toISOString()
+      const now = dayjs().toISOString();
 
       // Remover licenças que já expiraram
       await prisma.license.deleteMany({
@@ -239,10 +233,10 @@ export async function appRoutes(app: FastifyInstance) {
             lt: now, // Licenças com datas menores que a data atual
           },
         },
-      })
-      console.log("Licenças expiradas removidas com sucesso!")
+      });
+      console.log('Licenças expiradas removidas com sucesso!');
     } catch (error) {
-      console.log("Erro ao remover licenças expiradas:", error)
+      console.log('Erro ao remover licenças expiradas:', error);
     }
-  })
+  });
 }

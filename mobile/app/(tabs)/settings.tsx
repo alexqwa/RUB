@@ -8,14 +8,14 @@ import {
   ActivityIndicator,
 } from "react-native"
 
-import { useLicense } from "@/src/lib/LicenseContext"
+import { useLicense } from "@/src/context/LicenseContext"
 
 import { Header } from "@/src/components/Header"
 import { Warning } from "@/src/components/Warning"
 import { Profile } from "@/src/components/Profile"
 
 export default function Settings() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const { licenses, deleteLicense } = useLicense()
 
   useEffect(() => {

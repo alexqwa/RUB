@@ -18,8 +18,8 @@ export function Departament({ title, isActive, ...rest }: DepartamentProps) {
       <View className="w-[40px] rounded-l-lg bg-foreground items-center justify-center border border-outline">
         <View
           className={clsx("rounded-full h-2 w-2", {
-            ["bg-green-500"]: isActive === true,
-            ["bg-red-500"]: isActive === false,
+            ["bg-green-500"]: isActive,
+            ["bg-red-500"]: !isActive,
           })}
         />
       </View>
@@ -35,7 +35,7 @@ export function Departament({ title, isActive, ...rest }: DepartamentProps) {
         className={clsx(
           "bg-foreground flex-1 rounded-r-lg items-center justify-evenly border border-outline flex-row",
           {
-            ["opacity-70"]: isActive === false,
+            ["opacity-70"]: !isActive,
           }
         )}
       >

@@ -3,7 +3,7 @@ import { router } from "expo-router"
 import { View, FlatList, ScrollView, ActivityIndicator } from "react-native"
 
 import { weekday, date_month } from "@/src/lib/dayjs"
-import { useDepartament } from "@/src/lib/DepartamentContext"
+import { useDepartament } from "@/src/context/DepartamentContext"
 
 import { Header } from "@/src/components/Header"
 import { Warning } from "@/src/components/Warning"

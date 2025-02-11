@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router"
 import Feather from "@expo/vector-icons/Feather"
 
-import { DepartamentProvider } from "@/src/lib/DepartamentContext"
+import { DepartamentProvider } from "@/src/context/DepartamentContext"
 
 export default function HomeLayout() {
   return (
