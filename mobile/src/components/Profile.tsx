@@ -7,13 +7,17 @@ import {
   TouchableOpacityProps,
 } from "react-native"
 
-export function Profile({...rest }: TouchableOpacityProps) {
+interface ProfileProps extends  TouchableOpacityProps{
+  name?: string 
+}
+
+export function Profile({name ,...rest }: ProfileProps) {
   return (
     <View className="flex-row items-center justify-between w-full">
       <View className="flex-row space-x-3 items-center">
         <View>
           <Text className="text-white font-roboto_700 text-base">
-            Olá, Agente
+            Olá, {name}
           </Text>
           <Text className="text-white/80 font-poppins_500">
             Qual departamento hoje ?

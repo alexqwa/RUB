@@ -58,6 +58,7 @@ export default function Settings() {
               return (
                 <View className="space-y-10">
                   <Profile
+                    name={!item.user?.name ? "Agente" : item.user.name}
                     onPress={() => {
                       try {
                         deleteLicense(item.id)

@@ -44,11 +44,22 @@ model Street {
   @@map("streets")
 }
 
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+
+  licenses  License? @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+  licenseId Int?     @unique
+}
+
 model License {
   id        Int    @id @default(autoincrement())
   key       String @unique
   createdAt String
   expiresAt String
+
+  user User? @relation()
 
   @@map("licenses")
 }

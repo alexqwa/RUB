@@ -41,7 +41,7 @@ export default function StreetRoute() {
                   item.isActive
                     ? () =>
                         router.push({
-                          pathname: "/presence/street/[id]",
+                          pathname: "/tags/street/[id]",
                           params: { id: item.code, title: item.title },
                         })
                     : undefined
