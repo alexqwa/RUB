@@ -6,11 +6,12 @@ export async function usersRoutes(app: FastifyInstance) {
   app.post('/users', async (request, reply) => {
     const createUserBody = z.object({
       name: z.string(),
+      lastName: z.string(),
       licenseKey: z.string(),
     });
 
     try {
-      const { name, licenseKey } = createUserBody.parse(request.body);
+      const { name, lastName, licenseKey } = createUserBody.parse(request.body);
       const license = await prisma.license.findUnique({
         where: { key: licenseKey },
       });
@@ -34,6 +35,7 @@ export async function usersRoutes(app: FastifyInstance) {
       const user = await prisma.user.create({
         data: {
           name,
+          lastName,
           licenseId: license.id,
         },
       });

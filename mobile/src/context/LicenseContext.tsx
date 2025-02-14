@@ -8,6 +8,7 @@ import { api } from '../lib/axios';
 interface User {
   id: number;
   name: string;
+  lastName: string;
 }
 
 interface License {

@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useState } from 'react';
+import { router } from 'expo-router';
 import {
   View,
   Text,
@@ -11,6 +12,8 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
 } from 'react-native';
+
+import Bubbles from '@/src/assets/bubbles.svg';
 
 import { Checkbox } from '@/src/components/Checkbox';
 import { useLicense } from '@/src/context/LicenseContext';
@@ -37,7 +40,7 @@ export default function SignIn() {
   }
 
   return (
-    <View className="flex-1 items-center bg-[#F2F2F2]">
+    <View className="flex-1 items-center bg-shape_background">
       <KeyboardAvoidingView
         className="flex-1 w-full"
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -48,14 +51,23 @@ export default function SignIn() {
         >
           <View
             style={{ height: viewHeight }}
-            className={`bg-shape_purple w-full`}
-          />
-          <View className="w-full max-w-[90%] mt-14">
+            className={`relative bg-shape_purple w-full items-center justify-center`}
+          >
+            <Bubbles />
+            <Text className="absolute top-[45%] text-center text-white font-rajdhani_700 text-5xl">
+              RUB{'\n'}UNLOCKED
+            </Text>
+          </View>
+          <View className="w-full max-w-[85%] mt-14">
             <View className="flex-row items-center justify-between mb-6">
               <Text className="text-3xl font-poppins_600 text-[#32264D]">
                 Fazer login
               </Text>
-              <TouchableOpacity activeOpacity={0.7} className="mb-2">
+              <TouchableOpacity
+                onPress={() => router.push('/(auth)/signup_user')}
+                activeOpacity={0.7}
+                className="mb-2"
+              >
                 <Text className="text-sm text-[#8257E5] font-poppins_400">
                   Criar uma conta
                 </Text>
@@ -63,7 +75,7 @@ export default function SignIn() {
             </View>
             <View className="space-y-6">
               <TextInput
-                value={licenseKey}
+                value={licenseKey.trim()}
                 onChangeText={setLicenseKey}
                 placeholderTextColor="#9C98A6"
                 className="h-16 bg-[#FAFAFC] rounded-lg border border-[#E6E6F0] px-6 font-poppins_400 text-sm text-[#6A6180]"

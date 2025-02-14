@@ -8,14 +8,19 @@ module.exports = {
       },
       textColor: {
         yelp: '#F7DD43',
+
+        heading: '#32264D',
+        subtitle: '#6A6180',
       },
       backgroundColor: {
         background: '#121214',
         foreground: '#202024',
         yelp: '#F7DD43',
+
         shape_active: '#04D361',
-        shape_disable: '#DCDCE5',
         shape_purple: '#8257E5',
+        shape_disable: '#DCDCE5',
+        shape_background: '#F2F2F2',
       },
       borderColor: {
         shape_inline: '#E6E6F0',

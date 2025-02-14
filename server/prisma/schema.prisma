@@ -45,9 +45,9 @@ model Street {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now())
+  id       Int    @id @default(autoincrement())
+  name     String
+  lastName String
 
   licenses  License? @relation(fields: [licenseId], references: [id], onDelete: Cascade)
   licenseId Int?     @unique

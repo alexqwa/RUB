@@ -29,6 +29,16 @@ CREATE TABLE "streets" (
 );
 
 -- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
+    "licenseId" INTEGER,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "licenses" (
     "id" SERIAL NOT NULL,
     "key" TEXT NOT NULL,
@@ -42,6 +52,9 @@ CREATE TABLE "licenses" (
 CREATE UNIQUE INDEX "departaments_id_key" ON "departaments"("id");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_licenseId_key" ON "User"("licenseId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "licenses_key_key" ON "licenses"("key");
 
 -- AddForeignKey
@@ -49,3 +62,6 @@ ALTER TABLE "weekdays" ADD CONSTRAINT "weekdays_departamentId_fkey" FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE "streets" ADD CONSTRAINT "streets_departamentId_fkey" FOREIGN KEY ("departamentId") REFERENCES "departaments"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "User" ADD CONSTRAINT "User_licenseId_fkey" FOREIGN KEY ("licenseId") REFERENCES "licenses"("id") ON DELETE CASCADE ON UPDATE CASCADE;
