@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   View,
   Text,
+  Platform,
   TextInput,
   ScrollView,
   TouchableOpacity,
@@ -19,7 +20,10 @@ export default function SignUpUser() {
 
   return (
     <View className="flex-1 w-full bg-shape_background items-center">
-      <KeyboardAvoidingView className="w-full max-w-[85%]">
+      <KeyboardAvoidingView
+        className="w-full max-w-[85%]"
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{ marginTop: insets.top * 2 }}>
             <View className="flex-row items-center justify-between mb-28">

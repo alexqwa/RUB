@@ -6,11 +6,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   View,
   Text,
+  Alert,
+  Platform,
   TextInput,
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Alert,
 } from 'react-native';
 
 import { api } from '@/src/lib/axios';
@@ -19,7 +20,6 @@ export default function SignUpLicense() {
   const insets = useSafeAreaInsets();
   const [licenseKey, setLicenseKey] = useState('');
   const { name, lastName } = useLocalSearchParams();
-  const [message, setMessage] = useState('');
 
   async function handleCreateUser() {
     try {
@@ -32,10 +32,10 @@ export default function SignUpLicense() {
       if (response.status === 201) {
         router.replace('/(auth)/signup_finished');
       } else {
-        alert('Erro ao criar usuário: ' + response.data.message);
+        console.log('Erro ao criar usuário: ' + response.data.message);
       }
     } catch (error) {
-      console.error('Erro ao criar usuário: ', error);
+      console.log('Erro ao criar usuário: ', error);
       Alert.alert(
         'Ocorreu um erro ao tentar criar o usuário. Tente novamente mais tarde.'
       );
@@ -44,7 +44,10 @@ export default function SignUpLicense() {
 
   return (
     <View className="flex-1 w-full bg-shape_background items-center">
-      <KeyboardAvoidingView className="w-full max-w-[85%]">
+      <KeyboardAvoidingView
+        className="w-full max-w-[85%]"
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{ marginTop: insets.top * 2 }}>
             <View className="flex-row items-center justify-between mb-28">
