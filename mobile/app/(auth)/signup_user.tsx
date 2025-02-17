@@ -19,12 +19,15 @@ export default function SignUpUser() {
   const [lastName, setLastName] = useState('');
 
   return (
-    <View className="flex-1 w-full bg-shape_background items-center">
+    <View className="flex-1 w-full bg-shapes-background items-center">
       <KeyboardAvoidingView
         className="w-full max-w-[85%]"
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 30 }}
+        >
           <View style={{ marginTop: insets.top * 2 }}>
             <View className="flex-row items-center justify-between mb-28">
               <TouchableOpacity
@@ -35,7 +38,7 @@ export default function SignUpUser() {
                 <Feather name="arrow-left" size={24} color="#9C98A6" />
               </TouchableOpacity>
               <View className="flex-row space-x-2">
-                <View className="w-2 h-2 rounded-full bg-shape_purple" />
+                <View className="w-2 h-2 rounded-full bg-shapes-purple" />
                 <View className="w-2 h-2 rounded-full bg-[#C1BCCC]" />
               </View>
             </View>
@@ -77,14 +80,14 @@ export default function SignUpUser() {
                   })
                 }
                 className={clsx(
-                  'h-14 bg-shape_disable rounded-lg items-center justify-center',
+                  'h-14 bg-button-disable rounded-lg items-center justify-center',
                   {
-                    ['bg-shape_purple']: name && lastName,
+                    ['bg-button-purple']: name && lastName,
                   }
                 )}
               >
                 <Text
-                  className={clsx('text-[#9C98A6] font-poppins_600 text-base', {
+                  className={clsx('text-[#9C98A6] font-archivo_600 text-base', {
                     ['text-white']: name && lastName,
                   })}
                 >

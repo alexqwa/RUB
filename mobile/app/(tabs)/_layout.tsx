@@ -1,5 +1,5 @@
-import { Tabs } from "expo-router"
-import Feather from "@expo/vector-icons/Feather"
+import { Tabs } from 'expo-router';
+import Feather from '@expo/vector-icons/Feather';
 
 export default function TabsLayout() {
   return (
@@ -7,39 +7,40 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: "#202024",
           borderTopWidth: 1,
-          borderColor: "#323238",
+          borderColor: '#E6E6F0',
           height: 100,
         },
-        tabBarActiveTintColor: "#F7DD43",
-        tabBarInactiveTintColor: "#8D8D99",
-        tabBarLabelPosition: "beside-icon",
+        tabBarActiveBackgroundColor: '#EBEBF5',
+        tabBarInactiveBackgroundColor: '#F8F8FC',
+        tabBarActiveTintColor: '#32264D',
+        tabBarInactiveTintColor: '#C1BCCC',
+        tabBarLabelPosition: 'beside-icon',
         tabBarLabelStyle: {
           marginLeft: 30,
           fontSize: 16,
-          fontFamily: "Rajdhani_700Bold",
+          fontFamily: 'Archivo_700Bold',
         },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Autenticação",
+          title: 'Autenticação',
           tabBarIcon: ({ color }) => (
             <Feather size={18} name="key" color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="myprofile"
         options={{
-          title: "Configurações",
+          title: 'Meu perfil',
           tabBarIcon: ({ color }) => (
-            <Feather size={18} name="settings" color={color} />
+            <Feather size={18} name="user" color={color} />
           ),
         }}
       />
     </Tabs>
-  )
+  );
 }

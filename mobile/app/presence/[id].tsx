@@ -1,23 +1,23 @@
-import { useEffect } from "react"
-import { router, useLocalSearchParams } from "expo-router"
-import { View, Text, FlatList, ActivityIndicator } from "react-native"
+import { useEffect } from 'react';
+import { router, useLocalSearchParams } from 'expo-router';
+import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 
-import { useStreet } from "@/src/context/StreetContext"
+import { useStreet } from '@/src/context/StreetContext';
 
-import { Header } from "@/src/components/Header"
-import { Street } from "@/src/components/Street"
+import { Header } from '@/src/components/ui/Header';
+import { Street } from '@/src/components/Street';
 
 export default function PresenceRoute() {
-  const { id, title } = useLocalSearchParams()
-  const { streets, loading, getStreetsByEnvironment } = useStreet()
+  const { id, title } = useLocalSearchParams();
+  const { streets, loading, getStreetsByEnvironment } = useStreet();
 
   useEffect(() => {
     async function handleStreet() {
-      await getStreetsByEnvironment(id.toString())
+      await getStreetsByEnvironment(id.toString());
     }
 
-    handleStreet()
-  }, [id])
+    handleStreet();
+  }, [id]);
 
   return (
     <View className="flex-1 items-center bg-background">
@@ -41,7 +41,7 @@ export default function PresenceRoute() {
                   item.isActive
                     ? () =>
                         router.push({
-                          pathname: "/presence/street/[id]",
+                          pathname: '/presence/street/[id]',
                           params: { id: item.code, title: item.title },
                         })
                     : undefined
@@ -54,5 +54,5 @@ export default function PresenceRoute() {
         )}
       </View>
     </View>
-  )
+  );
 }

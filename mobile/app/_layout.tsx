@@ -3,10 +3,10 @@ import { useFonts } from 'expo-font';
 import { StatusBar } from 'react-native';
 import React, { useEffect } from 'react';
 import {
-  Roboto_400Regular,
-  Roboto_500Medium,
-  Roboto_700Bold,
-} from '@expo-google-fonts/roboto';
+  Archivo_400Regular,
+  Archivo_600SemiBold,
+  Archivo_700Bold,
+} from '@expo-google-fonts/archivo';
 import { Rajdhani_700Bold } from '@expo-google-fonts/rajdhani';
 import {
   Poppins_400Regular,
@@ -25,13 +25,13 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
     Rajdhani_700Bold,
-    Roboto_400Regular,
-    Roboto_500Medium,
-    Roboto_700Bold,
     Poppins_400Regular,
     Poppins_500Medium,
     Poppins_600SemiBold,
     Poppins_700Bold,
+    Archivo_400Regular,
+    Archivo_600SemiBold,
+    Archivo_700Bold,
   });
 
   useEffect(() => {
@@ -52,9 +52,9 @@ export default function RootLayout() {
             headerShown: false,
           }}
         >
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="(home)" />
           <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(home)" />
+          <Stack.Screen name="(tabs)" />
         </Stack>
         <StatusBar translucent barStyle={'light-content'} />
       </StreetProvider>

@@ -1,23 +1,23 @@
-import { useLocalSearchParams } from "expo-router"
-import { View, Text, ScrollView } from "react-native"
+import { useLocalSearchParams } from 'expo-router';
+import { View, Text, ScrollView } from 'react-native';
 
-import { Header } from "@/src/components/Header"
-import { Dropdown } from "@/src/components/Dropdown"
+import { Header } from '@/src/components/ui/Header';
+import { Dropdown } from '@/src/components/Dropdown';
 
 const data = [
-  "38149: PRODUTO EM TESTES PRODUTO EM TESTES......",
-  "38149: PRODUTO EM TESTES PRODUTO EM TESTES......",
-  "38149: PRODUTO EM TESTES PRODUTO EM TESTES......",
-  "38149: PRODUTO EM TESTES PRODUTO EM TESTES......",
-  "38149: PRODUTO EM TESTES PRODUTO EM TESTES......",
-  "38149: PRODUTO EM TESTES PRODUTO EM TESTES......",
-  "38149: PRODUTO EM TESTES PRODUTO EM TESTES......",
-  "38149: PRODUTO EM TESTES PRODUTO EM TESTES......",
-  "38149: PRODUTO EM TESTES PRODUTO EM TESTES......",
-]
+  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
+  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
+  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
+  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
+  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
+  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
+  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
+  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
+  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
+];
 
 export default function StreetRoute() {
-  const { id, title } = useLocalSearchParams()
+  const { id, title } = useLocalSearchParams();
 
   return (
     <View className="flex-1 items-center bg-background">
@@ -44,11 +44,11 @@ export default function StreetRoute() {
                 >
                   {data[i]}
                 </Text>
-              )
+              );
             })}
           </ScrollView>
         </View>
       </View>
     </View>
-  )
+  );
 }

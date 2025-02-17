@@ -50,7 +50,11 @@ export async function licenseRoutes(app: FastifyInstance) {
         },
       });
 
-      if (license && dayjs(license.expiresAt).isAfter(dayjs())) {
+      if (
+        license &&
+        dayjs(license.expiresAt).isAfter(dayjs()) &&
+        license.user
+      ) {
         return reply.send({ ...license, valid: true });
       } else {
         return reply.send({ valid: false });

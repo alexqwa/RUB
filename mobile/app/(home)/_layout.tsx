@@ -1,7 +1,7 @@
-import { Tabs } from "expo-router"
-import Feather from "@expo/vector-icons/Feather"
+import { Tabs } from 'expo-router';
+import Feather from '@expo/vector-icons/Feather';
 
-import { DepartamentProvider } from "@/src/context/DepartamentContext"
+import { DepartamentProvider } from '@/src/context/DepartamentContext';
 
 export default function HomeLayout() {
   return (
@@ -10,25 +10,25 @@ export default function HomeLayout() {
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-            backgroundColor: "#202024",
+            backgroundColor: '#202024',
             borderTopWidth: 1,
-            borderColor: "#323238",
+            borderColor: '#323238',
             height: 100,
           },
-          tabBarActiveTintColor: "#F7DD43",
-          tabBarInactiveTintColor: "#8D8D99",
-          tabBarLabelPosition: "beside-icon",
+          tabBarActiveTintColor: '#F7DD43',
+          tabBarInactiveTintColor: '#8D8D99',
+          tabBarLabelPosition: 'beside-icon',
           tabBarLabelStyle: {
             marginLeft: 30,
             fontSize: 16,
-            fontFamily: "Rajdhani_700Bold",
+            fontFamily: 'Rajdhani_700Bold',
           },
         }}
       >
         <Tabs.Screen
           name="index"
           options={{
-            title: "Presença",
+            title: 'Presença',
             tabBarIcon: ({ color }) => (
               <Feather size={18} name="map" color={color} />
             ),
@@ -37,7 +37,7 @@ export default function HomeLayout() {
         <Tabs.Screen
           name="tags"
           options={{
-            title: "Etiquetas",
+            title: 'Etiquetas',
             tabBarIcon: ({ color }) => (
               <Feather size={18} name="tag" color={color} />
             ),
@@ -45,5 +45,5 @@ export default function HomeLayout() {
         />
       </Tabs>
     </DepartamentProvider>
-  )
+  );
 }

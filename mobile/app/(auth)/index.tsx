@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useState } from 'react';
 import { router } from 'expo-router';
 import {
@@ -9,7 +8,6 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
-  ActivityIndicator,
   KeyboardAvoidingView,
 } from 'react-native';
 
@@ -17,6 +15,7 @@ import Bubbles from '@/src/assets/bubbles.svg';
 
 import { Checkbox } from '@/src/components/Checkbox';
 import { useLicense } from '@/src/context/LicenseContext';
+import { ButtonSubmit } from '@/src/components/interactives/ButtonSubmit';
 
 export default function SignIn() {
   const { verifyLicense } = useLicense();
@@ -31,6 +30,7 @@ export default function SignIn() {
     setLoading(true);
     try {
       setLicenseKey('');
+      setIsChecked(false);
       await verifyLicense(licenseKey);
     } catch (error) {
       console.log('Erro ao verificar a licença. Tente novamente.');
@@ -40,21 +40,21 @@ export default function SignIn() {
   }
 
   return (
-    <View className="flex-1 items-center bg-shape_background">
+    <View className="flex-1 items-center bg-shapes-background">
       <KeyboardAvoidingView
         className="flex-1 w-full"
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <ScrollView
-          contentContainerStyle={{ alignItems: 'center' }}
+          contentContainerStyle={{ alignItems: 'center', paddingBottom: 30 }}
           showsVerticalScrollIndicator={false}
         >
           <View
             style={{ height: viewHeight }}
-            className={`relative bg-shape_purple w-full items-center justify-center`}
+            className={`relative bg-shapes-purple w-full items-center justify-center`}
           >
             <Bubbles />
-            <Text className="absolute top-[45%] text-center text-white font-rajdhani_700 text-5xl">
+            <Text className="absolute top-[45%] text-center text-white font-rajdhani_700 text-4xl">
               RUB{'\n'}UNLOCKED
             </Text>
           </View>
@@ -86,29 +86,12 @@ export default function SignIn() {
                 title="Lembrar-me"
                 isChecked={isChecked}
               />
-              <TouchableOpacity
-                disabled={!licenseKey || loading}
+              <ButtonSubmit
+                title="Entrar"
+                data={licenseKey}
+                loading={loading}
                 onPress={handleVerify}
-                activeOpacity={0.7}
-                className={clsx(
-                  'bg-shape_disable h-14 items-center justify-center rounded-lg',
-                  {
-                    ['bg-shape_active']: licenseKey,
-                  }
-                )}
-              >
-                {loading ? (
-                  <ActivityIndicator size="small" color="#32264D" />
-                ) : (
-                  <Text
-                    className={clsx('text-[#9C98A6] font-poppins_600 text-lg', {
-                      ['text-white']: licenseKey,
-                    })}
-                  >
-                    Entrar
-                  </Text>
-                )}
-              </TouchableOpacity>
+              />
             </View>
           </View>
         </ScrollView>

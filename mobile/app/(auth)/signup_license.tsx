@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -15,14 +14,18 @@ import {
 } from 'react-native';
 
 import { api } from '@/src/lib/axios';
+import { ButtonSubmit } from '@/src/components/interactives/ButtonSubmit';
 
 export default function SignUpLicense() {
   const insets = useSafeAreaInsets();
+  const [loading, setLoading] = useState(false);
   const [licenseKey, setLicenseKey] = useState('');
   const { name, lastName } = useLocalSearchParams();
 
   async function handleCreateUser() {
+    setLoading(true);
     try {
+      setLicenseKey('');
       const response = await api.post('/users', {
         name,
         lastName,
@@ -39,16 +42,21 @@ export default function SignUpLicense() {
       Alert.alert(
         'Ocorreu um erro ao tentar criar o usuário. Tente novamente mais tarde.'
       );
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
-    <View className="flex-1 w-full bg-shape_background items-center">
+    <View className="flex-1 w-full bg-shapes-background items-center">
       <KeyboardAvoidingView
         className="w-full max-w-[85%]"
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 30 }}
+        >
           <View style={{ marginTop: insets.top * 2 }}>
             <View className="flex-row items-center justify-between mb-28">
               <TouchableOpacity
@@ -60,7 +68,7 @@ export default function SignUpLicense() {
               </TouchableOpacity>
               <View className="flex-row space-x-2">
                 <View className="w-2 h-2 rounded-full bg-[#C1BCCC]" />
-                <View className="w-2 h-2 rounded-full bg-shape_purple" />
+                <View className="w-2 h-2 rounded-full bg-shapes-purple" />
               </View>
             </View>
             <View className="space-y-3 mb-32">
@@ -84,25 +92,12 @@ export default function SignUpLicense() {
                   className="bg-[#FAFAFC] h-16 font-poppins_400 px-6 text-subtitle   rounded-lg border border-[#E6E6F0]"
                 />
               </View>
-              <TouchableOpacity
-                activeOpacity={0.7}
-                disabled={!licenseKey}
+              <ButtonSubmit
+                title="Concluir cadastro"
+                data={licenseKey}
+                loading={loading}
                 onPress={handleCreateUser}
-                className={clsx(
-                  'h-14 bg-shape_disable rounded-lg items-center justify-center',
-                  {
-                    ['bg-shape_active']: licenseKey,
-                  }
-                )}
-              >
-                <Text
-                  className={clsx('text-[#9C98A6] font-poppins_600 text-base', {
-                    ['text-white']: licenseKey,
-                  })}
-                >
-                  Concluir cadastro
-                </Text>
-              </TouchableOpacity>
+              />
             </View>
           </View>
         </ScrollView>

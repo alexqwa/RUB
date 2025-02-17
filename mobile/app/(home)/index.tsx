@@ -1,17 +1,17 @@
-import React from "react"
-import { router } from "expo-router"
-import { View, FlatList, ScrollView, ActivityIndicator } from "react-native"
+import React from 'react';
+import { router } from 'expo-router';
+import { View, FlatList, ScrollView, ActivityIndicator } from 'react-native';
 
-import { weekday, date_month } from "@/src/lib/dayjs"
-import { useDepartament } from "@/src/context/DepartamentContext"
+import { weekday, date_month } from '@/src/lib/dayjs';
+import { useDepartament } from '@/src/context/DepartamentContext';
 
-import { Header } from "@/src/components/Header"
-import { Warning } from "@/src/components/Warning"
-import { Departament } from "@/src/components/Departament"
-import { EnvironmentsDate } from "@/src/components/EnvironmentsDate"
+import { Header } from '@/src/components/ui/Header';
+import { Warning } from '@/src/components/Warning';
+import { Departament } from '@/src/components/Departament';
+import { EnvironmentsDate } from '@/src/components/EnvironmentsDate';
 
 export default function Home() {
-  const { departaments, loading } = useDepartament()
+  const { departaments, loading } = useDepartament();
 
   return (
     <View className="items-center bg-background flex-1">
@@ -36,7 +36,7 @@ export default function Home() {
                     item.isActive
                       ? () =>
                           router.push({
-                            pathname: "/presence/[id]",
+                            pathname: '/presence/[id]',
                             params: { id: item.id, title: item.title },
                           })
                       : undefined
@@ -51,5 +51,5 @@ export default function Home() {
         )}
       </ScrollView>
     </View>
-  )
+  );
 }

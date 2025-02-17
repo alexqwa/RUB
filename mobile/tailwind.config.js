@@ -16,20 +16,31 @@ module.exports = {
         background: '#121214',
         foreground: '#202024',
         yelp: '#F7DD43',
-
-        shape_active: '#04D361',
-        shape_purple: '#8257E5',
-        shape_disable: '#DCDCE5',
-        shape_background: '#F2F2F2',
+        header: {
+          purple: '#774DD6',
+        },
+        button: {
+          active: '#04D361',
+          purple: '#8257E5',
+          disable: '#DCDCE5',
+        },
+        shapes: {
+          background: '#F2F2F2',
+          purple: '#8257e5',
+        },
       },
       borderColor: {
         shape_inline: '#E6E6F0',
         outline: '#323238',
+
+        header: {
+          purple_dark: '#6842C2',
+        },
       },
       fontFamily: {
-        roboto_400: ['Roboto_400Regular'],
-        roboto_500: ['Roboto_500Medium'],
-        roboto_700: ['Roboto_700Bold'],
+        archivo_400: ['Archivo_400Regular'],
+        archivo_600: ['Archivo_600SemiBold'],
+        archivo_700: ['Archivo_700Bold'],
         poppins_400: ['Poppins_400Regular'],
         poppins_500: ['Poppins_500Medium'],
         poppins_600: ['Poppins_600SemiBold'],
