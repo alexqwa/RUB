@@ -2,34 +2,35 @@ import { useLocalSearchParams } from 'expo-router';
 import { View, Text, ScrollView } from 'react-native';
 
 import { Header } from '@/src/components/ui/Header';
-import { Dropdown } from '@/src/components/Dropdown';
+import { Dropdown } from '@/src/components/ui/Dropdown';
 
 const data = [
-  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
-  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
-  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
-  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
-  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
-  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
-  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
-  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
-  '38149: PRODUTO EM TESTES PRODUTO EM TESTES......',
+  '38149: BISC RECH GULOSOS BAUDDUCO 140G',
+  '38149: BISC RECH GULOSOS BAUDDUCO 140G',
+  '38149: BISC RECH GULOSOS BAUDDUCO 140G',
+  '38149: BISC RECH GULOSOS BAUDDUCO 140G',
+  '38149: BISC RECH GULOSOS BAUDDUCO 140G',
+  '38149: BISC RECH GULOSOS BAUDDUCO 140G',
+  '38149: BISC RECH GULOSOS BAUDDUCO 140G',
+  '38149: BISC RECH GULOSOS BAUDDUCO 140G',
+  '38149: BISC RECH GULOSOS BAUDDUCO 140G',
+  '38149: BISC RECH GULOSOS BAUDDUCO 140G',
 ];
 
 export default function PresenceRoute() {
-  const { id, title } = useLocalSearchParams();
+  const { title } = useLocalSearchParams();
 
   return (
-    <View className="flex-1 items-center bg-background">
+    <View className="flex-1 items-center bg-shapes-background">
       <Header title="Presença" subtitle={title.toString()} back={true} />
       <View className="flex-1 w-full max-w-[90%] mt-10">
-        <Text className="text-white font-rajdhani_700 text-2xl mb-5">
+        <Text className="text-heading font-archivo_700 text-2xl mb-5">
           Formas de manipulação
         </Text>
         <Dropdown />
 
         <View className="flex-1">
-          <Text className="text-white text-lg font-rajdhani_700 mt-10 mb-4">
+          <Text className="text-heading text-lg font-archivo_700 mt-10 mb-4">
             Lista de produtos ({data.length}):
           </Text>
           <ScrollView
@@ -39,7 +40,8 @@ export default function PresenceRoute() {
             {Array.from({ length: data.length }).map((_, i) => {
               return (
                 <Text
-                  className="text-white font-rajdhani_700 text-base"
+                  numberOfLines={1}
+                  className="text-subtitle font-archivo_600 text-base"
                   key={i}
                 >
                   {data[i]}

@@ -5,7 +5,7 @@ import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 import { useStreet } from '@/src/context/StreetContext';
 
 import { Header } from '@/src/components/ui/Header';
-import { Street } from '@/src/components/Street';
+import { Street } from '@/src/components/ui/Street';
 
 export default function StreetRoute() {
   const { id, title } = useLocalSearchParams();
@@ -20,15 +20,15 @@ export default function StreetRoute() {
   }, [id]);
 
   return (
-    <View className="flex-1 items-center bg-background">
+    <View className="flex-1 items-center bg-shapes-background">
       <Header title="Etiquetas" subtitle={title.toString()} back={true} />
       <View className="w-full flex-1 max-w-[90%] mt-10">
-        <Text className="text-white font-rajdhani_700 text-2xl mb-5">
+        <Text className="text-heading font-archivo_700 text-2xl mb-5">
           Corredores
         </Text>
 
         {loading ? (
-          <ActivityIndicator size="small" color="#fff" />
+          <ActivityIndicator size="small" color="#32264D" />
         ) : (
           <FlatList
             data={streets}

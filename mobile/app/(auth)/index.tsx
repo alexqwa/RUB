@@ -13,6 +13,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Bubbles from '@/src/assets/bubbles.svg';
+import Logo from '@/src/assets/logo.svg';
 
 import { Checkbox } from '@/src/components/Checkbox';
 import { useLicense } from '@/src/context/LicenseContext';
@@ -93,9 +94,9 @@ export default function SignIn() {
             className={`relative bg-shapes-purple w-full items-center justify-center`}
           >
             <Bubbles />
-            <Text className="absolute top-[45%] text-center text-white font-rajdhani_700 text-4xl">
-              RUB{'\n'}UNLOCKED
-            </Text>
+            <View className="absolute top-[45%]">
+              <Logo />
+            </View>
           </View>
           <View className="w-full max-w-[85%] mt-14 bg-shapes-background">
             <View className="flex-row items-center justify-between mb-6">

@@ -6,15 +6,15 @@ import { weekday, date_month } from '@/src/lib/dayjs';
 import { useDepartament } from '@/src/context/DepartamentContext';
 
 import { Header } from '@/src/components/ui/Header';
-import { Warning } from '@/src/components/Warning';
-import { Departament } from '@/src/components/Departament';
+import { Warning } from '@/src/components/ui/Warning';
+import { Departament } from '@/src/components/ui/Departament';
 import { EnvironmentsDate } from '@/src/components/EnvironmentsDate';
 
 export default function Tags() {
   const { departaments, loading } = useDepartament();
 
   return (
-    <View className="items-center bg-background flex-1">
+    <View className="items-center bg-shapes-background flex-1">
       <Header title="Auditoria de Etiquetas" />
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -22,7 +22,7 @@ export default function Tags() {
       >
         <EnvironmentsDate date={date_month} weekday={weekday} />
         {loading ? (
-          <ActivityIndicator size="small" color="#fff" />
+          <ActivityIndicator size="small" color="#32264D" />
         ) : (
           <>
             <FlatList
@@ -32,14 +32,11 @@ export default function Tags() {
                 <Departament
                   title={item.title}
                   isActive={item.isActive}
-                  onPress={
-                    item.isActive
-                      ? () =>
-                          router.push({
-                            pathname: '/tags/[id]',
-                            params: { id: item.id, title: item.title },
-                          })
-                      : undefined
+                  onPress={() =>
+                    router.push({
+                      pathname: '/tags/[id]',
+                      params: { id: item.id, title: item.title },
+                    })
                   }
                 />
               )}

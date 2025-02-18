@@ -9,6 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 
 import avatarImg from '@/src/assets/profile.png';
