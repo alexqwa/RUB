@@ -33,7 +33,7 @@ export default function SignUpLicense() {
       });
 
       if (response.status === 201) {
-        router.replace('/(auth)/signup_finished');
+        router.replace('/(auth)/Onboarding/signup_finished');
       } else {
         console.log('Erro ao criar usuário: ' + response.data.message);
       }

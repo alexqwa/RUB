@@ -1,27 +1,37 @@
 import { Tabs } from 'expo-router';
+import { Platform } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { DepartamentProvider } from '@/src/context/DepartamentContext';
 
 export default function HomeLayout() {
+  const insets = useSafeAreaInsets();
+
   return (
     <DepartamentProvider>
       <Tabs
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-            backgroundColor: '#202024',
             borderTopWidth: 1,
-            borderColor: '#323238',
-            height: 100,
+            borderColor: '#E6E6F0',
+            height: Platform.OS === 'ios' ? 140 : 100,
+            marginBottom: Platform.OS === 'ios' ? -insets.bottom : null,
           },
-          tabBarActiveTintColor: '#F7DD43',
-          tabBarInactiveTintColor: '#8D8D99',
+          tabBarActiveBackgroundColor: '#EBEBF5',
+          tabBarInactiveBackgroundColor: '#F8F8FC',
+          tabBarActiveTintColor: '#32264D',
+          tabBarInactiveTintColor: '#C1BCCC',
           tabBarLabelPosition: 'beside-icon',
           tabBarLabelStyle: {
             marginLeft: 30,
             fontSize: 16,
-            fontFamily: 'Rajdhani_700Bold',
+            fontFamily: 'Archivo_700Bold',
+            marginBottom: Platform.OS === 'ios' ? 30 : null,
+          },
+          tabBarIconStyle: {
+            marginBottom: Platform.OS === 'ios' ? 30 : null,
           },
         }}
       >

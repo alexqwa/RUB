@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { router } from 'expo-router';
+import { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Bubbles from '@/src/assets/bubbles.svg';
 
@@ -29,8 +30,6 @@ export default function SignIn() {
   async function handleVerify() {
     setLoading(true);
     try {
-      setLicenseKey('');
-      setIsChecked(false);
       await verifyLicense(licenseKey);
     } catch (error) {
       console.log('Erro ao verificar a licença. Tente novamente.');
@@ -38,6 +37,46 @@ export default function SignIn() {
       setLoading(false);
     }
   }
+
+  async function handleCheckboxChange(newValue: boolean) {
+    setIsChecked(newValue);
+    if (newValue) {
+      try {
+        await AsyncStorage.setItem('licenseKey', licenseKey);
+      } catch (error) {
+        console.error('Error saving license key:', error);
+      }
+    } else {
+      await AsyncStorage.removeItem('licenseKey');
+    }
+  }
+
+  async function handleLicenseKeyChange(text: string) {
+    setLicenseKey(text);
+    if (isChecked) {
+      try {
+        await AsyncStorage.setItem('licenseKey', text);
+      } catch (error) {
+        console.error('Error saving license key:', error);
+      }
+    }
+  }
+
+  useEffect(() => {
+    async function loadLicenseKey() {
+      try {
+        const storedLicenseKey = await AsyncStorage.getItem('licenseKey');
+        if (storedLicenseKey) {
+          setLicenseKey(storedLicenseKey);
+          setIsChecked(true);
+        }
+      } catch (error) {
+        console.error('Error loading license key:', error);
+      }
+    }
+
+    loadLicenseKey();
+  }, []);
 
   return (
     <View className="flex-1 items-center bg-shapes-background">
@@ -58,13 +97,13 @@ export default function SignIn() {
               RUB{'\n'}UNLOCKED
             </Text>
           </View>
-          <View className="w-full max-w-[85%] mt-14">
+          <View className="w-full max-w-[85%] mt-14 bg-shapes-background">
             <View className="flex-row items-center justify-between mb-6">
               <Text className="text-3xl font-poppins_600 text-[#32264D]">
                 Fazer login
               </Text>
               <TouchableOpacity
-                onPress={() => router.push('/(auth)/signup_user')}
+                onPress={() => router.push('/(auth)/Onboarding/signup_user')}
                 activeOpacity={0.7}
                 className="mb-2"
               >
@@ -75,16 +114,17 @@ export default function SignIn() {
             </View>
             <View className="space-y-6">
               <TextInput
+                editable={!loading}
                 value={licenseKey.trim()}
-                onChangeText={setLicenseKey}
+                onChangeText={handleLicenseKeyChange}
                 placeholderTextColor="#9C98A6"
                 className="h-16 bg-[#FAFAFC] rounded-lg border border-[#E6E6F0] px-6 font-poppins_400 text-sm text-[#6A6180]"
                 placeholder="Sua licença"
               />
               <Checkbox
-                onPress={() => setIsChecked(!isChecked)}
                 title="Lembrar-me"
                 isChecked={isChecked}
+                onPress={() => handleCheckboxChange(!isChecked)}
               />
               <ButtonSubmit
                 title="Entrar"

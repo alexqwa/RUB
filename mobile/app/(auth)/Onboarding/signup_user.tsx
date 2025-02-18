@@ -75,7 +75,7 @@ export default function SignUpUser() {
                 disabled={!name || !lastName}
                 onPress={() =>
                   router.push({
-                    pathname: '/(auth)/signup_license',
+                    pathname: '/(auth)/Onboarding/signup_license',
                     params: { lastName, name },
                   })
                 }

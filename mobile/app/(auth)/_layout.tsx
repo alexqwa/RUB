@@ -10,9 +10,9 @@ export default function AuthLayout() {
       }}
     >
       <Stack.Screen name="index" />
-      <Stack.Screen name="signup_user" />
-      <Stack.Screen name="signup_license" />
-      <Stack.Screen name="signup_finished" />
+      <Stack.Screen name="Onboarding/signup_user" />
+      <Stack.Screen name="Onboarding/signup_license" />
+      <Stack.Screen name="Onboarding/signup_finished" />
     </Stack>
   );
 }
