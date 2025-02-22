@@ -56,7 +56,11 @@ export default function RootLayout() {
           <Stack.Screen name="(home)" />
           <Stack.Screen name="(tabs)" />
         </Stack>
-        <StatusBar translucent barStyle={'light-content'} />
+        <StatusBar
+          translucent
+          barStyle={'light-content'}
+          backgroundColor="#6842C2"
+        />
       </StreetProvider>
     </LicenseProvider>
   );

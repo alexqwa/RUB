@@ -24,7 +24,12 @@ export function Departament({ title, isActive, ...rest }: DepartamentProps) {
         />
       </View>
       <View className="flex-1 px-4 justify-center">
-        <Text className="text-heading font-archivo_600">{title}</Text>
+        <Text
+          numberOfLines={1}
+          className="text-heading text-sm font-archivo_600"
+        >
+          {title}
+        </Text>
       </View>
       <TouchableOpacity
         {...rest}

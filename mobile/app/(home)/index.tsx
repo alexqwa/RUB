@@ -1,14 +1,20 @@
 import React from 'react';
 import { router } from 'expo-router';
-import { View, FlatList, ScrollView, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native';
 
 import { weekday, date_month } from '@/src/lib/dayjs';
 import { useDepartament } from '@/src/context/DepartamentContext';
 
 import { Header } from '@/src/components/ui/Header';
+import { Warning } from '@/src/components/ui/Warning';
 import { Departament } from '@/src/components/ui/Departament';
 import { EnvironmentsDate } from '@/src/components/EnvironmentsDate';
-import { Warning } from '@/src/components/ui/Warning';
 
 export default function Home() {
   const { departaments, loading } = useDepartament();
@@ -22,7 +28,12 @@ export default function Home() {
       >
         <EnvironmentsDate date={date_month} weekday={weekday} />
         {loading ? (
-          <ActivityIndicator size="small" color="#32264D" />
+          <View className="py-10 items-center space-y-2">
+            <ActivityIndicator size="small" color="#32264D" />
+            <Text className="font-archivo_700 text-base text-heading">
+              Carregando informações!
+            </Text>
+          </View>
         ) : (
           <>
             <FlatList

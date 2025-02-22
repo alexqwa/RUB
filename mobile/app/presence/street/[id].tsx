@@ -41,7 +41,7 @@ export default function PresenceRoute() {
               return (
                 <Text
                   numberOfLines={1}
-                  className="text-subtitle font-archivo_600 text-base"
+                  className="text-subtitle font-archivo_600 text-sm"
                   key={i}
                 >
                   {data[i]}

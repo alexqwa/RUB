@@ -3,7 +3,7 @@
     "newArchEnabled": true,
     "name": "RUB UNLOCKED",
     "slug": "rub-unlocked",
-    "version": "1.0.9",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -11,7 +11,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#8257E5"
+      "backgroundColor": "#6842c2"
     },
     "ios": {
       "supportsTablet": true
@@ -20,7 +20,7 @@
       "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_WIFI_STATE"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#8257E5"
+        "backgroundColor": "#6842c2"
       },
       "package": "com.outumegames.rubdd"
     },

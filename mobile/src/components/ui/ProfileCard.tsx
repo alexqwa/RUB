@@ -22,7 +22,7 @@ export function ProfileCard({
   ...rest
 }: ProfileCard) {
   return (
-    <View className="bg-white p-6 rounded-lg border border-[#E6E6F0]">
+    <View className="bg-white p-6 rounded-lg border w-full border-[#E6E6F0]">
       <Text className="text-heading font-archivo_600 text-xl">Meus dados</Text>
       <View className="w-full h-[1px] bg-[#E6E6F0] mt-2" />
       <View className="space-y-4 mt-6">

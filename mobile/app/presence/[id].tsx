@@ -28,7 +28,12 @@ export default function PresenceRoute() {
         </Text>
 
         {loading ? (
-          <ActivityIndicator size="small" color="#32264D" />
+          <View className="py-10 items-center space-y-2">
+            <ActivityIndicator size="small" color="#32264D" />
+            <Text className="font-archivo_700 text-base text-heading">
+              Carregando informações!
+            </Text>
+          </View>
         ) : (
           <FlatList
             data={streets}

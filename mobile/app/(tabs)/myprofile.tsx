@@ -1,19 +1,15 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import { Feather } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import {
   View,
   Text,
-  Image,
   FlatList,
   ScrollView,
-  TouchableOpacity,
   ActivityIndicator,
-  Alert,
 } from 'react-native';
 
-import avatarImg from '@/src/assets/profile.png';
-
+import Bubbles from '@/src/assets/bubbles.svg';
 import { useLicense } from '@/src/context/LicenseContext';
 
 import { Header } from '@/src/components/ui/Header';
@@ -45,43 +41,44 @@ export default function MyProfile() {
   }
 
   return (
-    <View className="bg-[#F0F0F7] flex-1 items-center">
+    <View className="bg-shapes-background flex-1 items-center">
       <Header title="Meu perfil" />
-      <View className="bg-shapes-purple items-center justify-center w-full">
-        <View className="items-center space-y-6 my-12">
-          <View className="relative">
-            <Image
-              className="rounded-full w-[140px] h-[140px]"
-              source={avatarImg}
-            />
-            <TouchableOpacity
-              activeOpacity={0.8}
-              className="absolute right-0 bottom-0 w-10 h-10 bg-button-active rounded-full items-center justify-center"
-            >
-              <Feather name="camera" color="#fff" size={18} />
-            </TouchableOpacity>
+      <ScrollView
+        className="w-full flex-1"
+        contentContainerStyle={{ alignItems: 'center', paddingBottom: 40 }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View className="items-center bg-shapes-purple justify-center w-full py-10 space-y-6">
+          <View className="absolute opacity-80">
+            <Bubbles />
           </View>
-          <View className="items-center">
+          <View className="rounded-full items-center justify-center w-36 h-36 bg-white border border-[#E6E6F0]">
+            <MaterialIcons name="face" size={100} color="#E6E6F0" />
+          </View>
+          <View className="items-center space-y-1">
             <Text className="font-archivo_700 text-white text-2xl">
               {licenses.map((license) => license.user?.name)}
             </Text>
-            <Text className="text-[#D4C2FF] font-poppins_400 text-base">
+            <Text
+              numberOfLines={1}
+              className="text-[#D4C2FF] font-poppins_400 text-sm max-w-[85%]"
+            >
               {licenses.map((license) => license.key)}
             </Text>
           </View>
         </View>
-      </View>
-      <ScrollView
-        className="w-full -mt-4"
-        contentContainerStyle={{ alignItems: 'center', paddingBottom: 40 }}
-        showsVerticalScrollIndicator={false}
-      >
+
         {loading ? (
-          <ActivityIndicator size="small" color="#32264D" />
+          <View className="py-10 items-center space-y-2">
+            <ActivityIndicator size="small" color="#32264D" />
+            <Text className="font-archivo_700 text-base text-heading">
+              Carregando informações!
+            </Text>
+          </View>
         ) : (
           <FlatList
-            className="w-full max-w-[85%]"
             data={licenses}
+            className="w-full max-w-[85%] -mt-4"
             keyExtractor={(item) => String(item.key)}
             renderItem={({ item }) => {
               const timeLeftFormatted = formatTimeLeft(item.expiresAt);
