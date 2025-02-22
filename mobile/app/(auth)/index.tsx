@@ -12,11 +12,12 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Bubbles from '@/src/assets/bubbles.svg';
 import Logo from '@/src/assets/logo.svg';
+import Bubbles from '@/src/assets/bubbles.svg';
 
-import { Checkbox } from '@/src/components/Checkbox';
 import { useLicense } from '@/src/context/LicenseContext';
+
+import { Checkbox } from '@/src/components/interactives/Checkbox';
 import { ButtonSubmit } from '@/src/components/interactives/ButtonSubmit';
 
 export default function SignIn() {

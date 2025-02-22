@@ -2,39 +2,51 @@ import { z } from 'zod';
 import dayjs from 'dayjs';
 import { v7 } from 'uuid';
 import { prisma } from '../lib/prisma';
-import { FastifyInstance } from 'fastify';
+import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
+
+interface GenerateLicenseParams {
+  days: string;
+}
 
 export async function licenseRoutes(app: FastifyInstance) {
-  app.post('/generate-license', async (request, reply) => {
-    const licenseParams = z.object({
-      expiresInDays: z.number().positive().int(),
-    });
-
-    try {
-      const { expiresInDays } = licenseParams.parse(request.body);
-      const createdAt = dayjs();
-      const expiresAt = createdAt.add(expiresInDays, 'day');
-
-      const license = await prisma.license.create({
-        data: {
-          key: v7(),
-          createdAt: createdAt.toISOString(),
-          expiresAt: expiresAt.toISOString(),
-        },
+  app.post(
+    '/generate-license/:days',
+    async (
+      request: FastifyRequest<{ Params: GenerateLicenseParams }>,
+      reply: FastifyReply
+    ) => {
+      const licenseParams = z.object({
+        days: z.number().positive().int(),
       });
 
-      reply.code(201).send(license);
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        reply
-          .code(400)
-          .send({ error: 'Dígito inválido.', details: error.errors });
-      } else {
-        console.error('Erro ao gerar licença:', error);
-        reply.code(500).send({ error: 'Erro interno no servidor!' });
+      try {
+        const days = parseInt(request.params.days, 10);
+        const validatedParams = licenseParams.parse({ days });
+
+        const createdAt = dayjs();
+        const expiresAt = createdAt.add(validatedParams.days, 'day');
+
+        const license = await prisma.license.create({
+          data: {
+            key: v7(),
+            createdAt: createdAt.toISOString(),
+            expiresAt: expiresAt.toISOString(),
+          },
+        });
+
+        reply.code(201).send(license);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          reply
+            .code(400)
+            .send({ error: 'Dígito inválido.', details: error.errors });
+        } else {
+          console.error('Erro ao gerar licença:', error);
+          reply.code(500).send({ error: 'Erro interno no servidor!' });
+        }
       }
     }
-  });
+  );
 
   app.post('/verify-license/:key', async (request, reply) => {
     const licenseParams = z.object({

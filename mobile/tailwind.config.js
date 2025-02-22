@@ -45,7 +45,6 @@ module.exports = {
         poppins_500: ['Poppins_500Medium'],
         poppins_600: ['Poppins_600SemiBold'],
         poppins_700: ['Poppins_700Bold'],
-        rajdhani_700: ['Rajdhani_700Bold'],
       },
     },
   },

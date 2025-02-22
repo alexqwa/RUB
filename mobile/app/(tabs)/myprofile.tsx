@@ -61,7 +61,7 @@ export default function MyProfile() {
             </Text>
             <Text
               numberOfLines={1}
-              className="text-[#D4C2FF] font-poppins_400 text-sm max-w-[85%]"
+              className="text-[#D4C2FF] font-poppins_400 text-sm max-w-[85%] bg-shapes-purple"
             >
               {licenses.map((license) => license.key)}
             </Text>

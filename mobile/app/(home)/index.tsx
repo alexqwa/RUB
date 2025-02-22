@@ -8,13 +8,12 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-import { weekday, date_month } from '@/src/lib/dayjs';
 import { useDepartament } from '@/src/context/DepartamentContext';
 
 import { Header } from '@/src/components/ui/Header';
 import { Warning } from '@/src/components/ui/Warning';
 import { Departament } from '@/src/components/ui/Departament';
-import { EnvironmentsDate } from '@/src/components/EnvironmentsDate';
+import { EnvironmentsDate } from '@/src/components/ui/EnvironmentsDate';
 
 export default function Home() {
   const { departaments, loading } = useDepartament();
@@ -26,7 +25,7 @@ export default function Home() {
         showsVerticalScrollIndicator={false}
         className="flex-1 w-full max-w-[90%] pt-10"
       >
-        <EnvironmentsDate date={date_month} weekday={weekday} />
+        <EnvironmentsDate />
         {loading ? (
           <View className="py-10 items-center space-y-2">
             <ActivityIndicator size="small" color="#32264D" />

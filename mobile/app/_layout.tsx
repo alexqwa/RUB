@@ -7,7 +7,6 @@ import {
   Archivo_600SemiBold,
   Archivo_700Bold,
 } from '@expo-google-fonts/archivo';
-import { Rajdhani_700Bold } from '@expo-google-fonts/rajdhani';
 import {
   Poppins_400Regular,
   Poppins_500Medium,
@@ -24,7 +23,6 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
-    Rajdhani_700Bold,
     Poppins_400Regular,
     Poppins_500Medium,
     Poppins_600SemiBold,

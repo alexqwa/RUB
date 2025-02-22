@@ -2,7 +2,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { View, Text, ScrollView } from 'react-native';
 
 import { Header } from '@/src/components/ui/Header';
-import { Dropdown } from '@/src/components/ui/Dropdown';
+import { Dropdown } from '@/src/components/interactives/Dropdown';
 
 const data = [
   '38149: BISC RECH GULOSOS BAUDDUCO 140G',
