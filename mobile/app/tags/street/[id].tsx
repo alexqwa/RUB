@@ -23,7 +23,7 @@ export default function StreetRoute() {
   return (
     <View className="flex-1 items-center bg-shapes-background">
       <Header title="Etiquetas" subtitle={title.toString()} back={true} />
-      <View className="w-full flex-1 max-w-[90%] mt-10">
+      <View className="w-full flex-1 max-w-[85%] mt-10">
         <Text className="text-heading font-archivo_700 text-2xl mb-5">
           Formas de manipulação
         </Text>

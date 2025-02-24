@@ -1,28 +1,19 @@
-import { useEffect } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 
-import { useStreet } from '@/src/context/StreetContext';
+import { useStreetsByEnvironment } from '@/src/hooks/useStreetsByEnvironment';
 
 import { Header } from '@/src/components/ui/Header';
 import { Street } from '@/src/components/ui/Street';
 
 export default function StreetRoute() {
   const { id, title } = useLocalSearchParams();
-  const { streets, loading, getStreetsByEnvironment } = useStreet();
-
-  useEffect(() => {
-    async function handleStreet() {
-      await getStreetsByEnvironment(id.toString());
-    }
-
-    handleStreet();
-  }, [id]);
+  const { streets, loading } = useStreetsByEnvironment(id.toString());
 
   return (
     <View className="flex-1 items-center bg-shapes-background">
       <Header title="Etiquetas" subtitle={title.toString()} back={true} />
-      <View className="w-full flex-1 max-w-[90%] mt-10">
+      <View className="w-full flex-1 max-w-[85%] mt-10">
         <Text className="text-heading font-archivo_700 text-2xl mb-5">
           Corredores
         </Text>

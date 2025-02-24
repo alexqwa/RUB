@@ -23,7 +23,7 @@ export default function Tags() {
       <Header title="Auditoria de Etiquetas" />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        className="flex-1 w-full max-w-[90%] pt-10"
+        className="flex-1 w-full max-w-[85%] pt-10"
       >
         <EnvironmentsDate />
         {loading ? (

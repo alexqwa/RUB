@@ -23,7 +23,7 @@ export default function Home() {
       <Header title="Auditoria de Presença" />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        className="flex-1 w-full max-w-[90%] pt-10"
+        className="flex-1 w-full max-w-[85%] pt-10"
       >
         <EnvironmentsDate />
         {loading ? (

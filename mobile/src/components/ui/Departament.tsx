@@ -15,14 +15,6 @@ interface DepartamentProps extends TouchableOpacityProps {
 export function Departament({ title, isActive, ...rest }: DepartamentProps) {
   return (
     <View className="w-full mb-2 overflow-hidden flex-row h-13 rounded-xl bg-white border border-[#E6E6F0] divide-x-[1px] divide-[#E6E6F0]">
-      <View className="w-10 items-center justify-center">
-        <View
-          className={clsx('h-2 w-2 rounded-full', {
-            ['bg-green-500']: isActive,
-            ['bg-red-500']: !isActive,
-          })}
-        />
-      </View>
       <View className="flex-1 px-4 justify-center">
         <Text
           numberOfLines={1}

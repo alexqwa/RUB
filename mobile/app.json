@@ -3,7 +3,7 @@
     "newArchEnabled": true,
     "name": "RUB UNLOCKED",
     "slug": "rub-unlocked",
-    "version": "1.1.0",
+    "version": "1.1.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#6842c2"
       },
-      "package": "com.outumegames.rubdd"
+      "package": "com.outumegames.rubunlocked"
     },
     "web": {
       "bundler": "metro",
