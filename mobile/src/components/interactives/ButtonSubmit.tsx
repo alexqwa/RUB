@@ -19,9 +19,9 @@ export function ButtonSubmit({ data, title, loading, ...rest }: ButtonProps) {
       activeOpacity={0.7}
       disabled={!data || loading}
       className={clsx(
-        'h-14 rounded-lg bg-button-disable items-center justify-center',
+        'h-14 rounded-lg bg-shapes-gray_400 items-center justify-center',
         {
-          ['bg-button-active']: data,
+          ['bg-shapes-green_400']: data,
         }
       )}
     >

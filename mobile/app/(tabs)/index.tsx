@@ -16,7 +16,7 @@ export default function Authentication() {
   const [registerNumber, setRegisterNumber] = useState('');
 
   return (
-    <View className="bg-shapes-background flex-1 items-center">
+    <View className="bg-shapes-gray_200 flex-1 items-center">
       <Header title="Autenticação" />
       <KeyboardAvoidingView
         className="flex-1 w-full"
@@ -63,9 +63,9 @@ export default function Authentication() {
                 disabled={!registerNumber}
                 onPress={() => router.replace('/(home)')}
                 className={clsx(
-                  'h-14 bg-button-disable rounded-lg items-center justify-center',
+                  'h-14 bg-shapes-gray_400 rounded-lg items-center justify-center',
                   {
-                    ['bg-button-active']: registerNumber,
+                    ['bg-shapes-green_400']: registerNumber,
                   }
                 )}
               >

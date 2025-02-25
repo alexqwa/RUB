@@ -33,7 +33,7 @@ export default function SignUpLicense() {
       });
 
       if (response.status === 201) {
-        router.replace('/(auth)/Onboarding/signup_finished');
+        router.replace('/(auth)/Onboarding/SignUpFinished');
       } else {
         console.log('Erro ao criar usuário: ' + response.data.message);
       }
@@ -48,9 +48,9 @@ export default function SignUpLicense() {
   }
 
   return (
-    <View className="flex-1 w-full bg-shapes-background items-center">
+    <View className="flex-1 w-full bg-shapes-gray_200 items-center">
       <KeyboardAvoidingView
-        className="w-full max-w-[85%]"
+        className="w-full max-w-[85%] flex-1"
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <ScrollView
@@ -67,8 +67,8 @@ export default function SignUpLicense() {
                 <Feather name="arrow-left" size={24} color="#9C98A6" />
               </TouchableOpacity>
               <View className="flex-row space-x-2">
-                <View className="w-2 h-2 rounded-full bg-[#C1BCCC]" />
-                <View className="w-2 h-2 rounded-full bg-shapes-purple" />
+                <View className="w-2 h-2 rounded-full bg-shapes-gray_500" />
+                <View className="w-2 h-2 rounded-full bg-shapes-purple_800" />
               </View>
             </View>
             <View className="space-y-3 mb-32">
@@ -83,14 +83,27 @@ export default function SignUpLicense() {
               <Text className="text-heading font-poppins_600 text-2xl">
                 02. Licença
               </Text>
-              <View>
+              <View className="space-y-2">
                 <TextInput
                   value={licenseKey.trim()}
                   onChangeText={setLicenseKey}
                   placeholder="Licença"
                   placeholderTextColor="#9C98A6"
-                  className="bg-[#FAFAFC] h-16 font-poppins_400 px-6 text-subtitle   rounded-lg border border-[#E6E6F0]"
+                  className="bg-white h-16 font-poppins_400 px-6 text-subtitle rounded-lg border border-shapes-gray_400"
                 />
+                <View className="flex-row space-x-1">
+                  <Text className="text-subtitle font-poppins_400 text-sm">
+                    Não tenho uma licença!
+                  </Text>
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    onPress={() => router.push('/(auth)/Onboarding/Pricing')}
+                  >
+                    <Text className="text-heading font-poppins_600 text-sm underline">
+                      Comprar agora.
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
               <ButtonSubmit
                 title="Concluir cadastro"

@@ -55,7 +55,7 @@ export default function RootLayout() {
       <StatusBar
         translucent
         barStyle={'light-content'}
-        backgroundColor="#6842C2"
+        backgroundColor="#774dd6"
       />
     </LicenseProvider>
   );

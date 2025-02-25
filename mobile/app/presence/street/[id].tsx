@@ -21,7 +21,7 @@ export default function PresenceRoute() {
   const { title } = useLocalSearchParams();
 
   return (
-    <View className="flex-1 items-center bg-shapes-background">
+    <View className="flex-1 items-center bg-shapes-gray_200">
       <Header title="Presença" subtitle={title.toString()} back={true} />
       <View className="flex-1 w-full max-w-[85%] mt-10">
         <Text className="text-heading font-archivo_700 text-2xl mb-5">

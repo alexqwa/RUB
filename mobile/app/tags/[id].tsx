@@ -11,7 +11,7 @@ export default function StreetRoute() {
   const { streets, loading } = useStreetsByEnvironment(id.toString());
 
   return (
-    <View className="flex-1 items-center bg-shapes-background">
+    <View className="flex-1 items-center bg-shapes-gray_200">
       <Header title="Etiquetas" subtitle={title.toString()} back={true} />
       <View className="w-full flex-1 max-w-[85%] mt-10">
         <Text className="text-heading font-archivo_700 text-2xl mb-5">

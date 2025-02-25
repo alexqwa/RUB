@@ -19,9 +19,9 @@ export default function SignUpUser() {
   const [lastName, setLastName] = useState('');
 
   return (
-    <View className="flex-1 w-full bg-shapes-background items-center">
+    <View className="flex-1 w-full bg-shapes-gray_200 items-center">
       <KeyboardAvoidingView
-        className="w-full max-w-[85%]"
+        className="w-full max-w-[85%] flex-1"
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <ScrollView
@@ -38,8 +38,8 @@ export default function SignUpUser() {
                 <Feather name="arrow-left" size={24} color="#9C98A6" />
               </TouchableOpacity>
               <View className="flex-row space-x-2">
-                <View className="w-2 h-2 rounded-full bg-shapes-purple" />
-                <View className="w-2 h-2 rounded-full bg-[#C1BCCC]" />
+                <View className="w-2 h-2 rounded-full bg-shapes-purple_800" />
+                <View className="w-2 h-2 rounded-full bg-shapes-gray_500" />
               </View>
             </View>
             <View className="space-y-3 mb-32">
@@ -60,14 +60,14 @@ export default function SignUpUser() {
                   onChangeText={setName}
                   placeholder="Nome"
                   placeholderTextColor="#9C98A6"
-                  className="bg-[#FAFAFC] h-16 font-poppins_400 px-6 text-subtitle   rounded-t-lg border border-[#E6E6F0]"
+                  className="bg-white h-16 font-poppins_400 px-6 text-subtitle rounded-t-lg border border-shapes-gray_400"
                 />
                 <TextInput
                   value={lastName.trim()}
                   onChangeText={setLastName}
                   placeholder="Sobrenome"
                   placeholderTextColor="#9C98A6"
-                  className="bg-[#FAFAFC] h-16 font-poppins_400 px-6 text-subtitle rounded-b-lg border border-[#E6E6F0] -mt-[1px]"
+                  className="bg-white h-16 font-poppins_400 px-6 text-subtitle rounded-b-lg border border-shapes-gray_400 -mt-[1px]"
                 />
               </View>
               <TouchableOpacity
@@ -75,14 +75,14 @@ export default function SignUpUser() {
                 disabled={!name || !lastName}
                 onPress={() =>
                   router.push({
-                    pathname: '/(auth)/Onboarding/signup_license',
+                    pathname: '/(auth)/Onboarding/SignUpLicense',
                     params: { lastName, name },
                   })
                 }
                 className={clsx(
-                  'h-14 bg-button-disable rounded-lg items-center justify-center',
+                  'h-14 bg-shapes-gray_400 rounded-lg items-center justify-center',
                   {
-                    ['bg-button-purple']: name && lastName,
+                    ['bg-shapes-purple_400']: name && lastName,
                   }
                 )}
               >

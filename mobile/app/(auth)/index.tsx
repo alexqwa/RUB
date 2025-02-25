@@ -92,7 +92,7 @@ export default function SignIn() {
         >
           <View
             style={{ height: viewHeight }}
-            className={`relative bg-shapes-purple w-full items-center justify-center`}
+            className={`relative bg-shapes-purple_500 w-full items-center justify-center`}
           >
             <Bubbles />
             <View className="absolute top-[45%]">
@@ -105,7 +105,7 @@ export default function SignIn() {
                 Fazer login
               </Text>
               <TouchableOpacity
-                onPress={() => router.push('/(auth)/Onboarding/signup_user')}
+                onPress={() => router.push('/(auth)/Onboarding/SignUpUser')}
                 activeOpacity={0.7}
                 className="mb-2"
               >

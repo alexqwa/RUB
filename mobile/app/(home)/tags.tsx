@@ -19,7 +19,7 @@ export default function Tags() {
   const { departaments, loading } = useDepartament();
 
   return (
-    <View className="items-center bg-shapes-background flex-1">
+    <View className="items-center bg-shapes-gray_200 flex-1">
       <Header title="Auditoria de Etiquetas" />
       <ScrollView
         showsVerticalScrollIndicator={false}

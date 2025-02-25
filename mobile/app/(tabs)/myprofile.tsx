@@ -41,14 +41,14 @@ export default function MyProfile() {
   }
 
   return (
-    <View className="bg-shapes-background flex-1 items-center">
+    <View className="bg-shapes-gray_200 flex-1 items-center">
       <Header title="Meu perfil" />
       <ScrollView
         className="w-full flex-1"
         contentContainerStyle={{ alignItems: 'center', paddingBottom: 40 }}
         showsVerticalScrollIndicator={false}
       >
-        <View className="items-center bg-shapes-purple justify-center w-full py-10 space-y-6">
+        <View className="items-center bg-shapes-purple_400 justify-center w-full py-10 space-y-6">
           <View className="absolute opacity-80">
             <Bubbles />
           </View>

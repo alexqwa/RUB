@@ -7,34 +7,24 @@ module.exports = {
         13: '50px',
       },
       textColor: {
-        yelp: '#F7DD43',
-
         heading: '#32264D',
         subtitle: '#6A6180',
       },
       backgroundColor: {
-        background: '#121214',
-        foreground: '#202024',
-        yelp: '#F7DD43',
-        header: {
-          purple: '#774DD6',
-        },
-        button: {
-          active: '#04D361',
-          purple: '#8257E5',
-          disable: '#DCDCE5',
-        },
         shapes: {
-          background: '#F2F2F2',
-          purple: '#8257e5',
+          green_400: '#04D361',
+          purple_400: '#8257E5',
+          purple_500: '#774DD6',
+          purple_800: '#6842C2',
+          gray_200: '#F2F2F2',
+          gray_400: '#DCDCE5',
+          gray_500: '#C1BCCC',
         },
       },
       borderColor: {
-        shape_inline: '#E6E6F0',
-        outline: '#323238',
-
-        header: {
-          purple_dark: '#6842C2',
+        shapes: {
+          gray_400: '#E6E6F0',
+          purple_800: '#6842C2',
         },
       },
       fontFamily: {

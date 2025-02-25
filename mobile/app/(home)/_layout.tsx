@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
-import { Platform } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { Platform, StatusBar } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { DepartamentProvider } from '@/src/context/DepartamentContext';
@@ -54,6 +54,11 @@ export default function HomeLayout() {
           }}
         />
       </Tabs>
+      <StatusBar
+        translucent
+        barStyle={'light-content'}
+        backgroundColor="#774dd6"
+      />
     </DepartamentProvider>
   );
 }

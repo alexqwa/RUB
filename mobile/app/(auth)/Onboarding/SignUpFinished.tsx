@@ -5,7 +5,7 @@ import Finished from '@/src/assets/finished.svg';
 
 export default function SignUpFinished() {
   return (
-    <View className="flex-1 relative items-center justify-center bg-shapes-purple">
+    <View className="flex-1 relative items-center justify-center bg-shapes-purple_400">
       <Finished />
       <View className="mb-20">
         <Text className="text-white text-center font-poppins_700 text-3xl my-4">
@@ -18,7 +18,7 @@ export default function SignUpFinished() {
       <TouchableOpacity
         activeOpacity={0.7}
         onPress={() => router.replace('/(auth)')}
-        className="absolute bottom-20 h-14 bg-button-active w-full max-w-[85%] rounded-lg items-center justify-center"
+        className="absolute bottom-20 h-14 bg-shapes-green_400 w-full max-w-[85%] rounded-lg items-center justify-center"
       >
         <Text className="text-white font-poppins_600 text-base">
           Fazer login
