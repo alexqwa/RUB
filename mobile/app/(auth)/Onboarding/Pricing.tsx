@@ -13,6 +13,7 @@ const subscriptionPlans = [
     timestamp: '/mês',
     features: [
       'Suporte 24/7',
+      'Remover anúncios',
       'Corredores sempre no verde',
       'Chat exclusivo para membros',
       'Todo os setores na palma da mão',
@@ -20,21 +21,23 @@ const subscriptionPlans = [
   },
   {
     title: 'Licença Trimestral',
-    price: '29,99',
+    price: '32,99',
     timestamp: '/3 meses',
     features: [
       'Suporte 24/7',
+      'Remover anúncios',
       'Corredores sempre no verde',
       'Chat exclusivo para membros',
       'Todo os setores na palma da mão',
     ],
   },
   {
-    title: 'Licença Vitalícia',
-    price: '89,99',
-    timestamp: '/compra única',
+    title: 'Licença Anual',
+    price: '129,99',
+    timestamp: '/anual',
     features: [
       'Suporte 24/7',
+      'Remover anúncios',
       'Corredores sempre no verde',
       'Chat exclusivo para membros',
       'Todo os setores na palma da mão',
