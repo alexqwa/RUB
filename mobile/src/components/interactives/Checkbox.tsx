@@ -18,7 +18,7 @@ export function Checkbox({ title, isChecked, ...rest }: CheckboxProps) {
       <View className="flex-row items-center">
         <View
           className={clsx(
-            'w-6 h-6 bg-[#FFFFFF] border border-shape_inline rounded-lg items-center justify-center',
+            'w-6 h-6 bg-[#FFFFFF] border border-shapes-gray_400 rounded-lg items-center justify-center',
             {
               ['bg-[#04D361] border border-[#04D361]']: isChecked,
             }

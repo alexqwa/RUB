@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import clsx from 'clsx';
 import { Feather } from '@expo/vector-icons';
-import { View, TouchableOpacity, ScrollView } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { View, TouchableOpacity, PanResponder } from 'react-native';
 
 import { Header } from '@/src/components/ui/Header';
 import { PriceCard } from '@/src/components/ui/PriceCard';
-import clsx from 'clsx';
 
 const subscriptionPlans = [
   {
@@ -63,7 +63,7 @@ export default function Pricing() {
   return (
     <View className="bg-shapes-gray_200 flex-1 items-center">
       <Header title="Assinaturas" back />
-      <ScrollView className="max-w-[85%] w-full flex-1">
+      <View className="max-w-[85%] w-full flex-1">
         <PriceCard
           title={subscriptionPlans[currentIndex].title}
           price={subscriptionPlans[currentIndex].price}
@@ -109,7 +109,7 @@ export default function Pricing() {
             <Feather name="arrow-right" size={24} color="#8257E5" />
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 }

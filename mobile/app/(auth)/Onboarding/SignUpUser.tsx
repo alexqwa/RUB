@@ -13,10 +13,13 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
+import { useFocusNextInput } from '@/src/hooks/useFocusNextInput';
+
 export default function SignUpUser() {
   const insets = useSafeAreaInsets();
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
+  const { addInputRef, focusNextInput } = useFocusNextInput();
 
   return (
     <View className="flex-1 w-full bg-shapes-gray_200 items-center">
@@ -56,13 +59,16 @@ export default function SignUpUser() {
               </Text>
               <View>
                 <TextInput
+                  ref={(ref) => addInputRef(ref)}
                   value={name.trim()}
                   onChangeText={setName}
+                  onSubmitEditing={() => focusNextInput(0)}
                   placeholder="Nome"
                   placeholderTextColor="#9C98A6"
                   className="bg-white h-16 font-poppins_400 px-6 text-subtitle rounded-t-lg border border-shapes-gray_400"
                 />
                 <TextInput
+                  ref={(ref) => addInputRef(ref)}
                   value={lastName.trim()}
                   onChangeText={setLastName}
                   placeholder="Sobrenome"
