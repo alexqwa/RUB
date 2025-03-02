@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useState } from 'react';
 import { router } from 'expo-router';
 import {
@@ -7,10 +6,11 @@ import {
   Platform,
   TextInput,
   ScrollView,
-  TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
+
 import { Header } from '@/src/components/ui/Header';
+import { ButtonSubmit } from '@/src/components/interactives/ButtonSubmit';
 
 export default function Authentication() {
   const [registerNumber, setRegisterNumber] = useState('');
@@ -58,25 +58,11 @@ export default function Authentication() {
                 keyboardType="number-pad"
                 className="h-16 bg-[#FAFAFC] rounded-lg border border-[#E6E6F0] px-6 font-poppins_400 text-sm text-[#6A6180]"
               />
-              <TouchableOpacity
-                activeOpacity={0.7}
-                disabled={!registerNumber}
+              <ButtonSubmit
                 onPress={() => router.replace('/(home)')}
-                className={clsx(
-                  'h-14 bg-shapes-gray_400 rounded-lg items-center justify-center',
-                  {
-                    ['bg-shapes-green_400']: registerNumber,
-                  }
-                )}
-              >
-                <Text
-                  className={clsx('text-[#9C98A6] text-base font-archivo_600', {
-                    ['text-white']: registerNumber,
-                  })}
-                >
-                  Conectar-se ao servidor
-                </Text>
-              </TouchableOpacity>
+                title="Conectar-se ao sevidor"
+                isActive={registerNumber}
+              />
             </View>
           </View>
         </ScrollView>

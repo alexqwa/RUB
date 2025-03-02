@@ -7,21 +7,26 @@ import {
 } from 'react-native';
 
 interface ButtonProps extends TouchableOpacityProps {
-  data: string;
   title: string;
-  loading: boolean;
+  loading?: boolean;
+  isActive: string;
 }
 
-export function ButtonSubmit({ data, title, loading, ...rest }: ButtonProps) {
+export function ButtonSubmit({
+  title,
+  loading,
+  isActive,
+  ...rest
+}: ButtonProps) {
   return (
     <TouchableOpacity
       {...rest}
       activeOpacity={0.7}
-      disabled={!data || loading}
+      disabled={!isActive || loading}
       className={clsx(
         'h-14 rounded-lg bg-shapes-gray_400 items-center justify-center',
         {
-          ['bg-shapes-green_400']: data,
+          ['bg-shapes-green_400']: isActive,
         }
       )}
     >
@@ -30,7 +35,7 @@ export function ButtonSubmit({ data, title, loading, ...rest }: ButtonProps) {
       ) : (
         <Text
           className={clsx('text-[#9C98A6] font-archivo_600 text-base', {
-            ['text-white']: data,
+            ['text-white']: isActive,
           })}
         >
           {title}

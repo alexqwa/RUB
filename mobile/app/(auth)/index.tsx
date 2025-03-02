@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   View,
   Text,
@@ -10,22 +10,26 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Logo from '@/src/assets/logo.svg';
 import Bubbles from '@/src/assets/bubbles.svg';
 
 import { useLicense } from '@/src/context/LicenseContext';
+import { useLicenseKey } from '@/src/hooks/useLicenseKey';
 
 import { Checkbox } from '@/src/components/interactives/Checkbox';
 import { ButtonSubmit } from '@/src/components/interactives/ButtonSubmit';
 
 export default function SignIn() {
   const { verifyLicense } = useLicense();
-  const [loading, setLoading] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
-  const [licenseKey, setLicenseKey] = useState('');
+  const {
+    licenseKey,
+    isChecked,
+    handleCheckboxChange,
+    handleLicenseKeyChange,
+  } = useLicenseKey();
 
+  const [loading, setLoading] = useState(false);
   const { height } = Dimensions.get('window');
   const viewHeight = height * 0.4;
 
@@ -39,46 +43,6 @@ export default function SignIn() {
       setLoading(false);
     }
   }
-
-  async function handleCheckboxChange(newValue: boolean) {
-    setIsChecked(newValue);
-    if (newValue) {
-      try {
-        await AsyncStorage.setItem('licenseKey', licenseKey);
-      } catch (error) {
-        console.error('Error saving license key:', error);
-      }
-    } else {
-      await AsyncStorage.removeItem('licenseKey');
-    }
-  }
-
-  async function handleLicenseKeyChange(text: string) {
-    setLicenseKey(text);
-    if (isChecked) {
-      try {
-        await AsyncStorage.setItem('licenseKey', text);
-      } catch (error) {
-        console.error('Error saving license key:', error);
-      }
-    }
-  }
-
-  useEffect(() => {
-    async function loadLicenseKey() {
-      try {
-        const storedLicenseKey = await AsyncStorage.getItem('licenseKey');
-        if (storedLicenseKey) {
-          setLicenseKey(storedLicenseKey);
-          setIsChecked(true);
-        }
-      } catch (error) {
-        console.error('Error loading license key:', error);
-      }
-    }
-
-    loadLicenseKey();
-  }, []);
 
   return (
     <View className="flex-1 items-center bg-shapes-background">
@@ -130,8 +94,8 @@ export default function SignIn() {
               />
               <ButtonSubmit
                 title="Entrar"
-                data={licenseKey}
                 loading={loading}
+                isActive={licenseKey}
                 onPress={handleVerify}
               />
             </View>

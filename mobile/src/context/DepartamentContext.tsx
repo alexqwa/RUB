@@ -1,8 +1,8 @@
+import dayjs from 'dayjs';
 import { Alert } from 'react-native';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { api } from '../lib/axios';
-import { today } from '../lib/dayjs';
 
 interface Weekday {
   id: number;
@@ -38,7 +38,7 @@ export const DepartamentProvider: React.FC<{ children: React.ReactNode }> = ({
         const response = await api.get<Departament[]>('/departaments');
         const updatedDepartaments = response.data.map((departament) => {
           const isActive = departament.weekdays.some(
-            (weekday) => weekday.day === today // Certifique-se de que 'today' está definido
+            (weekday) => weekday.day === dayjs().day() // Certifique-se de que 'today' está definido
           );
 
           return {

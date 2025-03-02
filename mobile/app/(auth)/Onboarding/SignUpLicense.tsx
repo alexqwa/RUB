@@ -107,8 +107,8 @@ export default function SignUpLicense() {
               </View>
               <ButtonSubmit
                 title="Concluir cadastro"
-                data={licenseKey}
                 loading={loading}
+                isActive={licenseKey}
                 onPress={handleCreateUser}
               />
             </View>

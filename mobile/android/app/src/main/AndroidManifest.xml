@@ -28,7 +28,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="myapp"/>
-        <data android:scheme="com.outumegames.rubunlocked"/>
+        <data android:scheme="com.outumegames.rub"/>
         <data android:scheme="exp+rub-unlocked"/>
       </intent-filter>
     </activity>
