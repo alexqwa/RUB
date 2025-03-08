@@ -20,7 +20,7 @@ export default function SignUpFinished() {
         onPress={() => router.replace('/(auth)')}
         className="absolute bottom-20 h-14 bg-shapes-green_400 w-full max-w-[85%] rounded-lg items-center justify-center"
       >
-        <Text className="text-white font-poppins_600 text-base">
+        <Text className="text-white font-archivo_600 text-base">
           Fazer login
         </Text>
       </TouchableOpacity>
