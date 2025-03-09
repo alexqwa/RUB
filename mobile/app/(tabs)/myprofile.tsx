@@ -43,31 +43,14 @@ export default function MyProfile() {
   return (
     <View className="bg-shapes-gray_200 flex-1 items-center">
       <Header title="Meu perfil" />
+      <View className="items-center justify-center bg-shapes-purple_400 w-full h-[330px]">
+        <Bubbles />
+      </View>
       <ScrollView
-        className="w-full flex-1"
+        className="w-full flex-1 -mt-[330px]"
         contentContainerStyle={{ alignItems: 'center', paddingBottom: 40 }}
         showsVerticalScrollIndicator={false}
       >
-        <View className="items-center bg-shapes-purple_400 justify-center w-full py-10 space-y-6">
-          <View className="absolute opacity-80">
-            <Bubbles />
-          </View>
-          <View className="rounded-full items-center justify-center w-36 h-36 bg-white border border-[#E6E6F0]">
-            <MaterialIcons name="face" size={100} color="#E6E6F0" />
-          </View>
-          <View className="items-center space-y-1">
-            <Text className="font-archivo_700 text-white text-2xl">
-              {licenses.map((license) => license.user?.name)}
-            </Text>
-            <Text
-              numberOfLines={1}
-              className="text-[#D4C2FF] font-poppins_400 text-sm max-w-[85%] bg-shapes-purple_400"
-            >
-              {licenses.map((license) => license.key)}
-            </Text>
-          </View>
-        </View>
-
         {loading ? (
           <View className="py-10 items-center space-y-2">
             <ActivityIndicator size="small" color="#32264D" />
@@ -81,25 +64,43 @@ export default function MyProfile() {
             className="w-full max-w-[85%] -mt-4"
             keyExtractor={(item) => String(item.key)}
             renderItem={({ item }) => {
-              const timeLeftFormatted = formatTimeLeft(item.expiresAt);
+              const timeLeft = formatTimeLeft(item.expiresAt);
 
               return (
-                <ProfileCard
-                  name={item.user?.name}
-                  lastName={item.user?.lastName}
-                  licenseKey={item.key}
-                  createdAt={dayjs(item.createdAt).format(
-                    'DD/MM/YYYY [às] H:mm A'
-                  )}
-                  expiresAt={timeLeftFormatted}
-                  onPress={() => {
-                    try {
-                      deleteLicense(item.id);
-                    } catch (error) {
-                      console.error('Erro ao deletar licença!', error);
-                    }
-                  }}
-                />
+                <>
+                  <View className="items-center justify-center w-full py-10 space-y-6">
+                    <View className="rounded-full items-center justify-center w-36 h-36 bg-white border border-[#E6E6F0]">
+                      <MaterialIcons name="face" size={100} color="#E6E6F0" />
+                    </View>
+                    <View className="items-center space-y-1">
+                      <Text className="font-archivo_700 text-white text-2xl">
+                        {item.user?.name}
+                      </Text>
+                      <Text
+                        numberOfLines={1}
+                        className="text-[#D4C2FF] font-poppins_400 text-sm max-w-[85%]"
+                      >
+                        {item.key}
+                      </Text>
+                    </View>
+                  </View>
+                  <ProfileCard
+                    name={item.user?.name}
+                    lastName={item.user?.lastName}
+                    licenseKey={item.key}
+                    createdAt={dayjs(item.createdAt).format(
+                      'DD/MM/YYYY [às] H:mm A'
+                    )}
+                    expiresAt={timeLeft}
+                    onPress={() => {
+                      try {
+                        deleteLicense(item.id);
+                      } catch (error) {
+                        console.error('Erro ao deletar licença!', error);
+                      }
+                    }}
+                  />
+                </>
               );
             }}
             showsVerticalScrollIndicator={false}

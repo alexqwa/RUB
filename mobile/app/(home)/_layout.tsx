@@ -45,7 +45,7 @@ export default function HomeLayout() {
           }}
         />
         <Tabs.Screen
-          name="tags"
+          name="Tags"
           options={{
             title: 'Etiquetas',
             tabBarIcon: ({ color }) => (
