@@ -15,7 +15,7 @@ import { Warning } from '@/src/components/ui/Warning';
 import { Departament } from '@/src/components/ui/Departament';
 import { EnvironmentsDate } from '@/src/components/ui/EnvironmentsDate';
 
-export default function Tags() {
+export default function Tickets() {
   const { departaments, loading } = useDepartament();
 
   return (
