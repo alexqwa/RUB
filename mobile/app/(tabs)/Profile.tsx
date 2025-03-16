@@ -15,7 +15,7 @@ import { useLicense } from '@/src/context/LicenseContext';
 import { Header } from '@/src/components/ui/Header';
 import { ProfileCard } from '@/src/components/ui/ProfileCard';
 
-export default function MyProfile() {
+export default function Profile() {
   const [loading, setLoading] = useState(true);
   const { licenses, deleteLicense } = useLicense();
 
