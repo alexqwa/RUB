@@ -38,7 +38,7 @@ export const DepartamentProvider: React.FC<{ children: React.ReactNode }> = ({
         const response = await api.get<Departament[]>('/departaments');
         const updatedDepartaments = response.data.map((departament) => {
           const isActive = departament.weekdays.some(
-            (weekday) => weekday.day === dayjs().day() // Certifique-se de que 'today' está definido
+            (weekday) => weekday.day === dayjs().day()
           );
 
           return {
