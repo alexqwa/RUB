@@ -1,9 +1,9 @@
 {
   "expo": {
     "newArchEnabled": true,
-    "name": "RUB UNLOCKED",
+    "name": "Rub",
     "slug": "rub-unlocked",
-    "version": "1.2.4",
+    "version": "1.2.9",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#6842c2"
       },
-      "package": "com.outumegames.rubunlocked"
+      "package": "com.outumegames.rub"
     },
     "web": {
       "bundler": "metro",

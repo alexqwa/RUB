@@ -17,6 +17,7 @@ import * as SplashScreen from 'expo-splash-screen';
 
 import '@/src/lib/dayjs';
 import { LicenseProvider } from '@/src/context/LicenseContext';
+import { RevenueCatProvider } from '@/src/context/RevenueCatContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -42,21 +43,23 @@ export default function RootLayout() {
   }
 
   return (
-    <LicenseProvider>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="(auth)" />
-        <Stack.Screen name="(home)" />
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-      <StatusBar
-        translucent
-        barStyle={'light-content'}
-        backgroundColor="#774dd6"
-      />
-    </LicenseProvider>
+    <RevenueCatProvider>
+      <LicenseProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(home)" />
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+        <StatusBar
+          translucent
+          barStyle={'light-content'}
+          backgroundColor="#774dd6"
+        />
+      </LicenseProvider>
+    </RevenueCatProvider>
   );
 }
