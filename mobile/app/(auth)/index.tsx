@@ -14,13 +14,16 @@ import {
 import Logo from '@/src/assets/logo.svg';
 import Bubbles from '@/src/assets/bubbles.svg';
 
-import { useLicense } from '@/src/context/LicenseContext';
 import { useLicenseKey } from '@/src/hooks/useLicenseKey';
+
+import { useLicense } from '@/src/context/LicenseContext';
+import { useRevenueCat } from '@/src/context/RevenueCatContext';
 
 import { Checkbox } from '@/src/components/interactives/Checkbox';
 import { ButtonSubmit } from '@/src/components/interactives/ButtonSubmit';
 
 export default function SignIn() {
+  const { user } = useRevenueCat();
   const { verifyLicense } = useLicense();
   const {
     licenseKey,

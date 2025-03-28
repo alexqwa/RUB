@@ -91,19 +91,13 @@ export const RevenueCatProvider: React.FC<{ children: ReactNode }> = ({
     const newUser: User = { items: [], pro: false };
     console.log('Informações do usuário: ', customerInfo?.entitlements.active);
 
-    if (customerInfo?.entitlements.active.Monthly !== undefined) {
-      newUser.items.push(customerInfo?.entitlements.active.Monthly.identifier);
-      newUser.pro = true;
-    }
-    if (customerInfo?.entitlements.active.Quarterly !== undefined) {
-      newUser.items.push(
-        customerInfo?.entitlements.active.Quarterly.identifier
-      );
-      newUser.pro = true;
-    }
-    if (customerInfo?.entitlements.active.Annual !== undefined) {
-      newUser.items.push(customerInfo?.entitlements.active.Annual.identifier);
-      newUser.pro = true;
+    const activeEntitlements = customerInfo?.entitlements.active;
+
+    for (const entitlement in activeEntitlements) {
+      if (activeEntitlements[entitlement]) {
+        newUser.items.push(activeEntitlements[entitlement].identifier);
+        newUser.pro = true;
+      }
     }
 
     setUser(newUser);
@@ -113,19 +107,15 @@ export const RevenueCatProvider: React.FC<{ children: ReactNode }> = ({
     try {
       await Purchases.purchasePackage(pack);
       console.log('Package para compra: ', pack);
-
-      if (pack.product.identifier === 'monthly_subscription') {
-        setUser({ ...user });
-      }
-      if (pack.product.identifier === 'quarterly_subscription') {
-        setUser({ ...user });
-      }
-      if (pack.product.identifier === 'annual_subscription') {
-        setUser({ ...user });
-      }
+      setUser((prevUser) => ({
+        ...prevUser,
+        items: [...prevUser.items, pack.product.identifier],
+        pro: true,
+      }));
     } catch (err: any) {
       if (!err.userCancelled) {
-        alert(err);
+        console.error('Purchase error: ', err);
+        alert('Ocorreu um erro ao processar sua compra. Tente novamente.');
       }
     }
   }
