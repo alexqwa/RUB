@@ -3,7 +3,7 @@
     "newArchEnabled": true,
     "name": "Rub",
     "slug": "rub-unlocked",
-    "version": "1.3.0",
+    "version": "1.3.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",

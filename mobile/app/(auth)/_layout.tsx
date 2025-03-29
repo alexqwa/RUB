@@ -7,15 +7,11 @@ export default function AuthLayout() {
       <Stack
         screenOptions={{
           headerShown: false,
-          animation: 'fade',
-          animationDuration: 100,
         }}
       >
         <Stack.Screen name="index" />
-        <Stack.Screen name="Onboarding/Pricing" />
-        <Stack.Screen name="Onboarding/SignUpUser" />
-        <Stack.Screen name="Onboarding/SignUpLicense" />
-        <Stack.Screen name="Onboarding/SignUpFinished" />
+        <Stack.Screen name="Pricing" />
+        <Stack.Screen name="Authentication" />
       </Stack>
       <StatusBar
         translucent

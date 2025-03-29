@@ -1,110 +1,95 @@
+import clsx from 'clsx';
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { Feather } from '@expo/vector-icons';
 import {
   View,
   Text,
-  Platform,
-  TextInput,
   Dimensions,
-  ScrollView,
   TouchableOpacity,
-  KeyboardAvoidingView,
+  ActivityIndicator,
 } from 'react-native';
 
 import Logo from '@/src/assets/logo.svg';
 import Bubbles from '@/src/assets/bubbles.svg';
 
-import { useLicenseKey } from '@/src/hooks/useLicenseKey';
-
-import { useLicense } from '@/src/context/LicenseContext';
+import { ExitModal } from '@/src/components/ui/ExitModal';
 import { useRevenueCat } from '@/src/context/RevenueCatContext';
-
-import { Checkbox } from '@/src/components/interactives/Checkbox';
-import { ButtonSubmit } from '@/src/components/interactives/ButtonSubmit';
+import { useExitConfirmation } from '@/src/hooks/useExitConfirmation';
 
 export default function SignIn() {
   const { user } = useRevenueCat();
-  const { verifyLicense } = useLicense();
-  const {
-    licenseKey,
-    isChecked,
-    handleCheckboxChange,
-    handleLicenseKeyChange,
-  } = useLicenseKey();
+  const { handleCancel, handleExit, modalVisible } = useExitConfirmation();
 
-  const [loading, setLoading] = useState(false);
   const { height } = Dimensions.get('window');
   const viewHeight = height * 0.4;
 
-  async function handleVerify() {
-    setLoading(true);
-    try {
-      await verifyLicense(licenseKey);
-    } catch (error) {
-      console.log('Erro ao verificar a licença. Tente novamente.');
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
     <View className="flex-1 items-center bg-shapes-background">
-      <KeyboardAvoidingView
-        className="flex-1 w-full"
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      <ExitModal
+        visible={modalVisible}
+        onConfirm={handleExit}
+        onCancel={handleCancel}
+      />
+      <View
+        style={{ height: viewHeight }}
+        className={`relative bg-shapes-purple_500 w-full items-center justify-center`}
       >
-        <ScrollView
-          contentContainerStyle={{ alignItems: 'center', paddingBottom: 30 }}
-          showsVerticalScrollIndicator={false}
-        >
-          <View
-            style={{ height: viewHeight }}
-            className={`relative bg-shapes-purple_500 w-full items-center justify-center`}
+        <Bubbles />
+        <View className="absolute top-[45%]">
+          <Logo />
+        </View>
+      </View>
+      <View className="w-full max-w-[85%] mt-14 bg-shapes-background">
+        <View className="space-y-2">
+          <Text className="text-3xl font-poppins_600 text-[#32264D]">
+            Acessar conta!
+          </Text>
+          <Text className="text-[#6A6180] font-poppins_400 text-base">
+            Para acessar você precisa de uma{'\n'}assinatura! Caso não tenha,
+            {'\n'}compre abaixo!
+          </Text>
+        </View>
+        <View className="mt-10 space-y-3">
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => router.push('/Pricing')}
+            className="h-14 rounded-lg bg-shapes-purple_500 items-center flex-row justify-center space-x-2"
           >
-            <Bubbles />
-            <View className="absolute top-[45%]">
-              <Logo />
-            </View>
-          </View>
-          <View className="w-full max-w-[85%] mt-14 bg-shapes-background">
-            <View className="flex-row items-center justify-between mb-6">
-              <Text className="text-3xl font-poppins_600 text-[#32264D]">
-                Fazer login
-              </Text>
-              <TouchableOpacity
-                onPress={() => router.push('/(auth)/Onboarding/SignUpUser')}
-                activeOpacity={0.7}
-                className="mb-2"
-              >
-                <Text className="text-sm text-[#8257E5] font-poppins_400">
-                  Criar uma conta
+            <Feather name="dollar-sign" color="#fff" size={18} />
+            <Text className="text-white font-archivo_600 text-base">
+              Comprar assinatura
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            disabled={!user.pro}
+            activeOpacity={0.7}
+            onPress={() => router.push('/Authentication')}
+            className={clsx(
+              'h-14 rounded-lg bg-shapes-gray_400 items-center justify-center',
+              {
+                ['bg-shapes-green_400']: user.pro,
+              }
+            )}
+          >
+            {!user.pro ? (
+              <View className="flex-row items-center justify-center space-x-3">
+                <ActivityIndicator size="small" color="#32264D" />
+                <Text className="text-[#9C98A6] font-archivo_600 text-base">
+                  Nenhuma assinatura ativa!
                 </Text>
-              </TouchableOpacity>
-            </View>
-            <View className="space-y-6">
-              <TextInput
-                editable={!loading}
-                value={licenseKey.trim()}
-                onChangeText={handleLicenseKeyChange}
-                placeholderTextColor="#9C98A6"
-                className="h-16 bg-[#FAFAFC] rounded-lg border border-[#E6E6F0] px-6 font-poppins_400 text-sm text-[#6A6180]"
-                placeholder="Sua licença"
-              />
-              <Checkbox
-                title="Lembrar-me"
-                isChecked={isChecked}
-                onPress={() => handleCheckboxChange(!isChecked)}
-              />
-              <ButtonSubmit
-                title="Entrar"
-                loading={loading}
-                isActive={licenseKey}
-                onPress={handleVerify}
-              />
-            </View>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+              </View>
+            ) : (
+              <Text
+                className={clsx('text-[#9C98A6] font-archivo_600 text-base', {
+                  ['text-white']: user.pro,
+                })}
+              >
+                Entrar
+              </Text>
+            )}
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 }

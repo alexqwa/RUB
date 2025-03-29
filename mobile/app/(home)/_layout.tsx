@@ -3,13 +3,11 @@ import { Feather } from '@expo/vector-icons';
 import { Platform, StatusBar } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { DepartamentProvider } from '@/src/context/DepartamentContext';
-
 export default function HomeLayout() {
   const insets = useSafeAreaInsets();
 
   return (
-    <DepartamentProvider>
+    <>
       <Tabs
         screenOptions={{
           headerShown: false,
@@ -59,6 +57,6 @@ export default function HomeLayout() {
         barStyle={'light-content'}
         backgroundColor="#774dd6"
       />
-    </DepartamentProvider>
+    </>
   );
 }

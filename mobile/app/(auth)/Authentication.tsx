@@ -59,7 +59,7 @@ export default function Authentication() {
                 className="h-16 bg-[#FAFAFC] rounded-lg border border-[#E6E6F0] px-6 font-poppins_400 text-sm text-[#6A6180]"
               />
               <ButtonSubmit
-                onPress={() => router.replace('/(home)')}
+                onPress={() => router.push('/(home)')}
                 title="Conectar-se ao sevidor"
                 isActive={registerNumber}
               />
