@@ -1,4 +1,5 @@
 import { Feather } from '@expo/vector-icons';
+import clsx from 'clsx';
 import {
   View,
   Text,
@@ -9,6 +10,7 @@ import {
 interface PriceCardProps extends TouchableOpacityProps {
   title: string;
   price: string;
+  isActive: boolean;
 }
 
 const features = [
@@ -18,7 +20,7 @@ const features = [
   'Todo os setores na palma da mão',
 ];
 
-export function PriceCard({ title, price, ...rest }: PriceCardProps) {
+export function PriceCard({ title, price, isActive, ...rest }: PriceCardProps) {
   return (
     <View className="bg-white rounded-lg border border-shapes-gray_400 divide-y-[1px] divide-shapes-gray_400 mt-6">
       <View className="p-6">
@@ -38,10 +40,18 @@ export function PriceCard({ title, price, ...rest }: PriceCardProps) {
       <View className="p-6">
         <TouchableOpacity
           {...rest}
+          disabled={isActive}
           activeOpacity={0.7}
-          className="h-[60px] items-center justify-center bg-shapes-purple_400 rounded-lg"
+          className={clsx(
+            'h-[60px] items-center justify-center bg-shapes-purple_400 rounded-lg',
+            {
+              ['bg-shapes-green_400']: isActive,
+            }
+          )}
         >
-          <Text className="font-archivo_600 text-white">Assinar agora</Text>
+          <Text className="font-archivo_600 text-white">
+            {isActive ? 'Ativa!' : 'Assinar agora'}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

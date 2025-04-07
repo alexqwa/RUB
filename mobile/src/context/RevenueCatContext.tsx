@@ -1,4 +1,4 @@
-import { Platform, View, Text } from 'react-native';
+import { Platform } from 'react-native';
 import {
   createContext,
   useContext,
@@ -25,9 +25,12 @@ interface User {
 interface RevenueCatContextType {
   user: User;
   packages: PurchasesPackage[];
+  activeSubscriptions: string[];
   purchasePackage: (pack: PurchasesPackage) => Promise<void>;
   restorePurchasesUser?: () => Promise<CustomerInfo>;
   loading: boolean;
+  visible: boolean;
+  onCancel: () => void;
 }
 
 const RevenueCatContext = createContext<RevenueCatContextType | null>(null);
@@ -40,7 +43,9 @@ export const RevenueCatProvider: React.FC<{ children: ReactNode }> = ({
     pro: false,
   });
   const [loading, setLoading] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [packages, setPackages] = useState<PurchasesPackage[]>([]);
+  const [activeSubscriptions, setActiveSubscriptions] = useState<string[]>([]);
 
   useEffect(() => {
     async function Init() {
@@ -58,13 +63,16 @@ export const RevenueCatProvider: React.FC<{ children: ReactNode }> = ({
       await loadOfferings();
 
       const customer = await Purchases.restorePurchases();
-      const activeSubscription = customer.activeSubscriptions;
-      console.log('Assinaturas ativas: ', activeSubscription);
+      const activeSubscriptionsFromCustomer = customer.activeSubscriptions;
+      console.log('Assinaturas ativas: ', activeSubscriptionsFromCustomer);
 
       const newUser: User = { items: [], pro: false };
-      if (activeSubscription.length > 0) {
-        newUser.items.push(...activeSubscription);
+      if (activeSubscriptionsFromCustomer.length > 0) {
+        newUser.items.push(...activeSubscriptionsFromCustomer);
         newUser.pro = true;
+        setActiveSubscriptions(activeSubscriptionsFromCustomer); // Atualiza o estado com as assinaturas ativas
+      } else {
+        setActiveSubscriptions([]); // Garante que o estado seja limpo se não houver assinaturas ativas
       }
 
       setUser(newUser);
@@ -89,32 +97,49 @@ export const RevenueCatProvider: React.FC<{ children: ReactNode }> = ({
 
   async function updateCustomerInfo(customerInfo: CustomerInfo) {
     const newUser: User = { items: [], pro: false };
-    console.log('Informações do usuário: ', customerInfo?.entitlements.active);
 
     const activeEntitlements = customerInfo?.entitlements.active;
 
-    for (const entitlement in activeEntitlements) {
-      if (activeEntitlements[entitlement]) {
-        newUser.items.push(activeEntitlements[entitlement].identifier);
-        newUser.pro = true;
-      }
-    }
+    if (activeEntitlements && typeof activeEntitlements === 'object') {
+      const activeSubscriptionIdentifiers: string[] = [];
 
+      Object.values(activeEntitlements).forEach((entitlement) => {
+        if (entitlement) {
+          newUser.items.push(entitlement.identifier);
+          activeSubscriptionIdentifiers.push(entitlement.identifier);
+          newUser.pro = true;
+        }
+      });
+
+      setActiveSubscriptions(activeSubscriptionIdentifiers);
+    } else {
+      setActiveSubscriptions([]);
+    }
     setUser(newUser);
   }
 
   async function purchasePackage(pack: PurchasesPackage) {
     try {
-      await Purchases.purchasePackage(pack);
-      console.log('Package para compra: ', pack);
-      setUser((prevUser) => ({
-        ...prevUser,
-        items: [...prevUser.items, pack.product.identifier],
-        pro: true,
-      }));
+      const purchaseResult = await Purchases.purchasePackage(pack);
+
+      setUser((prevUser) => {
+        const newItems = [...prevUser.items, pack.product.identifier];
+        return {
+          ...prevUser,
+          items: newItems,
+          pro: true,
+        };
+      });
+
+      setActiveSubscriptions((prevSubscriptions) => {
+        return [...prevSubscriptions, pack.product.identifier];
+      });
+      setVisible(true);
     } catch (err: any) {
-      if (!err.userCancelled) {
-        console.error('Purchase error: ', err);
+      if (err.userCancelled) {
+        console.log('Compra cancelada pelo usuário.');
+      } else {
+        console.error('Erro na compra: ', err);
         alert('Ocorreu um erro ao processar sua compra. Tente novamente.');
       }
     }
@@ -132,8 +157,15 @@ export const RevenueCatProvider: React.FC<{ children: ReactNode }> = ({
     packages,
     purchasePackage,
     restorePurchasesUser,
+    activeSubscriptions,
     loading,
+    visible,
+    onCancel,
   };
+
+  function onCancel() {
+    setVisible(false);
+  }
 
   return (
     <RevenueCatContext.Provider value={value}>
