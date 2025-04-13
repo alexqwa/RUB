@@ -70,9 +70,9 @@ export const RevenueCatProvider: React.FC<{ children: ReactNode }> = ({
       if (activeSubscriptionsFromCustomer.length > 0) {
         newUser.items.push(...activeSubscriptionsFromCustomer);
         newUser.pro = true;
-        setActiveSubscriptions(activeSubscriptionsFromCustomer); // Atualiza o estado com as assinaturas ativas
+        setActiveSubscriptions(activeSubscriptionsFromCustomer);
       } else {
-        setActiveSubscriptions([]); // Garante que o estado seja limpo se não houver assinaturas ativas
+        setActiveSubscriptions([]);
       }
 
       setUser(newUser);
@@ -122,18 +122,25 @@ export const RevenueCatProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const purchaseResult = await Purchases.purchasePackage(pack);
 
+      // Atualiza o estado do usuário para adicionar a nova assinatura
       setUser((prevUser) => {
-        const newItems = [...prevUser.items, pack.product.identifier];
+        const newItems = prevUser.items.includes(pack.product.identifier)
+          ? prevUser.items // Mantém os itens se já existir
+          : [...prevUser.items, pack.product.identifier]; // Adiciona nova assinatura
+
         return {
           ...prevUser,
           items: newItems,
-          pro: true,
+          pro: newItems.length > 0, // Define a propriedade pro com base nas assinaturas
         };
       });
 
       setActiveSubscriptions((prevSubscriptions) => {
-        return [...prevSubscriptions, pack.product.identifier];
+        return prevSubscriptions.includes(pack.product.identifier)
+          ? prevSubscriptions // Mantém se já existir
+          : [...prevSubscriptions, pack.product.identifier]; // Adiciona nova assinatura
       });
+
       setVisible(true);
     } catch (err: any) {
       if (err.userCancelled) {

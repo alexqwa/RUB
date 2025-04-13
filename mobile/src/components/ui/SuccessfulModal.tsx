@@ -15,7 +15,7 @@ interface SuccessfullModalProps extends TouchableOpacityProps {
 
 export function SuccessfulModal({ visible, onCancel }: SuccessfullModalProps) {
   return (
-    <Modal transparent animationType="fade" visible={visible}>
+    <Modal transparent animationType="none" visible={visible}>
       <View className="flex-1 items-center justify-center bg-black/30">
         <View className="divide-y-[1px] max-w-[85%] w-full divide-[#E6E6F0]">
           <View className="bg-white rounded-t-lg p-6 items-center justify-center space-y-2">

@@ -39,9 +39,7 @@ export default function Pricing() {
             data={packages}
             keyExtractor={(item) => item.product.identifier}
             renderItem={({ item }) => {
-              const isActive = activeSubscriptions.includes(
-                item.product.identifier
-              );
+              const isActive = activeSubscriptions.length > 0;
 
               return (
                 <PriceCard

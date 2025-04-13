@@ -50,7 +50,7 @@ export function PriceCard({ title, price, isActive, ...rest }: PriceCardProps) {
           )}
         >
           <Text className="font-archivo_600 text-white">
-            {isActive ? 'Ativa!' : 'Assinar agora'}
+            {isActive ? 'Assinatura ativa no momento!' : 'Assinar agora'}
           </Text>
         </TouchableOpacity>
       </View>

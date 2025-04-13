@@ -13,6 +13,7 @@ import Logo from '@/src/assets/logo.svg';
 import Bubbles from '@/src/assets/bubbles.svg';
 
 import { ExitModal } from '@/src/components/ui/ExitModal';
+
 import { useRevenueCat } from '@/src/context/RevenueCatContext';
 import { useExitConfirmation } from '@/src/hooks/useExitConfirmation';
 
