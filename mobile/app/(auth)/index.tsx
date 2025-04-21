@@ -12,7 +12,7 @@ import {
 import Logo from '@/src/assets/logo.svg';
 import Bubbles from '@/src/assets/bubbles.svg';
 
-import { ExitModal } from '@/src/components/ui/ExitModal';
+import { ExitModal } from '@/src/components/ExitModal';
 
 import { useRevenueCat } from '@/src/context/RevenueCatContext';
 import { useExitConfirmation } from '@/src/hooks/useExitConfirmation';
@@ -25,7 +25,7 @@ export default function SignIn() {
   const viewHeight = height * 0.4;
 
   return (
-    <View className="flex-1 items-center bg-shapes-background">
+    <View className="flex-1 items-center bg-shapes-gray_200">
       <ExitModal
         visible={modalVisible}
         onConfirm={handleExit}
@@ -46,7 +46,7 @@ export default function SignIn() {
             Acessar conta!
           </Text>
           <Text className="text-[#6A6180] font-poppins_400 text-base">
-            Para acessar você precisa de uma{'\n'}assinatura! Caso não tenha,
+            Para acessar você precisa de{'\n'}uma assinatura! Caso não tenha,
             {'\n'}compre abaixo!
           </Text>
         </View>

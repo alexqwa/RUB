@@ -1,8 +1,8 @@
 import { useLocalSearchParams } from 'expo-router';
 import { View, Text, ScrollView } from 'react-native';
 
-import { Header } from '@/src/components/ui/Header';
-import { Dropdown } from '@/src/components/interactives/Dropdown';
+import { Header } from '@/src/components/Header';
+import { Dropdown } from '@/src/components/Dropdown';
 
 const data = [
   '38149: BISC RECH GULOSOS BAUDDUCO 140G',
@@ -17,13 +17,13 @@ const data = [
   '38149: BISC RECH GULOSOS BAUDDUCO 140G',
 ];
 
-export default function StreetRoute() {
-  const { title } = useLocalSearchParams();
+export default function PresenceRoute() {
+  const { title, type, id } = useLocalSearchParams();
 
   return (
     <View className="flex-1 items-center bg-shapes-gray_200">
-      <Header title="Etiquetas" subtitle={title.toString()} back={true} />
-      <View className="w-full flex-1 max-w-[85%] mt-10">
+      <Header title={type.toString()} subtitle={title.toString()} back={true} />
+      <View className="flex-1 w-full max-w-[85%] mt-14">
         <Text className="text-heading font-archivo_700 text-2xl mb-5">
           Formas de manipulação
         </Text>

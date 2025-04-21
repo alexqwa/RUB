@@ -2,10 +2,10 @@ import { View, FlatList, ActivityIndicator, Text } from 'react-native';
 
 import { useRevenueCat } from '@/src/context/RevenueCatContext';
 
-import { Header } from '@/src/components/ui/Header';
-import { PriceCard } from '@/src/components/ui/PriceCard';
+import { Header } from '@/src/components/Header';
+import { PriceCard } from '@/src/components/PriceCard';
 import { PurchasesPackage } from 'react-native-purchases';
-import { SuccessfulModal } from '@/src/components/ui/SuccessfulModal';
+import { SuccessfulModal } from '@/src/components/SuccessfulModal';
 
 export default function Pricing() {
   const {

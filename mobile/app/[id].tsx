@@ -3,17 +3,17 @@ import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 
 import { useStreetsByEnvironment } from '@/src/hooks/useStreetsByEnvironment';
 
-import { Header } from '@/src/components/ui/Header';
-import { Street } from '@/src/components/ui/Street';
+import { Header } from '@/src/components/Header';
+import { Street } from '@/src/components/Street';
 
-export default function StreetRoute() {
-  const { id, title } = useLocalSearchParams();
+export default function PresenceRoute() {
+  const { id, title, type } = useLocalSearchParams();
   const { streets, loading } = useStreetsByEnvironment(id.toString());
 
   return (
     <View className="flex-1 items-center bg-shapes-gray_200">
-      <Header title="Etiquetas" subtitle={title.toString()} back={true} />
-      <View className="w-full flex-1 max-w-[85%] mt-10">
+      <Header title={type.toString()} subtitle={title.toString()} back={true} />
+      <View className="flex-1 w-full max-w-[85%] mt-14">
         <Text className="text-heading font-archivo_700 text-2xl mb-5">
           Corredores
         </Text>
@@ -33,14 +33,11 @@ export default function StreetRoute() {
               <Street
                 title={item.title}
                 isActive={item.isActive}
-                onPress={
-                  item.isActive
-                    ? () =>
-                        router.push({
-                          pathname: '/tags/street/[id]',
-                          params: { id: item.code, title: item.title },
-                        })
-                    : undefined
+                onPress={() =>
+                  router.push({
+                    pathname: '/details/[id]',
+                    params: { id: item.code, title: item.title, type: type },
+                  })
                 }
               />
             )}

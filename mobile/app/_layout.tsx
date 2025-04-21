@@ -2,6 +2,7 @@ import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'react-native';
 import React, { useEffect } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
 import {
   Archivo_400Regular,
   Archivo_600SemiBold,
@@ -13,7 +14,6 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
-import * as SplashScreen from 'expo-splash-screen';
 
 import '@/src/lib/dayjs';
 import { RevenueCatProvider } from '@/src/context/RevenueCatContext';

@@ -10,10 +10,10 @@ import {
 
 import { useDepartament } from '@/src/context/DepartamentContext';
 
-import { Header } from '@/src/components/ui/Header';
-import { Warning } from '@/src/components/ui/Warning';
-import { Departament } from '@/src/components/ui/Departament';
-import { EnvironmentsDate } from '@/src/components/ui/EnvironmentsDate';
+import { Header } from '@/src/components/Header';
+import { Warning } from '@/src/components/Warning';
+import { Departament } from '@/src/components/Departament';
+import { EnvironmentsDate } from '@/src/components/EnvironmentsDate';
 
 export default function Home() {
   const { departaments, loading } = useDepartament();
@@ -23,39 +23,46 @@ export default function Home() {
       <Header title="Auditoria de Presença" />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        className="flex-1 w-full max-w-[85%] pt-10"
+        contentContainerStyle={{ alignItems: 'center' }}
+        className="flex-1 w-full mt-14"
       >
-        <EnvironmentsDate />
-        {loading ? (
-          <View className="py-10 items-center space-y-2">
-            <ActivityIndicator size="small" color="#32264D" />
-            <Text className="font-archivo_700 text-base text-heading">
-              Carregando informações!
-            </Text>
-          </View>
-        ) : (
-          <>
-            <FlatList
-              data={departaments}
-              keyExtractor={(item) => String(item.id)}
-              renderItem={({ item }) => (
-                <Departament
-                  title={item.title}
-                  isActive={item.isActive}
-                  onPress={() =>
-                    router.push({
-                      pathname: '/presence/[id]',
-                      params: { id: item.id, title: item.title },
-                    })
-                  }
-                />
-              )}
-              showsVerticalScrollIndicator={false}
-              scrollEnabled={false}
-            />
-            <Warning />
-          </>
-        )}
+        <View className="w-full max-w-[85%]">
+          <EnvironmentsDate />
+          {loading ? (
+            <View className="py-10 items-center space-y-2">
+              <ActivityIndicator size="small" color="#32264D" />
+              <Text className="font-archivo_700 text-base text-heading">
+                Carregando informações!
+              </Text>
+            </View>
+          ) : (
+            <>
+              <FlatList
+                data={departaments}
+                keyExtractor={(item) => String(item.id)}
+                renderItem={({ item }) => (
+                  <Departament
+                    title={item.title}
+                    isActive={item.isActive}
+                    onPress={() =>
+                      router.push({
+                        pathname: '/[id]',
+                        params: {
+                          id: item.id,
+                          title: item.title,
+                          type: 'Presença',
+                        },
+                      })
+                    }
+                  />
+                )}
+                showsVerticalScrollIndicator={false}
+                scrollEnabled={false}
+              />
+              <Warning />
+            </>
+          )}
+        </View>
       </ScrollView>
     </View>
   );
