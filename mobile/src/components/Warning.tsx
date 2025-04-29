@@ -4,7 +4,7 @@ import Icon from '@/src/assets/warning.svg';
 
 export function Warning() {
   return (
-    <View className="flex-row items-center mt-10">
+    <View className="flex-row items-center mt-8">
       <Icon />
       <View className="ml-3">
         <Text className="text-[#8257E5] text-sm font-poppins_400">

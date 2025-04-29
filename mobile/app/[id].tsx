@@ -19,7 +19,7 @@ export default function PresenceRoute() {
         </Text>
 
         {loading ? (
-          <View className="py-10 items-center space-y-2">
+          <View className="flex-1 justify-center items-center space-y-2">
             <ActivityIndicator size="small" color="#32264D" />
             <Text className="font-archivo_700 text-base text-heading">
               Carregando informações!

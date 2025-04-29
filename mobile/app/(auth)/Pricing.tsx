@@ -5,17 +5,10 @@ import { useRevenueCat } from '@/src/context/RevenueCatContext';
 import { Header } from '@/src/components/Header';
 import { PriceCard } from '@/src/components/PriceCard';
 import { PurchasesPackage } from 'react-native-purchases';
-import { SuccessfulModal } from '@/src/components/SuccessfulModal';
 
 export default function Pricing() {
-  const {
-    packages,
-    purchasePackage,
-    activeSubscriptions,
-    loading,
-    visible,
-    onCancel,
-  } = useRevenueCat();
+  const { packages, purchasePackage, activeSubscriptions, loading } =
+    useRevenueCat();
 
   async function handlePurchase(pack: PurchasesPackage) {
     await purchasePackage(pack);
@@ -24,7 +17,6 @@ export default function Pricing() {
   return (
     <View className="bg-shapes-gray_200 flex-1 items-center">
       <Header title="Assinaturas" back />
-      <SuccessfulModal visible={visible} onCancel={onCancel} />
       <View className="max-w-[85%] w-full flex-1">
         {loading ? (
           <View className="flex-1 justify-center items-center space-y-2">

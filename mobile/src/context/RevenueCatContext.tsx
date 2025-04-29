@@ -29,8 +29,6 @@ interface RevenueCatContextType {
   purchasePackage: (pack: PurchasesPackage) => Promise<void>;
   restorePurchasesUser?: () => Promise<CustomerInfo>;
   loading: boolean;
-  visible: boolean;
-  onCancel: () => void;
 }
 
 const RevenueCatContext = createContext<RevenueCatContextType | null>(null);
@@ -43,7 +41,6 @@ export const RevenueCatProvider: React.FC<{ children: ReactNode }> = ({
     pro: false,
   });
   const [loading, setLoading] = useState(true);
-  const [visible, setVisible] = useState(false);
   const [packages, setPackages] = useState<PurchasesPackage[]>([]);
   const [activeSubscriptions, setActiveSubscriptions] = useState<string[]>([]);
 
@@ -140,8 +137,6 @@ export const RevenueCatProvider: React.FC<{ children: ReactNode }> = ({
           ? prevSubscriptions // Mantém se já existir
           : [...prevSubscriptions, pack.product.identifier]; // Adiciona nova assinatura
       });
-
-      setVisible(true);
     } catch (err: any) {
       if (err.userCancelled) {
         console.log('Compra cancelada pelo usuário.');
@@ -166,13 +161,7 @@ export const RevenueCatProvider: React.FC<{ children: ReactNode }> = ({
     restorePurchasesUser,
     activeSubscriptions,
     loading,
-    visible,
-    onCancel,
   };
-
-  function onCancel() {
-    setVisible(false);
-  }
 
   return (
     <RevenueCatContext.Provider value={value}>
