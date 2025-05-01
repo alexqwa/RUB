@@ -18,7 +18,7 @@ export function Departament({ title, isActive, ...rest }: DepartamentProps) {
       <View className="flex-1 px-4 justify-center">
         <Text
           numberOfLines={1}
-          className="text-heading text-sm font-archivo_600"
+          className="text-heading text-sm font-archivo_600 uppercase"
         >
           {title}
         </Text>
