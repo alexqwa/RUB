@@ -1,5 +1,12 @@
+import { useSharedValue } from 'react-native-reanimated';
 import { router, useLocalSearchParams } from 'expo-router';
-import { View, Text, FlatList, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  ViewToken,
+  ActivityIndicator,
+} from 'react-native';
 
 import { useStreetsByEnvironment } from '@/src/hooks/useStreetsByEnvironment';
 
@@ -9,6 +16,8 @@ import { Street } from '@/src/components/Street';
 export default function PresenceRoute() {
   const { id, title, type } = useLocalSearchParams();
   const { streets, loading } = useStreetsByEnvironment(id.toString());
+
+  const viewableItems = useSharedValue<ViewToken[]>([]);
 
   return (
     <View className="flex-1 items-center bg-shapes-gray_200">
@@ -28,11 +37,18 @@ export default function PresenceRoute() {
         ) : (
           <FlatList
             data={streets}
+            showsVerticalScrollIndicator={false}
             keyExtractor={(item) => String(item.code)}
+            contentContainerStyle={{ paddingBottom: 60 }}
+            onViewableItemsChanged={({ viewableItems: viewItems }) => {
+              viewableItems.value = viewItems;
+            }}
             renderItem={({ item }) => (
               <Street
+                item={item}
                 title={item.title}
                 isActive={item.isActive}
+                viewableItems={viewableItems}
                 onPress={() =>
                   router.push({
                     pathname: '/details/[id]',
@@ -41,8 +57,6 @@ export default function PresenceRoute() {
                 }
               />
             )}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 60 }}
           />
         )}
       </View>

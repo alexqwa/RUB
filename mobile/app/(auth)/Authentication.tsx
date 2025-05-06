@@ -1,9 +1,15 @@
+import clsx from 'clsx';
 import { useState } from 'react';
 import { router } from 'expo-router';
-import { View, Text, TextInput, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 
 import { Header } from '@/src/components/Header';
-import { ButtonSubmit } from '@/src/components/ButtonSubmit';
 
 export default function Authentication() {
   const [registerNumber, setRegisterNumber] = useState('');
@@ -35,18 +41,31 @@ export default function Authentication() {
               <View className="bg-green-500 rounded-full h-2 w-2" />
             </View>
             <TextInput
+              placeholder="CPF"
+              keyboardType="number-pad"
               value={registerNumber.trim()}
               onChangeText={setRegisterNumber}
               placeholderTextColor="#8D8D99"
-              placeholder="CPF"
-              keyboardType="number-pad"
               className="h-16 bg-[#FAFAFC] rounded-lg border border-[#E6E6F0] px-6 font-archivo_400 text-base text-[#6A6180]"
             />
-            <ButtonSubmit
+            <TouchableOpacity
               onPress={() => router.push('/(home)')}
-              title="Conectar-se"
-              isActive={registerNumber}
-            />
+              activeOpacity={0.7}
+              className={clsx(
+                'h-14 rounded-lg bg-shapes-gray_400 items-center justify-center',
+                {
+                  ['bg-shapes-green_400']: registerNumber.length > 0,
+                }
+              )}
+            >
+              <Text
+                className={clsx('text-[#9C98A6] font-archivo_600 text-base', {
+                  ['text-white']: registerNumber.length > 0,
+                })}
+              >
+                Conectar-se
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
