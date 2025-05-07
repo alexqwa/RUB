@@ -1,20 +1,56 @@
-import { Feather } from '@expo/vector-icons';
 import clsx from 'clsx';
+import { Feather } from '@expo/vector-icons';
+import Animated, {
+  withTiming,
+  SharedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 import {
   View,
   Text,
+  ViewToken,
   TouchableOpacity,
   TouchableOpacityProps,
 } from 'react-native';
 
 interface DepartamentProps extends TouchableOpacityProps {
+  item: {
+    id: number;
+  };
   title: string;
   isActive: boolean;
+  viewableItems: SharedValue<ViewToken[]>;
 }
 
-export function Departament({ title, isActive, ...rest }: DepartamentProps) {
+export function Departament({
+  item,
+  title,
+  isActive,
+  viewableItems,
+  ...rest
+}: DepartamentProps) {
+  const rStyle = useAnimatedStyle(() => {
+    const isVisible = Boolean(
+      viewableItems.value
+        .filter((item) => item.isViewable)
+        .find((viewableItem) => viewableItem.item.id === item.id)
+    );
+
+    return {
+      opacity: withTiming(isVisible ? 1 : 0),
+      transform: [
+        {
+          scale: withTiming(isVisible ? 1 : 0),
+        },
+      ],
+    };
+  }, [viewableItems, item.id]);
+
   return (
-    <View className="w-full mb-2 overflow-hidden flex-row h-13 rounded-xl bg-white border border-shapes-gray_400 divide-x-[1px] divide-shapes-gray_400">
+    <Animated.View
+      style={rStyle}
+      className="w-full mb-2 overflow-hidden flex-row h-13 rounded-xl bg-white border border-shapes-gray_400 divide-x-[1px] divide-shapes-gray_400"
+    >
       <View className="flex-1 px-4 justify-center">
         <Text
           numberOfLines={1}
@@ -36,6 +72,6 @@ export function Departament({ title, isActive, ...rest }: DepartamentProps) {
           {isActive ? 'ABERTO' : 'FECHADO'}
         </Text>
       </TouchableOpacity>
-    </View>
+    </Animated.View>
   );
 }

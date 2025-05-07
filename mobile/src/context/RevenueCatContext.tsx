@@ -85,10 +85,9 @@ export const RevenueCatProvider: React.FC<{ children: ReactNode }> = ({
       if (offerings.current) {
         setPackages(offerings.current.availablePackages);
       }
+      setLoading(false);
     } catch (error) {
       console.log('Erro ao carregar ofertas: ', error);
-    } finally {
-      setLoading(false);
     }
   }
 

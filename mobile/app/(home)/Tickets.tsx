@@ -1,6 +1,13 @@
 import React from 'react';
 import { router } from 'expo-router';
-import { View, Text, FlatList, ActivityIndicator } from 'react-native';
+import { useSharedValue } from 'react-native-reanimated';
+import {
+  View,
+  Text,
+  FlatList,
+  ViewToken,
+  ActivityIndicator,
+} from 'react-native';
 
 import { useDepartament } from '@/src/context/DepartamentContext';
 
@@ -11,6 +18,7 @@ import { EnvironmentsDate } from '@/src/components/EnvironmentsDate';
 
 export default function Tickets() {
   const { departaments, loading } = useDepartament();
+  const viewableItems = useSharedValue<ViewToken[]>([]);
 
   return (
     <View className="items-center bg-shapes-gray_200 flex-1">
@@ -28,11 +36,18 @@ export default function Tickets() {
           <View>
             <FlatList
               data={departaments}
+              scrollEnabled={false}
+              showsVerticalScrollIndicator={false}
               keyExtractor={(item) => String(item.id)}
+              onViewableItemsChanged={({ viewableItems: viewItems }) => {
+                viewableItems.value = viewItems;
+              }}
               renderItem={({ item }) => (
                 <Departament
+                  item={item}
                   title={item.title}
                   isActive={item.isActive}
+                  viewableItems={viewableItems}
                   onPress={() =>
                     router.push({
                       pathname: '/[id]',
@@ -45,8 +60,6 @@ export default function Tickets() {
                   }
                 />
               )}
-              showsVerticalScrollIndicator={false}
-              scrollEnabled={false}
             />
             <Warning />
           </View>

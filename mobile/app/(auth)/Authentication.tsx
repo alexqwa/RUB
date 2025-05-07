@@ -49,8 +49,9 @@ export default function Authentication() {
               className="h-16 bg-[#FAFAFC] rounded-lg border border-[#E6E6F0] px-6 font-archivo_400 text-base text-[#6A6180]"
             />
             <TouchableOpacity
-              onPress={() => router.push('/(home)')}
               activeOpacity={0.7}
+              onPress={() => router.push('/(home)')}
+              disabled={registerNumber.length === 0}
               className={clsx(
                 'h-14 rounded-lg bg-shapes-gray_400 items-center justify-center',
                 {

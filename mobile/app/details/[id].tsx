@@ -33,11 +33,7 @@ const data = [
   { id: 24, title: '19834: BOLACHA RECHEADA NESTLÉ 130G', stock: 743 },
   { id: 25, title: '35480: MELHEM DENTAL ORAL B 75ML', stock: 3283 },
   { id: 26, title: '60537: REPELENTE OFF AEROSOL 150ML', stock: 1225 },
-  {
-    id: 27,
-    title: '79231: SABONETE LÍQUIDO PROTETOR NATURAL 250ML',
-    stock: 2410,
-  },
+  { id: 27, title: '79231: PROTETOR NATURAL 250ML', stock: 410 },
   { id: 28, title: '83156: QUEIJO MUÇARELA POLENGHI 500G', stock: 3936 },
   { id: 29, title: '26098: KETCHUP HEINZ TOMATE 397G', stock: 2850 },
   { id: 30, title: '47916: CHOCOLATE AO LEITE GAROTO 90G', stock: 1976 },
@@ -64,7 +60,6 @@ const data = [
 
 export default function PresenceRoute() {
   const { title, type } = useLocalSearchParams();
-
   const viewableItems = useSharedValue<ViewToken[]>([]);
 
   return (
@@ -74,7 +69,7 @@ export default function PresenceRoute() {
         <Text className="text-heading font-archivo_700 text-2xl mb-5">
           Formas de manipulação
         </Text>
-        <View className="flex-1 mt-10">
+        <View className="flex-1">
           <Text className="text-heading text-lg font-archivo_700 mb-4">
             Lista de produtos ({data.length}):
           </Text>
