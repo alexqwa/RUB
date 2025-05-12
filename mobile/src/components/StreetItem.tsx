@@ -15,7 +15,7 @@ interface ListItemProps {
   viewableItems: SharedValue<ViewToken[]>;
 }
 
-const ListItem: React.FC<ListItemProps> = React.memo(
+const StreetItem: React.FC<ListItemProps> = React.memo(
   ({ item, title, stock, viewableItems }) => {
     const rStyle = useAnimatedStyle(() => {
       const isVisible = Boolean(
@@ -54,4 +54,4 @@ const ListItem: React.FC<ListItemProps> = React.memo(
   }
 );
 
-export default ListItem;
+export { StreetItem };

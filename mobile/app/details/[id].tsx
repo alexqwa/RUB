@@ -3,7 +3,9 @@ import { useSharedValue } from 'react-native-reanimated';
 import { View, Text, FlatList, ViewToken } from 'react-native';
 
 import { Header } from '@/src/components/Header';
-import ListItem from '@/src/components/ListItem';
+import { Checkbox } from '@/src/components/Checkbox';
+import { StreetItem } from '@/src/components/StreetItem';
+import { useManipulation } from '@/src/hooks/useManipulation';
 
 const data = [
   { id: 0, title: '38149: BISC RECH GULOSOS BAUDDUCO 140G', stock: 1433 },
@@ -61,6 +63,7 @@ const data = [
 export default function PresenceRoute() {
   const { title, type } = useLocalSearchParams();
   const viewableItems = useSharedValue<ViewToken[]>([]);
+  const { manipulations, toggleManipulation } = useManipulation();
 
   return (
     <View className="flex-1 items-center bg-shapes-gray_200">
@@ -69,7 +72,25 @@ export default function PresenceRoute() {
         <Text className="text-heading font-archivo_700 text-2xl mb-5">
           Formas de manipulação
         </Text>
-        <View className="flex-1">
+
+        <View className="gap-3 w-[65%]">
+          {manipulations.map((manipulation) => {
+            return (
+              <View>
+                <Checkbox
+                  key={manipulation.id}
+                  label={manipulation.name}
+                  checked={manipulation.selected}
+                  onPress={() => {
+                    toggleManipulation(manipulation.id);
+                  }}
+                />
+              </View>
+            );
+          })}
+        </View>
+
+        <View className="flex-1 mt-6">
           <Text className="text-heading text-lg font-archivo_700 mb-4">
             Lista de produtos ({data.length}):
           </Text>
@@ -82,7 +103,7 @@ export default function PresenceRoute() {
               viewableItems.value = viewItems;
             }}
             renderItem={({ item }) => (
-              <ListItem
+              <StreetItem
                 item={item}
                 title={item.title}
                 stock={item.stock}
