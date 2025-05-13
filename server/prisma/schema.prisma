@@ -32,14 +32,26 @@ model Weekday {
   @@map("weekdays")
 }
 
+model Product {
+  id         Int     @id @default(autoincrement())
+  code       String
+  title      String
+  stock      Int
+  streetCode String?
+  street     Street? @relation(fields: [streetCode], references: [code], onDelete: Cascade)
+
+  @@map("products")
+}
+
 model Street {
   id            Int         @id @default(autoincrement())
   isActive      Boolean
-  code          String
+  code          String      @unique
   title         String
   weekday       Int
   departamentId Int
   departament   Departament @relation(fields: [departamentId], references: [id], onDelete: Cascade)
+  product       Product[]
 
   @@map("streets")
 }

@@ -18,7 +18,7 @@ export function Checkbox({ label, checked, onPress }: CheckboxProps) {
       layout={LinearTransition.springify().mass(0.8)}
       onTouchEnd={onPress}
       className={clsx(
-        'bg-white border border-shapes-gray_400 px-6 py-3 rounded-full flex-row items-center justify-between',
+        'bg-white border border-shapes-gray_400 px-6 py-3 rounded-lg flex-row items-center justify-between',
         {
           ['bg-shapes-gray_400 border-[#cbcbd8] pr-3']: checked,
         }

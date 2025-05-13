@@ -10,13 +10,14 @@ interface ListItemProps {
   item: {
     id: number;
   };
+  code: string;
   title: string;
   stock: number;
   viewableItems: SharedValue<ViewToken[]>;
 }
 
 const StreetItem: React.FC<ListItemProps> = React.memo(
-  ({ item, title, stock, viewableItems }) => {
+  ({ item, code, title, stock, viewableItems }) => {
     const rStyle = useAnimatedStyle(() => {
       const isVisible = Boolean(
         viewableItems.value
@@ -40,7 +41,9 @@ const StreetItem: React.FC<ListItemProps> = React.memo(
         className="w-full mb-2 overflow-hidden flex-row h-[70px] rounded-xl bg-white border border-shapes-gray_400 divide-x-[1px] divide-shapes-gray_400"
       >
         <View className="flex-1 px-4 justify-center">
-          <Text className="text-heading text-sm font-archivo_600">{title}</Text>
+          <Text className="text-heading text-sm font-archivo_600">
+            {code}: {title}
+          </Text>
         </View>
         <View className="w-[70px] items-center justify-center">
           <Text className="text-sm text-center font-archivo_600 text-heading">

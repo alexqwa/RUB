@@ -27,7 +27,18 @@ export async function departamentRoutes(app: FastifyInstance) {
 
   app.get('/departaments', async (request, reply) => {
     const departaments = await prisma.departament.findMany({
-      include: { weekdays: true, streets: true },
+      include: {
+        weekdays: true,
+        streets: {
+          select: {
+            code: true,
+            title: true,
+            isActive: true,
+            departamentId: true,
+            product: true,
+          },
+        },
+      },
     });
     reply.send(departaments);
   });

@@ -6,6 +6,7 @@ import { Header } from '@/src/components/Header';
 import { Checkbox } from '@/src/components/Checkbox';
 import { StreetItem } from '@/src/components/StreetItem';
 import { useManipulation } from '@/src/hooks/useManipulation';
+import { useProductsByStreet } from '@/src/hooks/useProductsByStreet';
 
 const data = [
   { id: 0, title: '38149: BISC RECH GULOSOS BAUDDUCO 140G', stock: 1433 },
@@ -61,19 +62,20 @@ const data = [
 ];
 
 export default function PresenceRoute() {
-  const { title, type } = useLocalSearchParams();
+  const { title, type, id } = useLocalSearchParams();
   const viewableItems = useSharedValue<ViewToken[]>([]);
-  const { manipulations, toggleManipulation } = useManipulation();
+  const { manipulations, toggleFunctions } = useManipulation();
+  const { products, loading } = useProductsByStreet(id.toString());
 
   return (
     <View className="flex-1 items-center bg-shapes-gray_200">
       <Header title={type.toString()} subtitle={title.toString()} back={true} />
       <View className="flex-1 w-full max-w-[85%] mt-14">
-        <Text className="text-heading font-archivo_700 text-2xl mb-5">
+        <Text className="text-heading font-archivo_700 text-2xl mb-4">
           Formas de manipulação
         </Text>
 
-        <View className="gap-3 w-[65%]">
+        <View className="gap-3">
           {manipulations.map((manipulation) => {
             return (
               <View>
@@ -82,7 +84,7 @@ export default function PresenceRoute() {
                   label={manipulation.name}
                   checked={manipulation.selected}
                   onPress={() => {
-                    toggleManipulation(manipulation.id);
+                    toggleFunctions[manipulation.id]();
                   }}
                 />
               </View>
@@ -92,12 +94,12 @@ export default function PresenceRoute() {
 
         <View className="flex-1 mt-6">
           <Text className="text-heading text-lg font-archivo_700 mb-4">
-            Lista de produtos ({data.length}):
+            Lista de produtos ({products.length}):
           </Text>
           <FlatList
-            data={data}
+            data={products}
             showsVerticalScrollIndicator={false}
-            keyExtractor={(item) => String(item.id)}
+            keyExtractor={(item) => String(item.code)}
             contentContainerStyle={{ paddingBottom: 40 }}
             onViewableItemsChanged={({ viewableItems: viewItems }) => {
               viewableItems.value = viewItems;
@@ -105,6 +107,7 @@ export default function PresenceRoute() {
             renderItem={({ item }) => (
               <StreetItem
                 item={item}
+                code={item.code}
                 title={item.title}
                 stock={item.stock}
                 viewableItems={viewableItems}

@@ -20,7 +20,7 @@ export function Header({ title, subtitle, back }: HeaderProps) {
       }}
       className="bg-shapes-purple_500 border-b border-shapes-purple_800 py-10 w-full items-center justify-center"
     >
-      <View className="relative max-w-[90%] w-full items-center justify-center">
+      <View className="relative max-w-[85%] w-full items-center justify-center">
         {back ? (
           <TouchableOpacity
             onPress={() => router.back()}
