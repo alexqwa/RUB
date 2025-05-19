@@ -45,7 +45,7 @@ export default function PresenceRoute() {
           })}
         </View>
 
-        <View className="flex-1 mt-6">
+        <View className="flex-1 mt-10">
           <Text className="text-heading text-lg font-archivo_700 mb-4">
             Lista de produtos ({products.length}):
           </Text>
