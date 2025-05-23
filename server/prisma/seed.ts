@@ -1524,7 +1524,7 @@ async function seed() {
         departamentId: Number(street.departamentId),
         product: {
           create: street.product.map((product) => ({
-            code: product.code.toString(),
+            code: product.code,
             title: product.title,
             stock: product.stock,
           })),

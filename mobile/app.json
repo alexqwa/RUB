@@ -3,7 +3,7 @@
     "newArchEnabled": true,
     "name": "Rub",
     "slug": "rub-unlocked",
-    "version": "1.5.7",
+    "version": "1.5.8",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -22,18 +22,28 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#6842c2"
       },
-      "package": "com.outumegames.rub",
-      "buildProperties": {
-        "enableProguardInReleaseBuilds": true,
-        "proguardRules": "proguard-rules.pro"
-      }
+      "package": "com.outumegames.rub"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": ["expo-router", "expo-font", "expo-build-properties"],
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "buildProperties": {
+              "enableProguardInReleaseBuilds": true,
+              "proguardRules": "proguard-rules.pro"
+            }
+          }
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true
     },

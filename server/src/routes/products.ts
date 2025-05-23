@@ -5,7 +5,7 @@ import { FastifyInstance } from 'fastify';
 export async function productRoutes(app: FastifyInstance) {
   app.post('/streets/:streetCode/products', async (request, reply) => {
     const createProductBody = z.object({
-      code: z.string(),
+      code: z.number(),
       title: z.string(),
       stock: z.number(),
     });

@@ -34,7 +34,7 @@ model Weekday {
 
 model Product {
   id         Int     @id @default(autoincrement())
-  code       String
+  code       Int
   title      String
   stock      Int
   streetCode String?

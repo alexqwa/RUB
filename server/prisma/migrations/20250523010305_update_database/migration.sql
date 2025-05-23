@@ -19,7 +19,7 @@ CREATE TABLE "weekdays" (
 -- CreateTable
 CREATE TABLE "products" (
     "id" SERIAL NOT NULL,
-    "code" TEXT NOT NULL,
+    "code" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
     "stock" INTEGER NOT NULL,
     "streetCode" TEXT,

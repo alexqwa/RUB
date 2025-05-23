@@ -4,7 +4,7 @@ import { api } from '../lib/axios';
 
 interface Product {
   id: number;
-  code: string;
+  code: number;
   title: string;
   stock: number;
 }
@@ -33,7 +33,7 @@ export function useProductsByStreet(code: string) {
     }
 
     getProductsByStreet();
-  }, [code]);
+  }, [products, code]);
 
   return { products, loading };
 }
