@@ -10,7 +10,7 @@ interface ListItemProps {
   item: {
     id: number;
   };
-  code: string;
+  code: number;
   title: string;
   stock: number;
   viewableItems: SharedValue<ViewToken[]>;
