@@ -1,69 +1,44 @@
 import { useCallback, useState, useMemo } from 'react';
 
 const data = [
+  { id: 2, name: 'Deixar abaixo de 1%', selected: false },
   { id: 0, name: 'Bipar todos os produtos', selected: false },
-  { id: 1, name: 'Bipar de forma automática', selected: false },
-  { id: 2, name: 'Deixar poucos produtos', selected: false },
+  { id: 1, name: 'Bipar aleatóriamente', selected: false },
 ];
 
-const Manipulations = data.map((manipulation) => ({
-  ...manipulation,
-  selected: false,
-}));
+interface CustomActionsType {
+  [key: number]: () => void;
+}
 
-export function useManipulation() {
-  const [manipulations, setManipulations] = useState(Manipulations);
+export function useManipulation(customActions: CustomActionsType) {
+  const [manipulations, setManipulations] = useState(data);
 
   const toggleManipulation = useCallback((id: number) => {
-    setManipulations((prevManipulations) => {
-      return prevManipulations.map((manipulation) => {
-        if (manipulation.id === id) {
-          return {
-            ...manipulation,
-            selected: !manipulation.selected,
-          };
-        }
-        return manipulation;
-      });
-    });
+    setManipulations((prevManipulations) =>
+      prevManipulations.map((manipulation) =>
+        manipulation.id === id
+          ? { ...manipulation, selected: !manipulation.selected }
+          : manipulation
+      )
+    );
   }, []);
 
-  const toggleFirstManipulation = useCallback(() => {
-    console.log('Primeiro ativo');
-    toggleManipulation(0);
-  }, [toggleManipulation]);
-
-  const toggleSecondManipulation = useCallback(() => {
-    console.log('Segundo ativo');
-    toggleManipulation(1);
-  }, [toggleManipulation]);
-
-  const toggleThirdManipulation = useCallback(() => {
-    console.log('Terceiro ativo');
-    toggleManipulation(2);
-  }, [toggleManipulation]);
-
   const toggleFunctions = useMemo(() => {
-    const funcs: { [key: number]: () => void } = {};
-    for (const manipulation of manipulations) {
-      if (manipulation.id === 0) {
-        funcs[0] = toggleFirstManipulation;
-      } else if (manipulation.id === 1) {
-        funcs[1] = toggleSecondManipulation;
-      } else if (manipulation.id === 2) {
-        funcs[2] = toggleThirdManipulation;
-      } else {
-        funcs[manipulation.id] = () => toggleManipulation(manipulation.id);
-      }
-    }
-    return funcs;
-  }, [
-    manipulations,
-    toggleManipulation,
-    toggleFirstManipulation,
-    toggleSecondManipulation,
-    toggleThirdManipulation,
-  ]);
+    return manipulations.reduce((acc, manipulation) => {
+      acc[manipulation.id] = () => toggleManipulation(manipulation.id);
+      return acc;
+    }, {} as Record<number, () => void>);
+  }, [manipulations, toggleManipulation]);
 
-  return { manipulations, toggleFunctions };
+  const actionFunctions = useMemo(() => {
+    return manipulations.reduce((acc, manipulation) => {
+      acc[manipulation.id] =
+        customActions && customActions[manipulation.id]
+          ? customActions[manipulation.id]
+          : () => {};
+      return acc;
+    }, {} as Record<number, () => void>);
+  }, [manipulations, customActions]);
+
+  return { manipulations, toggleFunctions, actionFunctions };
 }

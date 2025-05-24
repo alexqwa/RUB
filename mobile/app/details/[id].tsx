@@ -1,3 +1,4 @@
+import { api } from '@/src/lib/axios';
 import { useLocalSearchParams } from 'expo-router';
 import { useSharedValue } from 'react-native-reanimated';
 import {
@@ -18,8 +19,37 @@ import { StreetItem } from '@/src/components/StreetItem';
 export default function PresenceRoute() {
   const { title, type, id } = useLocalSearchParams();
   const viewableItems = useSharedValue<ViewToken[]>([]);
-  const { manipulations, toggleFunctions } = useManipulation();
   const { products, loading } = useProductsByStreet(id.toString());
+
+  const customActions = {
+    0: () => {
+      allProducts();
+    },
+    1: () => {
+      randomProducts();
+    },
+    2: () => {
+      belowOnePercent();
+    },
+  };
+
+  const { manipulations, toggleFunctions, actionFunctions } =
+    useManipulation(customActions);
+
+  async function belowOnePercent() {
+    const response = await api.delete(`/streets/${id}/products/percent`);
+    console.log(response.data);
+  }
+
+  async function randomProducts() {
+    const response = await api.delete(`/streets/${id}/products/random`);
+    console.log(response.data);
+  }
+
+  async function allProducts() {
+    const response = await api.delete(`/streets/${id}/products/all`);
+    console.log(response.data);
+  }
 
   return (
     <View className="flex-1 items-center bg-shapes-gray_200">
@@ -38,6 +68,9 @@ export default function PresenceRoute() {
                   checked={manipulation.selected}
                   onPress={() => {
                     toggleFunctions[manipulation.id]();
+                    actionFunctions[
+                      manipulation.id as keyof typeof actionFunctions
+                    ]();
                   }}
                 />
               </View>
@@ -60,7 +93,7 @@ export default function PresenceRoute() {
             <FlatList
               data={products}
               showsVerticalScrollIndicator={false}
-              keyExtractor={(item) => String(item.code)}
+              keyExtractor={(item) => String(item.id)}
               contentContainerStyle={{ paddingBottom: 40 }}
               onViewableItemsChanged={({ viewableItems: viewItems }) => {
                 viewableItems.value = viewItems;

@@ -103,4 +103,104 @@ export async function productRoutes(app: FastifyInstance) {
       reply.status(500).send({ error: 'Erro ao deletar os produtos' });
     }
   });
+
+  app.delete(
+    '/streets/:streetCode/products/percent',
+    async (request, reply) => {
+      const streetParams = z.object({
+        streetCode: z.string(),
+      });
+
+      const { streetCode } = streetParams.parse(request.params);
+
+      try {
+        const totalProducts = await prisma.product.count({
+          where: { streetCode: streetCode },
+        });
+
+        console.log(
+          `Total de produtos na rua ${streetCode} antes da redução: ${totalProducts}`
+        );
+
+        if (totalProducts === 0) {
+          return reply.send({
+            message: 'Nenhum produto encontrado para deletar',
+          });
+        }
+
+        // Quantidade máxima permitida para ficar abaixo de 1%
+        const maxAllowed = Math.floor(totalProducts * 0.01);
+
+        if (maxAllowed >= totalProducts) {
+          return reply.send({
+            message:
+              'A quantidade de produtos já está abaixo de 1%. Nenhuma ação necessária.',
+          });
+        }
+
+        // Quantidade a deletar para ficar abaixo de 1%
+        const nToDelete = totalProducts - maxAllowed - 1; // -1 para garantir < 1%
+
+        if (nToDelete <= 0) {
+          return reply.send({
+            message: 'Já está abaixo de 1%, não é necessário deletar.',
+          });
+        }
+
+        // Buscar todos os IDs dos produtos da rua
+        const allProducts = await prisma.product.findMany({
+          where: { streetCode: String(streetCode) },
+          select: { id: true },
+        });
+
+        // Função para obter n elementos aleatórios de um array
+        function getRandomElements<T>(array: T[], n: number): T[] {
+          const shuffled = array.slice().sort(() => 0.5 - Math.random());
+          return shuffled.slice(0, n);
+        }
+        const productsToDelete = getRandomElements(allProducts, nToDelete);
+        const idsToDelete = productsToDelete.map((p) => p.id);
+
+        // Deletar produtos selecionados
+        await prisma.product.deleteMany({
+          where: { id: { in: idsToDelete } },
+        });
+        // Consultar total após deleção
+        const totalAfter = await prisma.product.count({
+          where: { streetCode: String(streetCode) },
+        });
+        return reply.send({
+          message: `Deletados ${nToDelete} produtos para ficar abaixo de 1%.`,
+          deletedProductIds: idsToDelete,
+          totalBefore: totalProducts,
+          totalAfter,
+          percentageAfter:
+            ((totalAfter / totalProducts) * 100).toFixed(2) + '%',
+        });
+      } catch (error) {
+        console.error('Erro ao reduzir produtos:', error);
+        reply
+          .status(500)
+          .send({ error: 'Erro ao reduzir a quantidade de produtos.' });
+      }
+    }
+  );
+
+  app.delete('/streets/:streetCode/products/all', async (request, reply) => {
+    const streetParams = z.object({
+      streetCode: z.string(),
+    });
+
+    const { streetCode } = streetParams.parse(request.params);
+
+    try {
+      await prisma.product.deleteMany({
+        where: { streetCode: String(streetCode) },
+      });
+
+      reply.send({ message: 'Todos os produtos deletados com sucesso.' });
+    } catch (error) {
+      reply.status(500).send({ error: 'Erro ao deletar os produtos' });
+    }
+  });
 }
