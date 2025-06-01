@@ -1,9 +1,9 @@
 import { useCallback, useState, useMemo } from 'react';
 
 const data = [
-  { id: 2, name: 'Deixar abaixo de 1%', selected: false },
-  { id: 0, name: 'Bipar todos os produtos', selected: false },
-  { id: 1, name: 'Bipar aleatóriamente', selected: false },
+  { id: 0, name: 'Deixar abaixo de 1%', selected: false },
+  { id: 1, name: 'Bipar todos os produtos', selected: false },
+  { id: 2, name: 'Bipar aleatóriamente', selected: false },
 ];
 
 interface CustomActionsType {
@@ -17,7 +17,7 @@ export function useManipulation(customActions: CustomActionsType) {
     setManipulations((prevManipulations) =>
       prevManipulations.map((manipulation) =>
         manipulation.id === id
-          ? { ...manipulation, selected: !manipulation.selected }
+          ? { ...manipulation, selected: true }
           : manipulation
       )
     );

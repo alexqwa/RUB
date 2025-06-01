@@ -22,33 +22,21 @@ export default function PresenceRoute() {
   const { products, loading } = useProductsByStreet(id.toString());
 
   const customActions = {
-    0: () => {
-      allProducts();
-    },
-    1: () => {
-      randomProducts();
-    },
-    2: () => {
-      belowOnePercent();
-    },
+    0: () => handleProductManipulation('percent'),
+    1: () => handleProductManipulation('all'),
+    2: () => handleProductManipulation('random'),
   };
 
   const { manipulations, toggleFunctions, actionFunctions } =
     useManipulation(customActions);
 
-  async function belowOnePercent() {
-    const response = await api.delete(`/streets/${id}/products/percent`);
-    console.log(response.data);
-  }
-
-  async function randomProducts() {
-    const response = await api.delete(`/streets/${id}/products/random`);
-    console.log(response.data);
-  }
-
-  async function allProducts() {
-    const response = await api.delete(`/streets/${id}/products/all`);
-    console.log(response.data);
+  async function handleProductManipulation(action: string) {
+    try {
+      const response = await api.delete(`/streets/${id}/products/${action}`);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error manipulating products:', error);
+    }
   }
 
   return (
