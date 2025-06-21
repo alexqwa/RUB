@@ -34,7 +34,7 @@ export default function Authentication() {
           </View>
 
           <View className="space-y-3 w-full mt-10">
-            <View className="h-16 bg-[#FAFAFC] rounded-lg border border-[#E6E6F0] px-6 font-poppins_400 text-sm text-[#6A6180] flex-row items-center justify-between">
+            <View className="h-16 bg-[#FAFAFC] rounded-xl border border-[#E6E6F0] px-6 font-poppins_400 text-sm text-[#6A6180] flex-row items-center justify-between">
               <Text className="text-[#6A6180] text-base font-archivo_400">
                 http://10.106.9.18:80
               </Text>
@@ -46,14 +46,14 @@ export default function Authentication() {
               value={registerNumber.trim()}
               onChangeText={setRegisterNumber}
               placeholderTextColor="#8D8D99"
-              className="h-16 bg-[#FAFAFC] rounded-lg border border-[#E6E6F0] px-6 font-archivo_400 text-base text-[#6A6180]"
+              className="h-16 bg-[#FAFAFC] rounded-xl border border-[#E6E6F0] px-6 font-archivo_400 text-base text-[#6A6180]"
             />
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => router.push('/(home)')}
               disabled={registerNumber.length === 0}
               className={clsx(
-                'h-14 rounded-lg bg-shapes-gray_400 items-center justify-center',
+                'h-14 rounded-xl bg-shapes-gray_400 items-center justify-center',
                 {
                   ['bg-shapes-green_400']: registerNumber.length > 0,
                 }

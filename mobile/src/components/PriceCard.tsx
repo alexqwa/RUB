@@ -43,7 +43,7 @@ export function PriceCard({ title, price, isActive, ...rest }: PriceCardProps) {
           disabled={isActive}
           activeOpacity={0.7}
           className={clsx(
-            'h-[60px] items-center justify-center bg-shapes-purple_400 rounded-lg',
+            'h-[60px] items-center justify-center bg-shapes-purple_400 rounded-xl',
             {
               ['bg-shapes-green_400']: isActive,
             }

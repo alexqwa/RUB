@@ -54,7 +54,7 @@ export default function SignIn() {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => router.push('/Pricing')}
-            className="h-14 rounded-lg bg-shapes-purple_500 items-center flex-row justify-center space-x-2"
+            className="h-14 rounded-xl bg-shapes-purple_500 items-center flex-row justify-center space-x-2"
           >
             <Feather name="dollar-sign" color="#fff" size={18} />
             <Text className="text-white font-archivo_600 text-base">
@@ -66,7 +66,7 @@ export default function SignIn() {
             activeOpacity={0.7}
             onPress={() => router.push('/Authentication')}
             className={clsx(
-              'h-14 rounded-lg bg-shapes-gray_400 items-center justify-center',
+              'h-14 rounded-xl bg-shapes-gray_400 items-center justify-center',
               {
                 ['bg-shapes-green_400']: user.pro,
               }
