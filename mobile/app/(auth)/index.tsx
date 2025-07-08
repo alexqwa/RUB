@@ -72,14 +72,7 @@ export default function SignIn() {
               }
             )}
           >
-            {!user.pro ? (
-              <View className="flex-row items-center justify-center space-x-3">
-                <ActivityIndicator size="small" color="#32264D" />
-                <Text className="text-[#9C98A6] font-archivo_600 text-base">
-                  Nenhuma assinatura ativa!
-                </Text>
-              </View>
-            ) : (
+            {user.pro ? (
               <Text
                 className={clsx('text-[#9C98A6] font-archivo_600 text-base', {
                   ['text-white']: user.pro,
@@ -87,6 +80,13 @@ export default function SignIn() {
               >
                 Entrar
               </Text>
+            ) : (
+              <View className="flex-row items-center justify-center space-x-3">
+                <ActivityIndicator size="small" color="#32264D" />
+                <Text className="text-[#9C98A6] font-archivo_600 text-base">
+                  Nenhuma assinatura ativa!
+                </Text>
+              </View>
             )}
           </TouchableOpacity>
         </View>
