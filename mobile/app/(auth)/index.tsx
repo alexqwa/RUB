@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import { router } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
+import { useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -19,10 +21,19 @@ import { useExitConfirmation } from '@/src/hooks/useExitConfirmation';
 
 export default function SignIn() {
   const { user } = useRevenueCat();
+  const [loading, setLoading] = useState(true);
   const { handleCancel, handleExit, modalVisible } = useExitConfirmation();
 
   const { height } = Dimensions.get('window');
   const viewHeight = height * 0.4;
+
+  useFocusEffect(
+    useCallback(() => {
+      if (user.pro) {
+        setLoading(false);
+      }
+    }, [user])
+  );
 
   return (
     <View className="flex-1 items-center bg-shapes-gray_200">
@@ -62,20 +73,20 @@ export default function SignIn() {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            disabled={!user.pro}
+            disabled={loading}
             activeOpacity={0.7}
             onPress={() => router.push('/Authentication')}
             className={clsx(
               'h-14 rounded-xl bg-shapes-gray_400 items-center justify-center',
               {
-                ['bg-shapes-green_400']: user.pro,
+                ['bg-shapes-green_400']: !loading,
               }
             )}
           >
-            {user.pro ? (
+            {!loading ? (
               <Text
                 className={clsx('text-[#9C98A6] font-archivo_600 text-base', {
-                  ['text-white']: user.pro,
+                  ['text-white']: !loading,
                 })}
               >
                 Entrar

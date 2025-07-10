@@ -12,10 +12,10 @@ export default function HomeLayout() {
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
+            height: 100,
             borderTopWidth: 1,
             borderColor: '#E6E6F0',
-            height: Platform.OS === 'ios' ? 140 : 100,
-            marginBottom: Platform.OS === 'ios' ? insets.bottom : insets.bottom,
+            marginBottom: insets.bottom,
           },
           tabBarActiveBackgroundColor: '#EBEBF5',
           tabBarInactiveBackgroundColor: '#F8F8FC',
@@ -26,10 +26,6 @@ export default function HomeLayout() {
             marginLeft: 30,
             fontSize: 16,
             fontFamily: 'Archivo_700Bold',
-            marginBottom: Platform.OS === 'ios' ? 30 : null,
-          },
-          tabBarIconStyle: {
-            marginBottom: Platform.OS === 'ios' ? 30 : null,
           },
         }}
       >

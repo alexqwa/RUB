@@ -23,14 +23,6 @@ export function ExitModal({ visible, onCancel, onConfirm }: ExitModalProps) {
           <View className="flex-row space-x-4 mt-6">
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={onConfirm}
-              className="bg-red-500 p-4 rounded-lg flex-1 items-center justify-center flex-row space-x-2"
-            >
-              <Feather name="log-out" color="#fff" size={18} />
-              <Text className="text-white font-archivo_600 text-base">Sim</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.8}
               onPress={onCancel}
               className="bg-shapes-purple_500 p-4 rounded-lg flex-1 items-center justify-center flex-row space-x-2"
             >
@@ -38,6 +30,14 @@ export function ExitModal({ visible, onCancel, onConfirm }: ExitModalProps) {
               <Text className='text-white font-archivo_600 text-base"'>
                 Não
               </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={onConfirm}
+              className="bg-red-500 p-4 rounded-lg flex-1 items-center justify-center flex-row space-x-2"
+            >
+              <Feather name="log-out" color="#fff" size={18} />
+              <Text className="text-white font-archivo_600 text-base">Sim</Text>
             </TouchableOpacity>
           </View>
         </View>
