@@ -1,11 +1,8 @@
 import { Tabs } from 'expo-router';
+import { StatusBar, Pressable, Text } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { Platform, StatusBar } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function HomeLayout() {
-  const insets = useSafeAreaInsets();
-
   return (
     <>
       <Tabs
@@ -15,7 +12,6 @@ export default function HomeLayout() {
             height: 100,
             borderTopWidth: 1,
             borderColor: '#E6E6F0',
-            marginBottom: insets.bottom,
           },
           tabBarActiveBackgroundColor: '#EBEBF5',
           tabBarInactiveBackgroundColor: '#F8F8FC',
@@ -33,6 +29,15 @@ export default function HomeLayout() {
           name="index"
           options={{
             title: 'Presença',
+            tabBarButton: (props) => {
+              const { ref, ...rest } = props;
+              return (
+                <Pressable
+                  {...rest}
+                  android_ripple={{ color: 'transparent' }}
+                />
+              );
+            },
             tabBarIcon: ({ color }) => (
               <Feather size={18} name="map" color={color} />
             ),
@@ -42,6 +47,15 @@ export default function HomeLayout() {
           name="Tickets"
           options={{
             title: 'Etiquetas',
+            tabBarButton: (props) => {
+              const { ref, ...rest } = props;
+              return (
+                <Pressable
+                  {...rest}
+                  android_ripple={{ color: 'transparent' }}
+                />
+              );
+            },
             tabBarIcon: ({ color }) => (
               <Feather size={18} name="tag" color={color} />
             ),

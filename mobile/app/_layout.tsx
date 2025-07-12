@@ -3,6 +3,7 @@ import { useFonts } from 'expo-font';
 import { StatusBar } from 'react-native';
 import React, { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
+import * as NavigationBar from 'expo-navigation-bar';
 import {
   Archivo_400Regular,
   Archivo_600SemiBold,
@@ -20,6 +21,7 @@ import { RevenueCatProvider } from '@/src/context/RevenueCatContext';
 import { DepartamentProvider } from '@/src/context/DepartamentContext';
 
 SplashScreen.preventAutoHideAsync();
+NavigationBar.setButtonStyleAsync('dark');
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
