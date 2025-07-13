@@ -50,8 +50,8 @@ export default function Authentication() {
             />
             <TouchableOpacity
               activeOpacity={0.7}
-              onPress={() => router.push('/(home)')}
               disabled={registerNumber.length === 0}
+              onPress={() => router.push('/(home)')}
               className={clsx(
                 'h-14 rounded-xl bg-shapes-gray_400 items-center justify-center',
                 {

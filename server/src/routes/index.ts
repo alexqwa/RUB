@@ -9,3 +9,4 @@ export async function routes(app: FastifyInstance) {
   await productRoutes(app);
   await departamentRoutes(app);
 }
+

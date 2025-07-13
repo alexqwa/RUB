@@ -22,7 +22,7 @@
     "@react-navigation/native": "^7.0.0",
     "@types/react-test-renderer": "^19.1.0",
     "axios": "^1.7.5",
-    "babel-preset-expo": "^13.2.3",
+    "babel-preset-expo": "~13.0.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "expo": "53.0.19",
